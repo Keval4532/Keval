@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import { LayoutDashboard, Plus, Moon, Beef, Dumbbell, Droplets } from "lucide-react";
+import { LayoutDashboard, Plus, Moon, Beef, Dumbbell, Droplets, Flame, Bell } from "lucide-react";
 import { toast } from "sonner";
 import { addTracking, getTracking, getDeviceId } from "../lib/api";
 
@@ -57,12 +57,57 @@ export default function Dashboard() {
     return (last7.reduce((a, b) => a + b, 0) / last7.length).toFixed(1);
   };
 
+  const { streak, loggedToday } = useMemo(() => {
+    const set = new Set(entries.map((e) => e.date));
+    const iso = (dt) => dt.toISOString().slice(0, 10);
+    const t = today();
+    const logged = set.has(t);
+    const cursor = new Date();
+    if (!logged) cursor.setDate(cursor.getDate() - 1);
+    let s = 0;
+    while (set.has(iso(cursor))) { s += 1; cursor.setDate(cursor.getDate() - 1); }
+    return { streak: s, loggedToday: logged };
+  }, [entries]);
+
   return (
     <div>
       <div className="mb-8">
         <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400"><LayoutDashboard className="h-3.5 w-3.5" /> Personal tracking</div>
         <h1 className="mt-2 font-display text-4xl font-light tracking-tight sm:text-5xl">My Dashboard</h1>
         <p className="mt-2 text-sm text-white/50">Log sleep, protein, training and water — then watch your trends build over time, Keval.</p>
+      </div>
+
+      {/* Streak + reminder */}
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-stretch">
+        <div data-testid="streak-card" className="flex items-center gap-4 border border-white/10 bg-[#0A0A0A] px-5 py-4">
+          <div className="relative flex h-11 w-11 items-center justify-center rounded-full border border-orange-400/40 bg-orange-400/5">
+            <Flame className={`h-5 w-5 ${streak > 0 ? "text-orange-400" : "text-white/30"}`} />
+          </div>
+          <div>
+            <div className="flex items-baseline gap-1">
+              <span className="font-mono text-3xl font-light tabular-nums text-orange-400">{streak}</span>
+              <span className="text-xs text-white/40">day{streak === 1 ? "" : "s"}</span>
+            </div>
+            <div className="text-[10px] uppercase tracking-wider text-white/40">Current streak</div>
+          </div>
+        </div>
+
+        {!loggedToday && (
+          <motion.div initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
+            data-testid="log-reminder"
+            className="flex flex-1 items-center gap-3 border border-cyan-400/25 bg-cyan-400/[0.04] px-5 py-4">
+            <Bell className="h-4 w-4 shrink-0 text-cyan-400" />
+            <div className="text-sm text-white/75">
+              You haven't logged today yet — it takes 10 seconds{streak > 0 ? `, and keeps your ${streak}-day streak alive.` : "."}
+            </div>
+          </motion.div>
+        )}
+        {loggedToday && (
+          <div className="flex flex-1 items-center gap-3 border border-emerald-400/25 bg-emerald-400/[0.04] px-5 py-4" data-testid="logged-today">
+            <Flame className="h-4 w-4 shrink-0 text-emerald-400" />
+            <div className="text-sm text-white/75">Logged today — nice work. See you tomorrow to keep the streak going.</div>
+          </div>
+        )}
       </div>
 
       {/* Averages */}

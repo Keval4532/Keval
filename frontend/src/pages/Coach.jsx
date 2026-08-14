@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Dumbbell, Send, Loader2, Layers } from "lucide-react";
-import { askCoach } from "../lib/api";
+import { askCoach, getLocalProfile } from "../lib/api";
 import { Markdown } from "../lib/markdown";
 
 const PROMPTS = [
@@ -37,7 +37,7 @@ export default function Coach() {
     setInput("");
     setLoading(true);
     try {
-      const { answer } = await askCoach({ question: q, history });
+      const { answer } = await askCoach({ question: q, history, profile: getLocalProfile() });
       setMessages((m) => [...m, { role: "assistant", content: answer }]);
     } catch {
       setMessages((m) => [...m, { role: "assistant", content: "I couldn't reach the coaching engine. Please try again." }]);

@@ -11,6 +11,7 @@ import LabExplorer from "@/pages/LabExplorer";
 import Saved from "@/pages/Saved";
 import Dashboard from "@/pages/Dashboard";
 import Coach from "@/pages/Coach";
+import Profile from "@/pages/Profile";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/symptoms" element={<Symptom />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/coach" element={<Coach />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/saved" element={<Saved />} />
           </Routes>
         </Layout>

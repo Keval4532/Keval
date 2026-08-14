@@ -5,8 +5,8 @@ export const API = `${BACKEND_URL}/api`;
 
 const client = axios.create({ baseURL: API, timeout: 180000 });
 
-export const analyzeQuery = async (query, level = "intermediate", mode = null) => {
-  const { data } = await client.post("/analyze", { query, level, mode });
+export const analyzeQuery = async (query, level = "intermediate", mode = null, profile = null) => {
+  const { data } = await client.post("/analyze", { query, level, mode, profile });
   return data;
 };
 
@@ -18,6 +18,24 @@ export const askApex = async (payload) => {
 export const askCoach = async (payload) => {
   const { data } = await client.post("/coach", payload);
   return data;
+};
+
+export const saveProfile = async (payload) => {
+  const { data } = await client.post("/profile", payload);
+  return data;
+};
+
+export const getProfile = async (deviceId) => {
+  const { data } = await client.get(`/profile/${deviceId}`);
+  return data;
+};
+
+export const getLocalProfile = () => {
+  try {
+    const p = JSON.parse(localStorage.getItem("apex_profile") || "null");
+    if (p && Object.values(p).some((v) => v)) return p;
+  } catch { /* ignore */ }
+  return null;
 };
 
 export const addTracking = async (payload) => {

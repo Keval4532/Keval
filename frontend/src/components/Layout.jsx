@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Home, Compass, GitCompareArrows, FlaskConical, Stethoscope,
-  Bookmark, Activity, LayoutDashboard, Dumbbell,
+  Bookmark, Activity, LayoutDashboard, Dumbbell, UserRound,
 } from "lucide-react";
 
 const NAV = [
@@ -72,6 +72,18 @@ export default function Layout({ children }) {
               </NavLink>
             ))}
           </nav>
+
+          <NavLink
+            to="/profile"
+            data-testid="nav-profile"
+            className={({ isActive }) =>
+              `flex h-9 w-9 items-center justify-center rounded-full border transition-colors ${
+                isActive ? "border-cyan-400/60 text-cyan-400" : "border-white/15 text-white/60 hover:border-cyan-400/40 hover:text-white"
+              }`
+            }
+          >
+            <UserRound className="h-4 w-4" />
+          </NavLink>
         </div>
       </header>
 

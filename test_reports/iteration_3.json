@@ -1,0 +1,26 @@
+{
+  "summary": "Iteration 3: Tested NEW Goal Profile + Dashboard streak features. All backend (7/7) and frontend flows PASS. Backend: /api/profile POST/GET upsert+update no-duplicate; /api/analyze with profile returns top-level 'personalized' string referencing user's goal/training/diet (Creatine + Muscle-growth profile cached); /api/analyze without profile omits 'personalized'; /api/coach with profile is foundations-first (Tier 1 before Tier 3) and references goal. Frontend: /profile UI - selects/inputs all use expected data-testids, click profile-save shows success toast 'Profile saved — your topics and coach are now tailored', values written to backend AND localStorage 'apex_profile', persists across reload. /result?q=Creatine&level=intermediate renders personalized-callout ('TAILORED FOR YOU') above tabs with content referencing 28/muscle growth/4 training days/omnivore. Dashboard streak: seeded 3 consecutive days incl. today -> streak-card=3, logged-today visible, log-reminder hidden. Second device with only yesterday+day-before -> streak-card=2 (counts back from yesterday), log-reminder visible; after UI logging today -> logged-today replaces log-reminder and streak becomes 3. Regression check: Dashboard save->chart flow still works (Sleep chart rendered with 3 data points), toast 'Logged 2026-08-14' shown.",
+  "backend_issues": {"critical": [], "minor": [
+    {"endpoint": "/api/analyze (uncached w/o profile)", "issue": "First uncached call intermittently returned 502 from Cloudflare gateway (~74s wait). Retry succeeded when cache warmed. Likely gateway timeout limit, not a code bug — but worth adding streaming/longer edge timeout or a faster fallback."}
+  ]},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_kevalbio_profile.py",
+    "/app/test_reports/pytest/kevalbio_profile.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Profile save() in Profile.jsx writes `form` (without device_id) to localStorage key 'apex_profile' — matches getLocalProfile() contract; fine.",
+    "profile_context() only concatenates non-empty fields; safe against empty strings from Pydantic defaults.",
+    "analyze cache key includes profileHash so cached-with-profile vs cached-without are separated (correct).",
+    "Streak useMemo correctly counts back from today if logged, else from yesterday — matches spec.",
+    "Minor: localStorage device key remains 'apexbio_device' and profile key 'apex_profile' (legacy from ApexBio brand). Intentional per problem statement.",
+    "Minor: /api/analyze can take 60-90s and Cloudflare returned 502 for one uncached call — consider warming cache or increasing upstream idle timeout."
+  ],
+  "updated_files": ["/app/backend/tests/test_kevalbio_profile.py"],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "seed_data_creation": "Profile docs and tracking entries under TEST_prof_* and TEST_ui_* device_ids; tracking dates = today, today-1, today-2 (test-only).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "New Profile+Streak features fully working. Cached analyze for 'Creatine' with profile {goal:'Muscle growth',age:'28',sex:'Male',training_days:'4',diet:'Omnivore'} is warm. Backend tests: /app/backend/tests/test_kevalbio_profile.py (needs REACT_APP_BACKEND_URL env var set when running pytest). Occasional CF 502 on uncached ~75s+ analyze calls; retry works."
+}

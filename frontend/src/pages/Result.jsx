@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Loader2, Bookmark, BookmarkCheck, Share2, AlertOctagon, ArrowLeft, Copy, Check } from "lucide-react";
+import { Loader2, Bookmark, BookmarkCheck, Share2, AlertOctagon, ArrowLeft, Copy, Check, Sparkles } from "lucide-react";
 import { toast } from "sonner";
-import { analyzeQuery, saveTopic, getDeviceId } from "../lib/api";
+import { analyzeQuery, saveTopic, getDeviceId, getLocalProfile } from "../lib/api";
 import { ScoreGauge, SafetyIndicator } from "../components/primitives";
 import ResultTopic from "../components/ResultTopic";
 import { ResultSymptom, ResultComparison, ResultLab } from "../components/ResultSpecial";
@@ -26,7 +26,7 @@ export default function Result() {
   const fetchData = useCallback(async (lvl) => {
     setLoading(true); setError(null);
     try {
-      const res = await analyzeQuery(query, lvl);
+      const res = await analyzeQuery(query, lvl, null, getLocalProfile());
       setData(res);
       const savedList = JSON.parse(localStorage.getItem("apex_saved_local") || "[]");
       setSaved(savedList.includes(res.subject));
@@ -160,6 +160,18 @@ export default function Result() {
           <span className="mt-0.5 rounded border border-white/10 px-1.5 py-0.5 uppercase tracking-wider">Score rationale</span>
           <span className="max-w-3xl">{data.science_score_rationale}</span>
         </div>
+      )}
+
+      {data.personalized && (
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+          data-testid="personalized-callout"
+          className="mb-8 flex gap-3 border border-cyan-400/30 bg-cyan-400/[0.05] p-5">
+          <Sparkles className="h-5 w-5 shrink-0 text-cyan-400" />
+          <div>
+            <div className="mb-1 text-[10px] uppercase tracking-[0.25em] text-cyan-400">Tailored for you</div>
+            <p className="text-sm leading-relaxed text-white/85">{data.personalized}</p>
+          </div>
+        </motion.div>
       )}
 
       {/* Body */}

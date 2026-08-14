@@ -38,6 +38,19 @@ class AnalyzeRequest(BaseModel):
     query: str
     level: str = "intermediate"  # beginner | intermediate | advanced
     mode: Optional[str] = None   # topic | symptom | comparison | lab (hint, optional)
+    profile: Optional[Dict[str, Any]] = None
+
+
+class Profile(BaseModel):
+    device_id: str
+    goal: Optional[str] = ""
+    age: Optional[str] = ""
+    sex: Optional[str] = ""
+    height: Optional[str] = ""
+    weight: Optional[str] = ""
+    activity_level: Optional[str] = ""
+    training_days: Optional[str] = ""
+    diet: Optional[str] = ""
 
 
 class AskRequest(BaseModel):
@@ -69,6 +82,7 @@ class TrackingEntry(BaseModel):
 class CoachRequest(BaseModel):
     question: str
     history: List[Dict[str, str]] = Field(default_factory=list)
+    profile: Optional[Dict[str, Any]] = None
 
 
 # ----------------------------- Prompts -----------------------------
@@ -217,6 +231,20 @@ def _safe_key(s: str) -> str:
     return (s or "unknown").replace(".", "·").replace("$", "")
 
 
+PROFILE_FIELDS = [
+    ("goal", "primary goal"), ("age", "age"), ("sex", "sex"),
+    ("height", "height"), ("weight", "weight"), ("activity_level", "activity level"),
+    ("training_days", "training days per week"), ("diet", "dietary pattern"),
+]
+
+
+def profile_context(profile: Optional[Dict[str, Any]]) -> str:
+    if not profile:
+        return ""
+    parts = [f"{label}: {profile.get(key)}" for key, label in PROFILE_FIELDS if profile.get(key)]
+    return "; ".join(parts)
+
+
 @api_router.get("/")
 async def root():
     return {"message": "KevalBio API"}
@@ -229,7 +257,9 @@ async def analyze(req: AnalyzeRequest):
         raise HTTPException(status_code=400, detail="Query is required")
 
     level = req.level if req.level in ("beginner", "intermediate", "advanced") else "intermediate"
-    cache_key = hashlib.sha256(f"{q.lower()}|{level}|{req.mode}".encode()).hexdigest()
+    pctx = profile_context(req.profile)
+    pkey = hashlib.sha256(pctx.encode()).hexdigest()[:10] if pctx else "none"
+    cache_key = hashlib.sha256(f"{q.lower()}|{level}|{req.mode}|{pkey}".encode()).hexdigest()
 
     cached = await db.topic_cache.find_one({"_id": cache_key})
     if cached:
@@ -241,6 +271,13 @@ async def analyze(req: AnalyzeRequest):
         return cached["data"]
 
     system = build_analyze_prompt(level)
+    if pctx:
+        system += (
+            f"\n\nPERSONALIZATION: This user's profile — {pctx}. "
+            "After the standard objective content, ADD a top-level string field 'personalized' (2-4 sentences) that gives practical, "
+            "safe, tailored guidance connecting THIS topic to the user's goal, training and diet. Do NOT alter the objective educational "
+            "content, do not diagnose, and do not invent medical claims."
+        )
     hint = f"\nUser is using the '{req.mode}' tool." if req.mode else ""
     user_text = f'User query: "{q}"{hint}\nClassify and generate the KevalBio educational profile as JSON.'
 
@@ -357,8 +394,12 @@ async def coach(req: CoachRequest):
         role = "User" if m.get("role") == "user" else "Coach"
         convo += f"{role}: {m.get('content','')}\n"
     user_text = f"{convo}User: {req.question}\nCoach:"
+    system = COACH_RULES
+    pctx = profile_context(req.profile)
+    if pctx:
+        system += f"\n\nThis user's profile — {pctx}. Tailor the routine to their goal, training days and diet. Address them directly."
     try:
-        answer = await call_llm(COACH_RULES, user_text, "keval-coach", max_tokens=4000)
+        answer = await call_llm(system, user_text, "keval-coach", max_tokens=4000)
     except Exception as e:
         logger.exception("Coach error")
         raise HTTPException(status_code=502, detail=f"AI engine error: {str(e)}")
@@ -383,6 +424,19 @@ async def add_tracking(entry: TrackingEntry):
 async def get_tracking(device_id: str):
     items = await db.tracking.find({"device_id": device_id}, {"_id": 0}).sort("date", 1).to_list(365)
     return items
+
+
+@api_router.post("/profile")
+async def save_profile(p: Profile):
+    fields = {k: v for k, v in p.model_dump().items() if k != "device_id"}
+    await db.profiles.update_one({"device_id": p.device_id}, {"$set": fields}, upsert=True)
+    return {"status": "ok"}
+
+
+@api_router.get("/profile/{device_id}")
+async def get_profile(device_id: str):
+    doc = await db.profiles.find_one({"device_id": device_id}, {"_id": 0})
+    return doc or {}
 
 
 EXPLORE_DATA = {
