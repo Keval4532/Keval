@@ -1,0 +1,99 @@
+{
+  "theme": "dark",
+  "typography": {
+    "headings": "Cabinet Grotesk",
+    "body": "IBM Plex Sans",
+    "monospace_data": "JetBrains Mono",
+    "hierarchy": {
+      "H1": "text-5xl lg:text-6xl tracking-tighter font-light",
+      "H2": "text-3xl lg:text-4xl tracking-tight font-medium",
+      "H3": "text-xl lg:text-2xl font-medium",
+      "Body": "text-base leading-relaxed",
+      "Numerical_Scores": "font-mono tabular-nums text-4xl lg:text-5xl font-light",
+      "Labels": "text-xs tracking-[0.2em] uppercase"
+    }
+  },
+  "colors": {
+    "background": "#000000",
+    "surface": "#0A0A0A",
+    "surface_elevated": "#111111",
+    "border": "rgba(255, 255, 255, 0.12)",
+    "text_primary": "#FFFBF5",
+    "text_secondary": "rgba(255, 255, 255, 0.45)",
+    "accent_primary": "#00F0FF",
+    "accent_success": "#00E676",
+    "accent_warning": "#FFEA00",
+    "accent_danger": "#FF3B30",
+    "archetype_instruction": "Use True Black for canvas. Warm-biased white for text to emulate clinical phosphor feel. Neon cyan/green for highlights."
+  },
+  "grids_and_layouts": {
+    "page_structure": "Mode B: High Density Grid. Use sharp geometric slates framed by sharp 1px division rails.",
+    "spacing": "Generous. Use p-8 or p-12 inside major structural panels to let data breathe.",
+    "alignment": "Left-align complex data for readability. Central alignment only for the initial massive search input.",
+    "progressive_disclosure": "Keep high-level scores visible immediately. Hide detailed tabular data or deep mechanisms in framer-motion accordions or tabs."
+  },
+  "component_guidelines": {
+    "hero_search": "Massive central input using Tracing Beam border effect. Minimalist glassmorphism backdrop.",
+    "topic_tabs": "Clean underline or pill-based tabs. No bulky standard buttons. Smooth framer-motion indicator.",
+    "score_gauge": "0-100 Science Score as a glowing radial progress ring. Neon color coding (0-40 Red, 40-70 Yellow, 70-100 Green/Cyan).",
+    "evidence_badges": "1px solid border matching the safety color. High-contrast dot or icon inside.",
+    "cards_and_panels": "Flat instrument-panel switches. No elevation drop shadows. Use 1px hairlines (border-white/10).",
+    "ask_apexbio_panel": "Floating sidebar or bottom-right glassmorphic panel (backdrop-blur-2xl, bg-white/5, border border-white/10).",
+    "body_system_vis": "Use an anatomy image overlay with absolutely positioned glowing cyan indicator dots (or framer-motion ping effects) pointing to affected organs."
+  },
+  "visual_enhancers": {
+    "surfaces": "Grid Borders (The 'Technical' Look). Expose the skeleton. border-r border-b border-white/10.",
+    "glassmorphism": "Only for sticky elements (Ask ApexBio, Top Nav). High blur (backdrop-blur-2xl), subtle 1px top border.",
+    "motion": "Use framer-motion for tab content switching, gauge fill animations, and search focus states. Staggered fade-ins for metric grids."
+  },
+  "accessibility": {
+    "contrast": "Maintain 4.5:1 for standard text. Use text-shadow if layering over abstract visuals.",
+    "interactive": "All buttons and tabs must have clear focus-visible states (ring-1 ring-cyan-500) and hover states (bg-white/5).",
+    "test_ids": "All interactive and key informational elements MUST include a data-testid attribute in kebab-case."
+  },
+  "media": {
+    "icons": "@phosphor-icons/react (Duotone or regular weight for clinical precision)",
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1729339983367-770c2527ce75?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NjZ8MHwxfHNlYXJjaHwyfHxodW1hbiUyMGFuYXRvbXklMjB2aXN1YWxpemF0aW9uJTIwM2R8ZW58MHx8fHwxNzg2Njk0ODI4fDA&ixlib=rb-4.1.0&q=85",
+        "category": "Muscular Anatomy Visualization",
+        "description": "Use in the Explore or Topic details for muscular/tissue-level visualization"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1530210124550-912dc1381cb8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NjZ8MHwxfHNlYXJjaHwxfHxodW1hbiUyMGFuYXRvbXklMjB2aXN1YWxpemF0aW9uJTIwM2R8ZW58MHx8fHwxNzg2Njk0ODI4fDA&ixlib=rb-4.1.0&q=85",
+        "category": "Skeletal Anatomy Visualization",
+        "description": "Secondary visualization for bone/structural topics"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1643780668909-580822430155?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGRuYSUyMGdsb3dpbmd8ZW58MHx8fHwxNzg2Njk0ODI4fDA&ixlib=rb-4.1.0&q=85",
+        "category": "Abstract DNA Biology",
+        "description": "Background aesthetic or hero visual texture for the search page (use with low opacity)"
+      }
+    ]
+  },
+  "3d_libraries": {
+    "recommendation": "Use framer-motion combined with high-quality PNGs or Recharts for complex data. R3F is optional but might slow down heavy dashboards. For metrics, Recharts inside flat panels is preferred."
+  },
+  "instructions_to_main_agent": [
+    "Install required dependencies: framer-motion, @phosphor-icons/react, recharts, clsx, tailwind-merge, lucide-react.",
+    "Ensure dark mode is fully set up in tailwind.config.js and index.css with True Black (#000000) canvas and #0A0A0A surface layers.",
+    "Do NOT use standard Shadcn card components out-of-the-box. Strip the drop shadows and use strict 1px border-white/10.",
+    "Implement the 'Ask ApexBio' conversational follow-up as a sleek sliding panel or persistent side widget.",
+    "For the body system visualization, use the provided anatomical image as a background and overlay interactive dot markers using framer-motion.",
+    "Ensure the learning-level toggle (Beginner/Intermediate/Advanced) visually updates the density of the information on the page."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You MUST NOT apply universal transitions (e.g., transition: all). Target specific properties.",
+    "You MUST NOT center align the app container in CSS.",
+    "Create depth through border hairlines and typography opacity rather than muddy drop shadows.",
+    "DO NOT use completely transparent backgrounds for overlays. Use solid or blurred backgrounds.",
+    "Never use AI assistant Emoji characters for icons. Use proper vector icons.",
+    "Every interaction needs micro-animations (hover states, focus rings, scale on click)."
+  ],
+  "GENERAL_UI_UX_DESIGN_GUIDELINES": [
+    "Favor precision over standard SaaS aesthetics, focusing on high data-ink ratios and clinical, instrument-like interfaces.",
+    "Ensure perceptual uniformity. Use color scales that map logically to data intensity.",
+    "Enforce typography tabular-nums for real-time or score data to prevent jitter.",
+    "All interactive and key informational elements MUST include a data-testid attribute to facilitate robust automated testing."
+  ]
+}
