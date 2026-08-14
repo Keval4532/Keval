@@ -2,6 +2,7 @@ from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
+import anthropic
 import os
 import re
 import json
@@ -13,12 +14,6 @@ from typing import List, Optional, Any, Dict
 import uuid
 from datetime import datetime, timezone
 
-try:
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
-except ImportError:
-    LlmChat = None
-    UserMessage = None
-
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
@@ -26,9 +21,9 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
-MODEL_PROVIDER = "anthropic"
-MODEL_NAME = "claude-sonnet-4-6"
+ANTHROPIC_API_KEY = os.environ.get('ANTHROPIC_API_KEY')
+MODEL_NAME = "claude-opus-4-8"
+anthropic_client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY) if ANTHROPIC_API_KEY else None
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
@@ -216,20 +211,16 @@ def extract_json(text: str) -> Dict[str, Any]:
     return obj
 
 
-async def call_llm(system_message: str, user_text: str, session_id: str, max_tokens: int = 8000) -> str:
-    if LlmChat is None:
+async def call_llm(system_message: str, user_text: str, max_tokens: int = 8000) -> str:
+    if anthropic_client is None:
         raise HTTPException(status_code=503, detail="AI analysis is not configured on this deployment.")
-    chat = (
-        LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            session_id=session_id,
-            system_message=system_message,
-        )
-        .with_model(MODEL_PROVIDER, MODEL_NAME)
-        .with_params(max_tokens=max_tokens)
+    resp = await anthropic_client.messages.create(
+        model=MODEL_NAME,
+        max_tokens=max_tokens,
+        system=system_message,
+        messages=[{"role": "user", "content": user_text}],
     )
-    resp = await chat.send_message(UserMessage(text=user_text))
-    return resp
+    return "".join(block.text for block in resp.content if block.type == "text")
 
 
 # ----------------------------- Routes -----------------------------
@@ -288,7 +279,7 @@ async def analyze(req: AnalyzeRequest):
     user_text = f'User query: "{q}"{hint}\nClassify and generate the KevalBio educational profile as JSON.'
 
     try:
-        raw = await call_llm(system, user_text, f"analyze-{cache_key[:12]}", max_tokens=12000)
+        raw = await call_llm(system, user_text, max_tokens=12000)
         data = extract_json(raw)
     except json.JSONDecodeError as je:
         with open("/tmp/last_raw.txt", "w") as f:
@@ -330,7 +321,7 @@ async def ask(req: AskRequest):
     user_text = f"{convo}User: {req.question}\nKevalBio:"
 
     try:
-        answer = await call_llm(system, user_text, f"ask-{req.subject.lower()[:20]}")
+        answer = await call_llm(system, user_text)
     except Exception as e:
         logger.exception("Ask error")
         raise HTTPException(status_code=502, detail=f"AI engine error: {str(e)}")
@@ -405,7 +396,7 @@ async def coach(req: CoachRequest):
     if pctx:
         system += f"\n\nThis user's profile — {pctx}. Tailor the routine to their goal, training days and diet. Address them directly."
     try:
-        answer = await call_llm(system, user_text, "keval-coach", max_tokens=4000)
+        answer = await call_llm(system, user_text, max_tokens=4000)
     except Exception as e:
         logger.exception("Coach error")
         raise HTTPException(status_code=502, detail=f"AI engine error: {str(e)}")
