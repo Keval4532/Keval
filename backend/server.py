@@ -13,7 +13,11 @@ from typing import List, Optional, Any, Dict
 import uuid
 from datetime import datetime, timezone
 
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+try:
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
+except ImportError:
+    LlmChat = None
+    UserMessage = None
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -213,6 +217,8 @@ def extract_json(text: str) -> Dict[str, Any]:
 
 
 async def call_llm(system_message: str, user_text: str, session_id: str, max_tokens: int = 8000) -> str:
+    if LlmChat is None:
+        raise HTTPException(status_code=503, detail="AI analysis is not configured on this deployment.")
     chat = (
         LlmChat(
             api_key=EMERGENT_LLM_KEY,
