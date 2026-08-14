@@ -184,7 +184,7 @@ export default function Result() {
       )}
 
       <div className="mt-12 border-t border-white/10 pt-6 text-xs text-white/30">
-        ApexBio provides educational information only and is not a substitute for professional medical advice, diagnosis, or treatment.
+        KevalBio provides educational information only and is not a substitute for professional medical advice, diagnosis, or treatment.
       </div>
 
       <AskApex subject={data.subject} category={data.category} level={level} />

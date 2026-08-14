@@ -17,7 +17,7 @@ export default function LabExplorer() {
       <div className="mb-8">
         <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400"><FlaskConical className="h-3.5 w-3.5" /> Lab explainer</div>
         <h1 className="mt-2 font-display text-4xl font-light tracking-tight sm:text-5xl">Lab Explorer</h1>
-        <p className="mt-3 text-white/50">Understand what a laboratory marker measures, what it can't tell you, and why reference ranges vary. ApexBio explains — it does not interpret your personal results.</p>
+        <p className="mt-3 text-white/50">Understand what a laboratory marker measures, what it can't tell you, and why reference ranges vary. KevalBio explains — it does not interpret your personal results.</p>
       </div>
       <div className="flex items-center gap-3 border border-white/10 bg-[#0A0A0A] px-4 py-3.5">
         <input data-testid="lab-input" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && go()}

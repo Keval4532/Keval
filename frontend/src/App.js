@@ -9,6 +9,8 @@ import Compare from "@/pages/Compare";
 import Symptom from "@/pages/Symptom";
 import LabExplorer from "@/pages/LabExplorer";
 import Saved from "@/pages/Saved";
+import Dashboard from "@/pages/Dashboard";
+import Coach from "@/pages/Coach";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
             <Route path="/compare" element={<Compare />} />
             <Route path="/labs" element={<LabExplorer />} />
             <Route path="/symptoms" element={<Symptom />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/coach" element={<Coach />} />
             <Route path="/saved" element={<Saved />} />
           </Routes>
         </Layout>

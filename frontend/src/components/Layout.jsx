@@ -3,15 +3,25 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Home, Compass, GitCompareArrows, FlaskConical, Stethoscope,
-  Bookmark, Activity,
+  Bookmark, Activity, LayoutDashboard, Dumbbell,
 } from "lucide-react";
 
 const NAV = [
   { to: "/", label: "Home", icon: Home, end: true },
   { to: "/explore", label: "Explore", icon: Compass },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/coach", label: "Coach", icon: Dumbbell },
   { to: "/compare", label: "Compare", icon: GitCompareArrows },
-  { to: "/labs", label: "Lab Explorer", icon: FlaskConical },
+  { to: "/labs", label: "Labs", icon: FlaskConical },
   { to: "/symptoms", label: "Symptoms", icon: Stethoscope },
+  { to: "/saved", label: "Saved", icon: Bookmark },
+];
+
+const MOBILE_NAV = [
+  { to: "/", label: "Home", icon: Home, end: true },
+  { to: "/explore", label: "Explore", icon: Compass },
+  { to: "/coach", label: "Coach", icon: Dumbbell },
+  { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/saved", label: "Saved", icon: Bookmark },
 ];
 
@@ -32,12 +42,12 @@ export default function Layout({ children }) {
               <span className="absolute inset-0 border border-cyan-400/0 group-hover:border-cyan-400/60 transition-colors" />
             </span>
             <div className="leading-none">
-              <span className="font-display text-lg font-bold tracking-tight">APEX<span className="text-cyan-400">BIO</span></span>
+              <span className="font-display text-lg font-bold tracking-tight">KEVAL<span className="text-cyan-400">BIO</span></span>
               <div className="text-[8px] uppercase tracking-[0.3em] text-white/35 mt-0.5">Understand your biology</div>
             </div>
           </button>
 
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1">
             {NAV.map((n) => (
               <NavLink
                 key={n.to}
@@ -68,8 +78,8 @@ export default function Layout({ children }) {
       <main className="mx-auto max-w-[1400px] px-4 pb-28 pt-6 sm:px-6 md:pb-12">{children}</main>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-6 glass border-t border-white/10 md:hidden">
-        {NAV.map((n) => (
+      <nav className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 glass border-t border-white/10 lg:hidden">
+        {MOBILE_NAV.map((n) => (
           <NavLink
             key={n.to}
             to={n.to}

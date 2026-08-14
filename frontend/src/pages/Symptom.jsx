@@ -17,7 +17,7 @@ export default function Symptom() {
       <div className="mb-8">
         <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400"><Stethoscope className="h-3.5 w-3.5" /> Symptom explorer</div>
         <h1 className="mt-2 font-display text-4xl font-light tracking-tight sm:text-5xl">Symptom Explorer</h1>
-        <p className="mt-3 text-white/50">Describe what you're experiencing. ApexBio explains possible physiological contributors, ranked by likelihood — it does not diagnose.</p>
+        <p className="mt-3 text-white/50">Describe what you're experiencing. KevalBio explains possible physiological contributors, ranked by likelihood — it does not diagnose.</p>
       </div>
       <div className="flex items-center gap-3 border border-white/10 bg-[#0A0A0A] px-4 py-3.5">
         <input data-testid="symptom-input" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && go()}

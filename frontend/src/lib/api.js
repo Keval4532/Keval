@@ -15,6 +15,21 @@ export const askApex = async (payload) => {
   return data;
 };
 
+export const askCoach = async (payload) => {
+  const { data } = await client.post("/coach", payload);
+  return data;
+};
+
+export const addTracking = async (payload) => {
+  const { data } = await client.post("/tracking", payload);
+  return data;
+};
+
+export const getTracking = async (deviceId) => {
+  const { data } = await client.get(`/tracking/${deviceId}`);
+  return data;
+};
+
 export const getExplore = async () => {
   const { data } = await client.get("/explore");
   return data;

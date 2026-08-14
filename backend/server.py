@@ -57,8 +57,22 @@ class SaveRequest(BaseModel):
     one_liner: Optional[str] = ""
 
 
+class TrackingEntry(BaseModel):
+    device_id: str
+    date: str  # YYYY-MM-DD
+    sleep: Optional[float] = None
+    protein: Optional[float] = None
+    training: Optional[float] = None
+    water: Optional[float] = None
+
+
+class CoachRequest(BaseModel):
+    question: str
+    history: List[Dict[str, str]] = Field(default_factory=list)
+
+
 # ----------------------------- Prompts -----------------------------
-BASE_RULES = """You are ApexBio, a premium evidence-based human physiology, nutrition, supplementation, fitness and biohacking EDUCATION engine.
+BASE_RULES = """You are KevalBio, a premium evidence-based human physiology, nutrition, supplementation, fitness and biohacking EDUCATION engine.
 
 STRICT RULES:
 - Be scientifically accurate. Separate established evidence from hypotheses.
@@ -205,7 +219,7 @@ def _safe_key(s: str) -> str:
 
 @api_router.get("/")
 async def root():
-    return {"message": "ApexBio API"}
+    return {"message": "KevalBio API"}
 
 
 @api_router.post("/analyze")
@@ -228,7 +242,7 @@ async def analyze(req: AnalyzeRequest):
 
     system = build_analyze_prompt(level)
     hint = f"\nUser is using the '{req.mode}' tool." if req.mode else ""
-    user_text = f'User query: "{q}"{hint}\nClassify and generate the ApexBio educational profile as JSON.'
+    user_text = f'User query: "{q}"{hint}\nClassify and generate the KevalBio educational profile as JSON.'
 
     try:
         raw = await call_llm(system, user_text, f"analyze-{cache_key[:12]}", max_tokens=12000)
@@ -268,9 +282,9 @@ async def ask(req: AskRequest):
 
     convo = ""
     for m in req.history[-6:]:
-        role = "User" if m.get("role") == "user" else "ApexBio"
+        role = "User" if m.get("role") == "user" else "KevalBio"
         convo += f"{role}: {m.get('content','')}\n"
-    user_text = f"{convo}User: {req.question}\nApexBio:"
+    user_text = f"{convo}User: {req.question}\nKevalBio:"
 
     try:
         answer = await call_llm(system, user_text, f"ask-{req.subject.lower()[:20]}")
@@ -318,6 +332,57 @@ async def trending():
         return {"topics": []}
     topics = sorted(doc["topics"].items(), key=lambda x: x[1], reverse=True)[:8]
     return {"topics": [{"name": t.replace("·", "."), "count": c} for t, c in topics]}
+
+
+COACH_RULES = """You are Keval Coach, the practical routine-building coach inside KevalBio.
+You turn goals into simple, safe, personalized routines. ALWAYS prioritize foundations in this strict order and make this ordering obvious:
+- Tier 1 (Foundations): sleep, nutrition, hydration, movement.
+- Tier 2: training, macros, recovery, stress management.
+- Tier 3 (Optional, LAST): supplements and biohacking.
+Never let supplements replace foundational interventions. Never diagnose or prescribe medical treatment. Keep advice general, safe and evidence-informed.
+
+FORMAT the reply as clean markdown:
+- A 1-2 sentence intro.
+- '## Tier 1 - Foundations', '## Tier 2 - Training & Recovery', '## Tier 3 - Supplements (optional)' sections with '- ' bullet points.
+- End with '## This Week' listing 3-5 concrete action steps.
+Be concise and practical. Return prose markdown only (NOT JSON)."""
+
+
+@api_router.post("/coach")
+async def coach(req: CoachRequest):
+    if not req.question.strip():
+        raise HTTPException(status_code=400, detail="Question is required")
+    convo = ""
+    for m in req.history[-6:]:
+        role = "User" if m.get("role") == "user" else "Coach"
+        convo += f"{role}: {m.get('content','')}\n"
+    user_text = f"{convo}User: {req.question}\nCoach:"
+    try:
+        answer = await call_llm(COACH_RULES, user_text, "keval-coach", max_tokens=4000)
+    except Exception as e:
+        logger.exception("Coach error")
+        raise HTTPException(status_code=502, detail=f"AI engine error: {str(e)}")
+    await db.analytics.update_one({"_id": "search"}, {"$inc": {"coach": 1}}, upsert=True)
+    return {"answer": answer.strip()}
+
+
+@api_router.post("/tracking")
+async def add_tracking(entry: TrackingEntry):
+    fields = {k: v for k, v in entry.model_dump().items() if v is not None and k not in ("device_id", "date")}
+    if not fields:
+        raise HTTPException(status_code=400, detail="Provide at least one metric")
+    await db.tracking.update_one(
+        {"device_id": entry.device_id, "date": entry.date},
+        {"$set": fields, "$setOnInsert": {"device_id": entry.device_id, "date": entry.date}},
+        upsert=True,
+    )
+    return {"status": "ok"}
+
+
+@api_router.get("/tracking/{device_id}")
+async def get_tracking(device_id: str):
+    items = await db.tracking.find({"device_id": device_id}, {"_id": 0}).sort("date", 1).to_list(365)
+    return items
 
 
 EXPLORE_DATA = {

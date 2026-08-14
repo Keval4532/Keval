@@ -64,7 +64,7 @@ export default function AskApex({ subject, category, level }) {
           onClick={() => setOpen(true)}
           className="fixed bottom-24 right-4 z-50 flex items-center gap-2 rounded-full bg-cyan-400 px-4 py-3 text-sm font-medium text-black shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-transform hover:scale-105 md:bottom-6 md:right-6"
         >
-          <MessageCircle className="h-4 w-4" /> Ask ApexBio
+          <MessageCircle className="h-4 w-4" /> Ask KevalBio
         </button>
       )}
 
@@ -80,7 +80,7 @@ export default function AskApex({ subject, category, level }) {
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-cyan-400" />
                 <div>
-                  <div className="text-sm font-medium">Ask ApexBio</div>
+                  <div className="text-sm font-medium">Ask KevalBio</div>
                   <div className="text-[10px] uppercase tracking-[0.15em] text-white/40">About {subject}</div>
                 </div>
               </div>

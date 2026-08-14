@@ -128,7 +128,7 @@ export function ResultLab({ data }) {
         <Panel className="p-5"><SectionLabel>Factors that influence it</SectionLabel><Bullets items={l.influencing_factors} /></Panel>
       )}
       <div className="border border-yellow-400/20 bg-yellow-400/[0.04] p-4 text-xs text-yellow-200/80">
-        A single laboratory value should always be interpreted in clinical context by a healthcare professional. ApexBio does not diagnose.
+        A single laboratory value should always be interpreted in clinical context by a healthcare professional. KevalBio does not diagnose.
       </div>
     </div>
   );
