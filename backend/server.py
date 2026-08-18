@@ -65,12 +65,14 @@ def get_llm_client() -> tuple[Optional[AsyncOpenAI], Optional[str]]:
         model = os.environ.get('MODEL_NAME', 'gemini-3.6-flash')
         c = AsyncOpenAI(
             api_key=gemini_key,
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+            max_retries=0,
+            timeout=6.0
         )
         return c, model
     elif openai_key:
         model = os.environ.get('MODEL_NAME', 'gpt-4o-mini')
-        c = AsyncOpenAI(api_key=openai_key)
+        c = AsyncOpenAI(api_key=openai_key, max_retries=0, timeout=6.0)
         return c, model
     return None, None
 
@@ -779,16 +781,25 @@ async def analyze(req: AnalyzeRequest):
         logger.exception("Cache lookup exception, continuing...")
 
     data = None
-    client, model = get_llm_client()
-    if client is not None:
-        system, user_text = build_analyze_prompt(level, q, profile_ctx=pctx, mode_hint=req.mode)
-        try:
-            raw = await call_llm(system, user_text, max_tokens=4000, json_mode=True)
-            if raw:
-                data = extract_json(raw)
-        except Exception as e:
-            logger.warning(f"AI parsing error: {e}. Checking verified knowledge base.")
 
+    # 1. Instant Verified Knowledge Base Lookup (<5ms)
+    verified = get_topic_profile(q)
+    if verified and req.mode not in ("symptom", "comparison", "lab"):
+        data = dict(verified)
+
+    # 2. Dynamic LLM Generation for custom queries, symptoms, comparisons, and labs
+    if data is None:
+        client, model = get_llm_client()
+        if client is not None:
+            system, user_text = build_analyze_prompt(level, q, profile_ctx=pctx, mode_hint=req.mode)
+            try:
+                raw = await call_llm(system, user_text, max_tokens=4000, json_mode=True)
+                if raw:
+                    data = extract_json(raw)
+            except Exception as e:
+                logger.warning(f"AI parsing error: {e}. Checking fallback generator.")
+
+    # 3. Scientific Fallback Engine
     if data is None:
         data = generate_fallback_topic(q, level=level, mode=req.mode, profile=req.profile)
 
