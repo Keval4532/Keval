@@ -30,9 +30,30 @@ from services.biology_tools import (
 
 load_dotenv(ROOT_DIR / '.env')
 
-mongo_url = os.environ.get('MONGO_URL') or os.environ.get('MONGODB_URI') or os.environ.get('MONGO_URI') or 'mongodb://127.0.0.1:27017'
-client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=3000, connectTimeoutMS=3000)
-db = client[os.environ.get('DB_NAME', 'kevalbio')]
+raw_mongo_url = os.environ.get('MONGO_URL') or os.environ.get('MONGODB_URI') or os.environ.get('MONGO_URI')
+
+if raw_mongo_url or not os.environ.get('VERCEL'):
+    mongo_url = raw_mongo_url or 'mongodb://127.0.0.1:27017'
+    client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=2000, connectTimeoutMS=2000)
+    db = client[os.environ.get('DB_NAME', 'kevalbio')]
+else:
+    client = None
+
+    class NullCollection:
+        async def find_one(self, *args, **kwargs): return None
+        async def update_one(self, *args, **kwargs): return None
+        async def update_many(self, *args, **kwargs): return None
+        async def insert_one(self, *args, **kwargs): return None
+        async def delete_one(self, *args, **kwargs): return None
+        def find(self, *args, **kwargs): return self
+        def sort(self, *args, **kwargs): return self
+        async def to_list(self, *args, **kwargs): return []
+
+    class NullDatabase:
+        def __getattr__(self, name): return NullCollection()
+
+    db = NullDatabase()
+
 
 
 def get_llm_client() -> tuple[Optional[AsyncOpenAI], Optional[str]]:
@@ -1416,4 +1437,5 @@ app.add_middleware(
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
-    client.close()
+    if client is not None:
+        client.close()
