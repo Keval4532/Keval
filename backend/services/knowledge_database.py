@@ -2012,6 +2012,12 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
         return TOPIC_PROFILES.get("omega_3")
     elif "potassium" in q_norm or "k+" in q_norm:
         return TOPIC_PROFILES.get("potassium")
+    elif "calcium" in q_norm:
+        return TOPIC_PROFILES.get("calcium")
+    elif "theanine" in q_norm or "l-theanine" in q_norm:
+        return TOPIC_PROFILES.get("l_theanine")
+    elif "coq10" in q_norm or "ubiquinol" in q_norm or "ubiquinone" in q_norm or "coenzyme q" in q_norm:
+        return TOPIC_PROFILES.get("coq10")
     
     # 2. Check for direct key match in TOPIC_PROFILES
     for key, profile in TOPIC_PROFILES.items():
@@ -2020,6 +2026,17 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
             return profile
             
     return None
+
+try:
+    from .kb_expanded import EXPANDED_PROFILES
+    TOPIC_PROFILES.update(EXPANDED_PROFILES)
+except Exception:
+    try:
+        from services.kb_expanded import EXPANDED_PROFILES
+        TOPIC_PROFILES.update(EXPANDED_PROFILES)
+    except Exception:
+        pass
+
 
 
 
