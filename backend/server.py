@@ -369,18 +369,18 @@ def extract_json(text: str) -> Dict[str, Any]:
     raise json.JSONDecodeError("Failed to parse JSON", clean_text, 0)
 
 
-async def call_llm(system_message: str, user_text: str, max_tokens: int = 8000) -> Optional[str]:
+async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000) -> Optional[str]:
     client, model = get_llm_client()
     if client is None or model is None:
         return None
 
     models_to_try = [model]
     if "gemini" in model.lower():
-        for fm in ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3.7-flash", "gemini-3.1-pro-preview", "gemini-flash-latest"]:
+        for fm in ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3.7-flash", "gemini-flash-latest"]:
             if fm not in models_to_try:
                 models_to_try.append(fm)
 
-    for m in models_to_try:
+    for m in models_to_try[:3]:
         try:
             resp = await client.chat.completions.create(
                 model=m,
@@ -390,12 +390,11 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 8000) 
                     {"role": "user", "content": user_text},
                 ],
                 response_format={"type": "json_object"},
-                timeout=20.0,
+                timeout=7.0,
             )
             if resp.choices and resp.choices[0].message.content:
                 return resp.choices[0].message.content
         except Exception as e:
-            # If response_format is not supported by a specific endpoint, retry without response_format
             try:
                 resp = await client.chat.completions.create(
                     model=m,
@@ -404,7 +403,7 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 8000) 
                         {"role": "system", "content": system_message},
                         {"role": "user", "content": user_text},
                     ],
-                    timeout=20.0,
+                    timeout=7.0,
                 )
                 if resp.choices and resp.choices[0].message.content:
                     return resp.choices[0].message.content
