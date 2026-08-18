@@ -1,12 +1,32 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 export const API = `${BACKEND_URL}/api`;
 
 const client = axios.create({ baseURL: API, timeout: 180000 });
 
-export const analyzeQuery = async (query, level = "intermediate", mode = null, profile = null) => {
-  const { data } = await client.post("/analyze", { query, level, mode, profile });
+export const analyzeQuery = async (query, level = "intermediate", mode = null, profile = null, timeframe = "all") => {
+  const { data } = await client.post("/analyze", { query, level, mode, profile, timeframe });
+  return data;
+};
+
+export const analyzeProblem = async (query, profile = null, region_hint = null) => {
+  const { data } = await client.post("/problem", { query, profile, region_hint });
+  return data;
+};
+
+export const getResearch = async (query, timeframe = "all") => {
+  const { data } = await client.post("/research", { query, timeframe });
+  return data;
+};
+
+export const analyzeDiet = async (meals, profile = null) => {
+  const { data } = await client.post("/nutrition/analyze-diet", { meals, profile });
+  return data;
+};
+
+export const analyzeStack = async (stack) => {
+  const { data } = await client.post("/supplements/analyze-stack", { stack });
   return data;
 };
 
@@ -70,6 +90,101 @@ export const getSaved = async (deviceId) => {
 
 export const deleteSaved = async (deviceId, subject) => {
   const { data } = await client.delete(`/saved/${deviceId}/${encodeURIComponent(subject)}`);
+  return data;
+};
+
+export const getDailyLesson = async () => {
+  const { data } = await client.get("/daily-lesson");
+  return data;
+};
+
+export const submitFeedback = async (payload) => {
+  const { data } = await client.post("/feedback", payload);
+  return data;
+};
+
+export const getCaffeineClearance = async (payload) => {
+  const { data } = await client.post("/tools/caffeine-clearance", payload);
+  return data;
+};
+
+export const scanMealText = async (meal_text, profile = null) => {
+  const { data } = await client.post("/nutrition/scan-meal-text", { meal_text, profile });
+  return data;
+};
+
+export const getPersonaExplain = async (subject, persona, context = "") => {
+  const { data } = await client.post("/persona-explain", { subject, persona, context });
+  return data;
+};
+
+export const getExperimentTemplates = async () => {
+  const { data } = await client.get("/experiments/templates");
+  return data;
+};
+
+export const getActiveExperiment = async (deviceId) => {
+  const { data } = await client.get(`/experiments/active/${deviceId}`);
+  return data;
+};
+
+export const startExperiment = async (payload) => {
+  const { data } = await client.post("/experiments/start", payload);
+  return data;
+};
+
+export const checkinExperiment = async (payload) => {
+  const { data } = await client.post("/experiments/check-in", payload);
+  return data;
+};
+
+export const getSubscriptionStatus = async (deviceId) => {
+  const { data } = await client.get(`/subscription/status/${deviceId}`);
+  return data;
+};
+
+export const createCheckoutSession = async (payload) => {
+  const { data } = await client.post("/subscription/create-checkout", payload);
+  return data;
+};
+
+export const upgradeSubscriptionSimulation = async (payload) => {
+  const { data } = await client.post("/subscription/upgrade-simulation", payload);
+  return data;
+};
+
+export const scanLabReport = async (markers = [], raw_text = "") => {
+  const { data } = await client.post("/tools/scan-lab", { markers, raw_text });
+  return data;
+};
+
+export const getLabBiomarkers = async () => {
+  const { data } = await client.get("/tools/lab-biomarkers");
+  return data;
+};
+
+export const getCircadianWindows = async (payload) => {
+  const { data } = await client.post("/tools/circadian-calc", payload);
+  return data;
+};
+
+export const getFastingTimeline = async (payload) => {
+  const { data } = await client.post("/tools/fasting-calc", payload);
+  return data;
+};
+
+export const getFastBreakers = async () => {
+  const { data } = await client.get("/tools/fast-breakers");
+  return data;
+};
+
+export const getHydrationCalc = async (payload) => {
+  const { data } = await client.post("/tools/hydration-calc", payload);
+  return data;
+};
+
+export const auditSupplementFormula = async (formula_text) => {
+  const { data } = await client.post("/tools/supplement-audit", { formula_text });
   return data;
 };
 

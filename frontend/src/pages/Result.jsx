@@ -11,6 +11,8 @@ import AskApex from "../components/AskApex";
 
 const LEVELS = ["beginner", "intermediate", "advanced"];
 
+import IntelligentLoader from "../components/IntelligentLoader";
+
 export default function Result() {
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ export default function Result() {
       const savedList = JSON.parse(localStorage.getItem("apex_saved_local") || "[]");
       setSaved(savedList.includes(res.subject));
     } catch (e) {
-      setError(e?.response?.data?.detail || "Something went wrong generating your answer.");
+      setError("Something went wrong while researching this.");
     } finally {
       setLoading(false);
     }
@@ -52,7 +54,7 @@ export default function Result() {
       if (!list.includes(data.subject)) list.push(data.subject);
       localStorage.setItem("apex_saved_local", JSON.stringify(list));
       setSaved(true);
-      toast.success(`Saved "${data.subject}"`);
+      toast.success(`Saved "${data.subject}" to My KEVALBIO`);
     } catch { toast.error("Could not save."); }
   };
 
@@ -63,25 +65,19 @@ export default function Result() {
   };
 
   if (loading) {
-    return (
-      <div className="flex min-h-[70vh] flex-col items-center justify-center gap-4">
-        <div className="relative"><Loader2 className="h-10 w-10 animate-spin text-cyan-400" /></div>
-        <div className="text-center">
-          <div className="font-display text-lg">Analyzing "{query}"</div>
-          <div className="mt-1 text-xs uppercase tracking-[0.2em] text-white/40">Classifying · Retrieving · Structuring · Safety check</div>
-        </div>
-      </div>
-    );
+    return <IntelligentLoader query={query} />;
   }
 
   if (error) {
     return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 text-center">
-        <AlertOctagon className="h-10 w-10 text-yellow-400" />
-        <div className="max-w-md text-white/70">{error}</div>
-        <div className="flex gap-3">
-          <button data-testid="result-retry" onClick={() => fetchData(level)} className="rounded-lg border border-white/15 px-4 py-2 text-sm hover:bg-white/5">Try again</button>
-          <button onClick={() => navigate("/")} className="rounded-lg bg-cyan-400 px-4 py-2 text-sm text-black">Back home</button>
+      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 text-center px-4">
+        <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 max-w-md space-y-3">
+          <div className="text-sm font-medium text-white">{error}</div>
+          <p className="text-xs text-white/50">Please try rephrasing or check our library.</p>
+          <div className="flex justify-center gap-3 pt-2">
+            <button data-testid="result-retry" onClick={() => fetchData(level)} className="rounded-xl border border-white/15 px-4 py-2 text-xs hover:bg-white/5">Try again</button>
+            <button onClick={() => navigate("/")} className="rounded-xl bg-cyan-400 px-4 py-2 text-xs text-black font-semibold">Back home</button>
+          </div>
         </div>
       </div>
     );
