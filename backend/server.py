@@ -312,20 +312,32 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 8000) 
     client, model = get_llm_client()
     if client is None or model is None:
         return None
-    try:
-        resp = await client.chat.completions.create(
-            model=model,
-            max_tokens=max_tokens,
-            messages=[
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": user_text},
-            ],
-            timeout=30.0,
-        )
-        return resp.choices[0].message.content
-    except Exception as e:
-        logger.warning(f"LLM call failed ({e}).")
-        return None
+
+    models_to_try = [model]
+    if "gemini" in model.lower():
+        for fm in ["gemini-3.6-flash", "gemini-2.5-flash", "gemini-flash-latest", "gemini-2.5-pro"]:
+            if fm not in models_to_try:
+                models_to_try.append(fm)
+
+    for m in models_to_try:
+        try:
+            resp = await client.chat.completions.create(
+                model=m,
+                max_tokens=max_tokens,
+                messages=[
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": user_text},
+                ],
+                timeout=20.0,
+            )
+            if resp.choices and resp.choices[0].message.content:
+                return resp.choices[0].message.content
+        except Exception as e:
+            logger.warning(f"LLM model '{m}' call failed ({e}). Trying fallback model...")
+            continue
+
+    return None
+
 
 
 # ----------------------------- Verified Knowledge Engine -----------------------------
