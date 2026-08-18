@@ -369,7 +369,7 @@ def extract_json(text: str) -> Dict[str, Any]:
     raise json.JSONDecodeError("Failed to parse JSON", clean_text, 0)
 
 
-async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000) -> Optional[str]:
+async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000, json_mode: bool = False) -> Optional[str]:
     client, model = get_llm_client()
     if client is None or model is None:
         return None
@@ -380,6 +380,8 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000) 
             if fm not in models_to_try:
                 models_to_try.append(fm)
 
+    extra_kwargs = {"response_format": {"type": "json_object"}} if json_mode else {}
+
     for m in models_to_try[:3]:
         try:
             resp = await client.chat.completions.create(
@@ -389,27 +391,29 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000) 
                     {"role": "system", "content": system_message},
                     {"role": "user", "content": user_text},
                 ],
-                response_format={"type": "json_object"},
                 timeout=7.0,
+                **extra_kwargs,
             )
             if resp.choices and resp.choices[0].message.content:
                 return resp.choices[0].message.content
         except Exception as e:
-            try:
-                resp = await client.chat.completions.create(
-                    model=m,
-                    max_tokens=max_tokens,
-                    messages=[
-                        {"role": "system", "content": system_message},
-                        {"role": "user", "content": user_text},
-                    ],
-                    timeout=7.0,
-                )
-                if resp.choices and resp.choices[0].message.content:
-                    return resp.choices[0].message.content
-            except Exception as e2:
-                logger.warning(f"LLM model '{m}' call failed ({e2}). Trying fallback model...")
-                continue
+            if json_mode:
+                try:
+                    resp = await client.chat.completions.create(
+                        model=m,
+                        max_tokens=max_tokens,
+                        messages=[
+                            {"role": "system", "content": system_message},
+                            {"role": "user", "content": user_text},
+                        ],
+                        timeout=7.0,
+                    )
+                    if resp.choices and resp.choices[0].message.content:
+                        return resp.choices[0].message.content
+                except Exception:
+                    pass
+            logger.warning(f"LLM model '{m}' call failed ({e}). Trying fallback model...")
+            continue
 
     return None
 
@@ -779,7 +783,7 @@ async def analyze(req: AnalyzeRequest):
     if client is not None:
         system, user_text = build_analyze_prompt(level, q, profile_ctx=pctx, mode_hint=req.mode)
         try:
-            raw = await call_llm(system, user_text, max_tokens=12000)
+            raw = await call_llm(system, user_text, max_tokens=4000, json_mode=True)
             if raw:
                 data = extract_json(raw)
         except Exception as e:
@@ -1295,7 +1299,7 @@ async def persona_explain_endpoint(req: PersonaExplainRequest):
             )
         
         try:
-            ans = await call_llm(prompt, f"Topic: {subj}\nContext: {req.context}")
+            ans = await call_llm(prompt, f"Topic: {subj}\nContext: {req.context}", max_tokens=800, json_mode=False)
             if ans:
                 return {"subject": subj, "persona": persona, "explanation": ans.strip()}
         except Exception as e:
@@ -1410,7 +1414,7 @@ async def ask(req: AskRequest):
         user_text = f"{convo}User: {req.question}\nKevalBio:"
 
         try:
-            raw_answer = await call_llm(system, user_text)
+            raw_answer = await call_llm(system, user_text, max_tokens=1500, json_mode=False)
             if raw_answer:
                 answer = raw_answer.strip()
         except Exception as e:
@@ -1580,7 +1584,7 @@ async def coach(req: CoachRequest):
         if pctx:
             system += f"\n\nThis user's profile — {pctx}. Tailor the routine to their goal, training days and diet. Address them directly."
         try:
-            raw_answer = await call_llm(system, user_text, max_tokens=4000)
+            raw_answer = await call_llm(system, user_text, max_tokens=2500, json_mode=False)
             if raw_answer:
                 answer = raw_answer.strip()
         except Exception as e:
