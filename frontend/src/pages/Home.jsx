@@ -200,42 +200,42 @@ export default function Home() {
 
     const lower = text.toLowerCase();
 
-    // Direct Tool Intent Matching
-    if (lower.includes("lab") || lower.includes("blood test") || lower.includes("biomarker") || lower.includes("ferritin") || lower.includes("hba1c")) {
+    // Specific Tool Navigation only when explicitly requested
+    if (lower === "lab scanner" || lower === "scan lab" || lower === "blood test scanner") {
       navigate(`/tools/lab-scanner`);
       return;
     }
-    if (lower.includes("circadian") || lower.includes("sunlight") || lower.includes("cortisol window") || lower.includes("wake time") || lower.includes("melatonin timing")) {
+    if (lower === "circadian calculator" || lower === "circadian tool") {
       navigate(`/tools/circadian`);
       return;
     }
-    if (lower.includes("fasting") || lower.includes("intermittent") || lower.includes("autophagy") || lower.includes("break my fast") || lower.includes("omad")) {
+    if (lower === "fasting calculator" || lower === "fasting tracker") {
       navigate(`/tools/fasting`);
       return;
     }
-    if (lower.includes("sweat") || lower.includes("hydration") || lower.includes("electrolyte") || lower.includes("rehydrate") || lower.includes("water loss")) {
+    if (lower === "hydration calculator" || lower === "sweat calculator") {
       navigate(`/tools/hydration`);
       return;
     }
-    if (lower.includes("supplement audit") || lower.includes("proprietary blend") || lower.includes("blend audit") || lower.includes("label check")) {
+    if (lower === "supplement auditor" || lower === "label auditor") {
       navigate(`/tools/supplement-auditor`);
       return;
     }
-    if (lower.includes("caffeine") || lower.includes("coffee") || lower.includes("espresso") || lower.includes("sleep cutoff") || lower.includes("adenosine")) {
+    if (lower === "caffeine calculator" || lower === "caffeine cutoff") {
       navigate(`/caffeine`);
       return;
     }
-    if (lower.includes("meal scan") || lower.includes("diet scan") || lower.includes("what did i eat")) {
+    if (lower === "meal scanner" || lower === "diet analyzer") {
       navigate(`/diet`);
       return;
     }
-    if (lower.includes("stack audit") || lower.includes("supplement waste") || lower.includes("redundancy")) {
+    if (lower === "stack auditor" || lower === "stack waste detector") {
       navigate(`/stack`);
       return;
     }
 
-    // Routing by Mode or Content
-    if (mode === "solve" || lower.includes("tired") || lower.includes("fatigue") || lower.includes("cramp") || lower.includes("sleep") || lower.includes("why am i") || lower.includes("i'm") || lower.includes("experiencing")) {
+    // Routing by Mode or Problem Content
+    if (mode === "solve" || lower.startsWith("why am i") || lower.includes("fatigue") || lower.includes("brain fog") || lower.includes("afternoon slump") || lower.includes("trouble falling asleep")) {
       navigate(`/problem?q=${encodeURIComponent(text)}`);
     } else {
       navigate(`/result?q=${encodeURIComponent(text)}`);

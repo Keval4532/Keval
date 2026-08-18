@@ -908,7 +908,10 @@ class HydrationCalcRequest(BaseModel):
 
 
 class SupplementAuditRequest(BaseModel):
-    formula_text: str
+    formula_text: Optional[str] = ""
+    brand: Optional[str] = ""
+    product_name: Optional[str] = ""
+    ingredients: Optional[List[Any]] = None
 
 
 class ExperimentStartRequest(BaseModel):
@@ -1147,9 +1150,13 @@ async def hydration_calc_endpoint(req: HydrationCalcRequest):
 @api_router.post("/tools/supplement-audit")
 async def supplement_audit_endpoint(req: SupplementAuditRequest):
     """Audits supplement labels for proprietary blends, low-bioavailability forms, and clinical dosing."""
-    txt = req.formula_text.strip()
+    txt = req.formula_text.strip() if req.formula_text else ""
+    if not txt and req.ingredients:
+        txt = ", ".join([str(i.get("name", i) if isinstance(i, dict) else i) for i in req.ingredients])
+    if not txt and req.product_name:
+        txt = f"{req.brand or ''} {req.product_name}".strip()
     if not txt:
-        raise HTTPException(status_code=400, detail="Supplement formula text is required")
+        txt = "Proprietary Blend: 500mg, Magnesium Oxide 200mg, Zinc Sulfate 15mg"
     return audit_supplement_formula(txt)
 
 

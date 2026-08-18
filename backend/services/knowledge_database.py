@@ -1802,6 +1802,176 @@ TOPIC_PROFILES: Dict[str, Dict[str, Any]] = {
                 }
             ]
         }
+    },
+    # -----------------------------------------------------------------
+    # ASHWAGANDHA
+    # -----------------------------------------------------------------
+    "ashwagandha": {
+        "subject": "Ashwagandha (Withania somnifera)",
+        "category": "Adaptogens & Botanicals",
+        "query_type": "supplement",
+        "one_liner": "A premier Ayurvedic adaptogen rich in bioactive withanolides that modulates the hypothalamic-pituitary-adrenal (HPA) axis, attenuates serum cortisol, and enhances GABAergic signaling.",
+        "science_score": 93,
+        "science_score_rationale": "Validated by dozens of randomized double-blind placebo-controlled trials examining serum cortisol reduction, sleep latency, and muscular strength adaptations.",
+        "safety_level": "green",
+        "quick_answer": "Ashwagandha (Withania somnifera) is an Ayurvedic adaptogen standardized for bioactive withanolides (notably withaferin A and withanolide A). It downregulates chronic HPA axis hyperactivation, lowering morning and salivary cortisol by 20-30%, enhances central GABA-A receptor agonism to improve restorative slow-wave sleep, and supports physical power output and endogenous testosterone synthesis in stressed adults.",
+        "followups": [
+            "What is the difference between KSM-66, Sensoril, and Shoden extracts?",
+            "What is the optimal daily timing: morning or evening?",
+            "Does Ashwagandha affect thyroid hormone levels (TSH / T3 / T4)?",
+            "How long can you take Ashwagandha before needing to cycle off?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Ashwagandha is a natural herbal root extract known as an adaptogen. It helps your body handle stress, lowers anxiety, promotes deep restful sleep, and supports physical strength and recovery.",
+                "advanced": "Ashwagandha is an adaptogenic botanical containing steroidal lactones known as withanolides (withaferin A, withanolide D, withanosides). These compounds exert neuroprotective, anxiolytic, and anti-inflammatory effects by modulating HPA axis endocrine signaling, mimicking GABA neurotransmission, and upregulating antioxidant enzyme expression (SOD, catalase, glutathione peroxidase)."
+            },
+            "why_important": [
+                {"title": "HPA Axis Regulation & Cortisol Attenuation", "evidence": "strong", "detail": "Blunts corticotropin-releasing hormone (CRH) hypersecretion, resulting in a statistically significant 23-30% reduction in serum cortisol in chronically stressed individuals."},
+                {"title": "GABA-Mimetic Anxiolysis & Sleep Quality", "evidence": "strong", "detail": "Interacts with GABA-A receptors to decrease central nervous system hyperarousal, decreasing sleep onset latency and increasing non-REM slow-wave sleep duration."},
+                {"title": "Strength & Muscle Adaptation (Ergogenic)", "evidence": "strong", "detail": "RCTs demonstrate significant increases in 1RM bench press and leg extension, accelerated post-exercise recovery, and reduction in exercise-induced muscle damage (CK)."},
+                {"title": "Endocrine & Testosterone Support", "evidence": "moderate", "detail": "Restores optimal Leydig cell function and lowers oxidative stress in testicular tissue, improving free testosterone in stressed and resistance-trained males."}
+            ],
+            "affects": [
+                {"system": "Brain & Nervous System", "level": "primary", "detail": "GABAergic modulation reduces psychological anxiety and supports cognitive resilience under acute stress."},
+                {"system": "Hormones & Endocrine", "level": "primary", "detail": "Lowers chronic cortisol, supports thyroid peroxidase activity (increases T3/T4 conversion), and optimizes testosterone."},
+                {"system": "Muscles & Recovery", "level": "primary", "detail": "Reduces serum creatine kinase post-workout and enhances muscular force generation."},
+                {"system": "Immune System & Inflammation", "level": "secondary", "detail": "Downregulates nuclear factor kappa B (NF-kB) and pro-inflammatory cytokines (IL-6, TNF-alpha)."}
+            ],
+            "mechanism": {
+                "summary": "Withanolides cross the blood-brain barrier to bind GABA-A receptor sites and attenuate hypothalamic CRH release. Systemically, they suppress glucocorticoid receptor hypersensitivity, reduce systemic oxidative stress, and stimulate thyroid hormone synthesis.",
+                "steps": [
+                    {"stage": "Intestinal Absorption", "detail": "Lipophilic withanolides and withanosides are absorbed in the small intestine; bioavailability increases when ingested with dietary lipids."},
+                    {"stage": "HPA Axis Calming", "detail": "Suppresses hypothalamic CRH and pituitary ACTH release, dampening adrenal gland cortisol synthesis."},
+                    {"stage": "GABA-A Receptor Potentiation", "detail": "Acts as an allosteric modulator on central GABAergic pathways, promoting parasympathetic nervous system tone."},
+                    {"stage": "Antioxidant Upregulation", "detail": "Upregulates Nrf2 pathway, increasing endogenous SOD and catalase to neutralize lipid peroxidation in neural and muscular tissues."}
+                ]
+            },
+            "uses": {
+                "strong": ["Reducing chronic stress, perceived anxiety, and elevated serum cortisol", "Improving sleep quality and reducing sleep onset latency in insomnia", "Enhancing muscle strength, power output, and post-exercise recovery in resistance-trained adults"],
+                "moderate": ["Supporting endogenous testosterone and sperm motility in stressed men", "Improving cardiorespiratory endurance (VO2 max) in athletes"],
+                "emerging": ["Enhancing cognitive focus, processing speed, and executive function"],
+                "insufficient": ["Replacing clinical psychiatric medications without physician consultation"]
+            },
+            "deficiency": {
+                "causes": ["Not an essential micronutrient; no physiological deficiency state exists."],
+                "effects": ["N/A (Botanical adaptogen)"],
+                "symptoms": ["Chronic high stress, nervous exhaustion, and elevated cortisol are indications for use."],
+                "symptoms_note": "Best utilized when allostatic stress load or sleep disturbances are present.",
+                "timeline": "Clinical trials demonstrate measurable cortisol reduction within 30 to 60 days of daily supplementation."
+            },
+            "food_sources": [
+                {"food": "KSM-66 Root Extract (Standardized 5% Withanolides)", "amount": "300-600 mg", "content": "Full-Spectrum Root", "bioavailability": "high", "serving": "1-2 capsules", "type": "plant"},
+                {"food": "Sensoril Extract (Standardized 10% Withanolides)", "amount": "125-250 mg", "content": "Root + Leaf Extract", "bioavailability": "high", "serving": "1 capsule", "type": "plant"},
+                {"food": "Traditional Ashwagandha Churna (Raw Root Powder)", "amount": "3,000-5,000 mg", "content": "Unstandardized Root", "bioavailability": "moderate", "serving": "1 tsp in warm milk", "type": "plant"}
+            ],
+            "absorption": {
+                "increases": ["Taking with a meal containing dietary fats or whole milk (withanolides are fat-soluble)", "Consistent daily dosing for at least 4-8 weeks"],
+                "decreases": ["Taking on an empty stomach (may cause mild nausea in sensitive individuals)"],
+                "forms": [
+                    "KSM-66: Standardized to 5% withanolides; highest volume of human RCTs for stress, strength, and testosterone",
+                    "Sensoril: Standardized to 10% withanolides; higher withaferin A, more sedating, ideal for evening sleep",
+                    "Shoden: Highly concentrated (35% withanolide glycosides); potent micro-dose (120-240mg)"
+                ],
+                "notes": "Look for standardized root-only extracts to minimize withaferin A cytotoxic leaf fractions."
+            },
+            "requirements": {
+                "rda": "No RDA established (herbal adaptogen)",
+                "groups": [
+                    {"group": "General Stress Management", "amount": "300-600 mg/day (standardized root)"},
+                    {"group": "Athletic & Strength Recovery", "amount": "600 mg/day (divided into 300mg doses)"}
+                ],
+                "ul": "1,000 mg/day of standardized extract",
+                "note": "Stick to clinically validated dosages (300-600mg KSM-66 or 125-250mg Sensoril)."
+            },
+            "supplementation": {
+                "who_might": ["Individuals experiencing high work/life stress or elevated cortisol", "Athletes looking to optimize recovery and hormone balance", "People with poor sleep quality or elevated nighttime nervous arousal"],
+                "who_probably_not": ["Individuals with hyperthyroidism / Graves' disease (Ashwagandha can stimulate thyroid hormones)", "Pregnant or nursing women", "Patients with autoimmune conditions (Lupus, Rheumatoid Arthritis, MS) without MD guidance"],
+                "forms": ["Standardized Capsules", "Liquid Tinctures", "Functional Powders"],
+                "typical_amounts": "300-600 mg daily of standardized root extract",
+                "timing": "Morning with breakfast (for daytime anxiety) or 1-2 hours before bed (for sleep support)",
+                "with_food": "Best taken with a meal containing healthy fats",
+                "duration": "8 to 12 weeks",
+                "cycling": "Consider cycling (e.g., 8-12 weeks on, 2-4 weeks off) to maintain receptor sensitivity."
+            },
+            "safety": {
+                "level": "green",
+                "upper_limit": "1,000 mg/day of concentrated extract",
+                "toxicity": "Low toxicity profile. Rare cases of idiosyncratic liver injury reported with unverified multi-herb preparations.",
+                "overdose": "Gastrointestinal upset, diarrhea, nausea, and excessive sedation.",
+                "drug_interactions": ["Thyroid hormone medications (Synthroid/Levothyroxine): May cause additive thyroid elevation", "Sedatives / Benzodiazepines: Additive central nervous system depression", "Immunosuppressants: May counteract medication due to immune-stimulating effects"],
+                "contraindications": ["Hyperthyroidism", "Pregnancy (abortifacient risk at very high doses in traditional texts)", "Severe acute liver disease"],
+                "special_populations": ["Check thyroid panels (TSH, free T3, free T4) periodically during long-term use."]
+            },
+            "interactions": [
+                {"substance": "L-Theanine", "interaction": "Synergistic", "mechanism": "Enhances alpha brain waves and calm focus while keeping cortisol low.", "importance": "high"},
+                {"substance": "Magnesium Glycinate", "interaction": "Synergistic", "mechanism": "Dual GABA-A receptor activation and NMDA antagonism for deep restorative sleep.", "importance": "high"},
+                {"substance": "Levothyroxine", "interaction": "Monitor", "mechanism": "Ashwagandha may stimulate endogenous T3/T4, requiring medication dose adjustments.", "importance": "high"}
+            ],
+            "timing": {
+                "matters": True,
+                "detail": "For sleep improvement, take 300-600mg in the evening with dinner. For daytime stress and cortisol control, take in the morning with food."
+            },
+            "performance": {
+                "muscle": "Promotes muscle hypertrophy and accelerates myofibrillar protein synthesis by blunting cortisol-mediated catabolism.",
+                "strength": "Significant increases in maximal bench press and squat force production in resistance-trained cohorts.",
+                "fat_loss": "Reduces stress-related emotional overeating and abdominal visceral fat accumulation driven by elevated cortisol.",
+                "recovery": "Decreases post-exercise serum creatine kinase and muscle soreness, allowing faster training frequency.",
+                "athletic": "Improves VO2 max and time to exhaustion in healthy endurance athletes.",
+                "energy": "Prevents chronic adrenal exhaustion and allostatic fatigue without stimulant crashes.",
+                "sleep": "Improves sleep efficiency, non-REM deep sleep stages, and overall sleep score.",
+                "cognitive": "Enhances attention span, reaction time, and working memory performance under stress.",
+                "hormones": "Supports healthy LH and free testosterone while suppressing excessive cortisol.",
+                "metabolic": "Promotes healthy fasting blood glucose and lipid profiles in individuals with metabolic stress."
+            },
+            "biomarkers": [
+                {"marker": "Serum Cortisol (Morning 8 AM)", "measures": "Peak circadian glucocorticoid output", "matters": "Identifies elevated baseline stress and HPA axis hyperactivation", "limitations": "Subject to acute episodic stress surges", "when": "Baseline and 60-day follow-up"},
+                {"marker": "Total & Free Testosterone", "measures": "Circulating androgen status", "matters": "Validates hormonal recovery in chronically fatigued or overtrained individuals", "limitations": "Diurnal rhythm requires early morning draw", "when": "Endocrine checkups in men"},
+                {"marker": "TSH, Free T3, Free T4", "measures": "Thyroid gland regulatory status", "matters": "Monitors potential thyroid-stimulating activity of withanolides", "limitations": "Individual setpoints vary", "when": "Thyroid screenings"}
+            ],
+            "myths": [
+                {"myth": "Ashwagandha acts like a sedative drug and will knock you out immediately.", "fact": "Ashwagandha is an adaptogen that modulates baseline stress over 2-6 weeks; it provides calm stability rather than acute narcotic sedation."},
+                {"myth": "Ashwagandha causes emotional blunting (anhedonia) in everyone.", "fact": "Anhedonia is rare and typically occurs only with excessively high doses or prolonged use without breaks. Cycling 8 weeks on, 2 weeks off prevents receptor desensitization."}
+            ],
+            "mistakes": [
+                "Taking unstandardized cheap leaf powder instead of clinically validated root extract (e.g. KSM-66)",
+                "Taking Ashwagandha on an empty stomach and experiencing avoidable nausea",
+                "Expecting instant 10-minute results instead of allowing 4 to 8 weeks for HPA axis reset",
+                "Taking high doses while having undiagnosed hyperthyroidism"
+            ],
+            "if_low": [
+                "Establish consistent sleep-wake timing and morning natural sunlight exposure to anchor the circadian cortisol rhythm",
+                "Incorporate standardized Ashwagandha root extract (300-600mg/day) with meals for 8 to 12 weeks",
+                "Pair with Magnesium Glycinate and deep diaphragmatic breathing for synergistic nervous system downregulation"
+            ],
+            "if_too_much": {
+                "acute": "Nausea, gastrointestinal cramps, loose stools, or mild daytime drowsiness.",
+                "chronic": "Potential mild thyroid hormone elevation or emotional flattening in susceptible individuals.",
+                "mechanism": "Excessive GABAergic modulation or thyroid gland stimulation.",
+                "signs": "Subtle emotional detachment, heat intolerance, or gastrointestinal discomfort.",
+                "when_medical": "Discontinue use if jaundice, dark urine, or significant gastrointestinal pain occurs."
+            },
+            "research": [
+                {
+                    "title": "A Prospective, Randomized Double-Blind, Placebo-Controlled Study of Safety and Efficacy of High-Concentration Full-Spectrum Extract of Ashwagandha Root in Reducing Stress and Anxiety in Adults",
+                    "year": "2012",
+                    "study_type": "Randomized Double-Blind Placebo-Controlled Trial (RCT)",
+                    "evidence_level": "strong",
+                    "summary": "Demonstrated a 27.9% reduction in serum cortisol and a 44% reduction in perceived stress scores over 60 days with 600mg/day KSM-66.",
+                    "source": "Indian Journal of Psychological Medicine",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/23439798/"
+                },
+                {
+                    "title": "Examining the Effect of Withania somnifera Supplementation on Muscle Strength and Recovery: A Randomized Controlled Trial",
+                    "year": "2015",
+                    "study_type": "Randomized Controlled Trial (n=57)",
+                    "evidence_level": "strong",
+                    "summary": "Subjects receiving 600mg/day Ashwagandha had significantly greater increases in muscle strength on bench press and leg extension, accompanied by greater muscle size and significantly lower exercise-induced muscle damage.",
+                    "source": "Journal of the International Society of Sports Nutrition (JISSN)",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/26609282/"
+                }
+            ]
+        }
     }
 }
 
@@ -1816,6 +1986,7 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
     q_norm = re.sub(r'\bmag\b', 'magnesium', q_norm)
     q_norm = re.sub(r'\bcalc\b', 'calcium', q_norm)
     q_norm = re.sub(r'\bpotass\b|\bpotasium\b|\bpotas\b', 'potassium', q_norm)
+    q_norm = re.sub(r'\bashwa\b|\bashwaganda\b|\bashwaganha\b', 'ashwagandha', q_norm)
     q_norm = re.sub(r'[\s\-_]+', ' ', q_norm).strip()
     
     # 1. Direct and Alias Mappings
@@ -1835,7 +2006,9 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
         return TOPIC_PROFILES.get("zinc")
     elif "creatine" in q_norm or "monohydrate" in q_norm:
         return TOPIC_PROFILES.get("creatine")
-    elif "omega" in q_norm or "fish oil" in q_norm or "epa" in q_norm or "dha" in q_norm or "krill" in q_norm:
+    elif "ashwagandha" in q_norm or "ksm-66" in q_norm or "withania" in q_norm:
+        return TOPIC_PROFILES.get("ashwagandha")
+    elif "omega" in q_norm or "fish oil" in q_norm or re.search(r'\b(epa|dha|krill)\b', q_norm):
         return TOPIC_PROFILES.get("omega_3")
     elif "potassium" in q_norm or "k+" in q_norm:
         return TOPIC_PROFILES.get("potassium")
@@ -1847,5 +2020,6 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
             return profile
             
     return None
+
 
 
