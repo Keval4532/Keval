@@ -33,19 +33,24 @@ const PERSONAS = [
   }
 ];
 
-export default function PersonaSwitcher({ subject, context = "" }) {
+export default function PersonaSwitcher({ subject, context = "", data = null }) {
   const [activePersona, setActivePersona] = useState("coach");
   const [explanation, setExplanation] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const s = data?.sections || {};
 
   const handleSwitch = async (pId) => {
     if (pId === activePersona && explanation) return;
     setActivePersona(pId);
     setLoading(true);
     try {
-      const res = await getPersonaExplain(subject, pId, context);
-      setExplanation(res.explanation);
+      const res = await getPersonaExplain(subject, pId, context || s.what_is_it?.beginner || data?.quick_answer || "");
+      if (res && res.explanation) {
+        setExplanation(res.explanation);
+      }
     } catch {
+      // Fallback to rich dynamic section data
       setExplanation(null);
     } finally {
       setLoading(false);
@@ -53,6 +58,40 @@ export default function PersonaSwitcher({ subject, context = "" }) {
   };
 
   const currentPersonaConfig = PERSONAS.find((p) => p.id === activePersona) || PERSONAS[0];
+
+  // Dynamic persona-tailored content from actual physiological data
+  const getDynamicPersonaText = () => {
+    if (explanation) return explanation;
+
+    if (activePersona === "five_year_old") {
+      if (s.what_is_it?.beginner) {
+        return s.what_is_it.beginner;
+      }
+      return `${subject} is a super-important nutrient that helps your body stay strong, full of energy, and feeling great every single day!`;
+    }
+
+    if (activePersona === "biochemist") {
+      if (s.what_is_it?.advanced) {
+        return s.what_is_it.advanced;
+      }
+      if (s.mechanism?.summary) {
+        return s.mechanism.summary;
+      }
+      return `${subject} acts as a pivotal biochemical substrate and metabolic regulator, driving cellular energetic pathways and receptor-mediated signaling.`;
+    }
+
+    // Default Coach Mode
+    if (data?.personalized) {
+      return data.personalized;
+    }
+    if (data?.quick_answer) {
+      return data.quick_answer;
+    }
+    if (data?.one_liner) {
+      return data.one_liner;
+    }
+    return `${subject} is a foundational pillar for optimal physical performance, cellular recovery, and long-term metabolic health.`;
+  };
 
   return (
     <div className="rounded-3xl border border-[#1E2E42] bg-[#0E141D] p-5 sm:p-6 space-y-4">
@@ -105,14 +144,7 @@ export default function PersonaSwitcher({ subject, context = "" }) {
               <div className={`text-[10px] font-mono uppercase tracking-widest ${currentPersonaConfig.headerColor}`}>
                 {currentPersonaConfig.desc}:
               </div>
-              <p>
-                {explanation ||
-                  (activePersona === "five_year_old"
-                    ? `Imagine your body is like a superhero car. ${subject} is like the special clean fuel that keeps your motor running at full speed! When you get enough ${subject} from yummy real food, you can play all day, jump high, and wake up super happy.`
-                    : activePersona === "biochemist"
-                    ? `From a molecular physiology perspective, ${subject} acts as a critical enzymatic cofactor and allosteric regulator. It modulates transmembrane ion gradients, activates ATP synthase complexes, and optimizes cellular mitochondrial bioenergetics across Target tissue receptors.`
-                    : `Think of ${subject} as a foundational cornerstone of your daily physical performance. Focus on nutrient-dense whole foods first to hit optimal baseline levels, lock in restorative sleep, and only supplement strategically when dietary intake falls short.`)}
-              </p>
+              <p>{getDynamicPersonaText()}</p>
             </motion.div>
           </AnimatePresence>
         )}
@@ -120,3 +152,4 @@ export default function PersonaSwitcher({ subject, context = "" }) {
     </div>
   );
 }
+

@@ -1625,6 +1625,183 @@ TOPIC_PROFILES: Dict[str, Dict[str, Any]] = {
                 }
             ]
         }
+    },
+    # -----------------------------------------------------------------
+    # POTASSIUM
+    # -----------------------------------------------------------------
+    "potassium": {
+        "subject": "Potassium",
+        "category": "Minerals",
+        "query_type": "mineral",
+        "one_liner": "The major intracellular cation and electrolyte indispensable for establishing resting membrane potential, cardiac repolarization, and vascular endothelial relaxation.",
+        "science_score": 97,
+        "science_score_rationale": "Extensive clinical trial data, Cochrane meta-analyses on blood pressure and stroke prevention, and foundational cellular electrophysiology.",
+        "safety_level": "yellow",
+        "quick_answer": "Potassium (K+) is the primary intracellular mineral cation in the human body (~98% intracellular). It maintains the cellular resting membrane potential via the electrogenic Na+/K+-ATPase pump, counters dietary sodium to lower systemic blood pressure, drives cardiac action potential repolarization, and prevents metabolic alkalosis and muscle tetany.",
+        "followups": [
+            "What is the ideal Sodium-to-Potassium ratio for optimal blood pressure?",
+            "Why do over-the-counter potassium supplements only contain 99mg?",
+            "What are the best whole-food sources to reach the 3,400-4,700mg daily goal?",
+            "What are the dangerous warning signs of hyperkalemia vs hypokalemia?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Potassium is an essential mineral and electrolyte that helps control your blood pressure, keeps your heartbeat steady, stops painful muscle cramps, and helps your nerves send clear signals.",
+                "advanced": "Potassium is the dominant intracellular cation (~140-150 mEq/L intracellular vs. 3.5-5.0 mEq/L in extracellular fluid). This steep electrochemical gradient is continuously maintained by energy-dependent Na+/K+-ATPase pumps (3 Na+ out for every 2 K+ in), creating the polarized resting membrane potential of excitable nerve, cardiac, and skeletal muscle cells."
+            },
+            "why_important": [
+                {"title": "Resting Membrane Potential & Nerve Conduction", "evidence": "strong", "detail": "The outward leak of K+ through tandem-pore domain channels generates the negative resting membrane potential (~-70mV to -90mV) necessary for action potential generation in nerves and muscles."},
+                {"title": "Cardiac Rhythm & Myocardial Repolarization", "evidence": "strong", "detail": "Delayed rectifier potassium currents (IKr, IKs) drive cardiac action potential Phase 3 repolarization, preventing fatal ventricular arrhythmias and QT prolongation."},
+                {"title": "Blood Pressure Reduction & Sodium Counterbalance", "evidence": "strong", "detail": "Induces endothelium-dependent vasodilation through hyperpolarization of vascular smooth muscle cells and promotes natriuresis (urinary sodium excretion) via the renal distal tubule."},
+                {"title": "Glycogen Storage & Protein Synthesis", "evidence": "strong", "detail": "Obligatory for pyruvate kinase activity in glycolysis and required alongside insulin for skeletal muscle glycogen storage and ribosomal translation."}
+            ],
+            "affects": [
+                {"system": "Heart & Blood Vessels", "level": "primary", "detail": "Regulates cardiac rhythm, decreases arterial stiffness, and promotes vascular smooth muscle hyperpolarization."},
+                {"system": "Muscles & Nerves", "level": "primary", "detail": "Permits voluntary muscular excitation-contraction coupling and terminates muscle spasms."},
+                {"system": "Kidneys & Fluid Balance", "level": "primary", "detail": "Regulates glomerular filtration rate, stimulates urinary sodium excretion, and prevents nephrolithiasis (kidney stones)."},
+                {"system": "Metabolism & Mitochondria", "level": "secondary", "detail": "Supports pancreatic insulin secretion and hepatic/muscular glycogen deposition."}
+            ],
+            "mechanism": {
+                "summary": "Dietary potassium is passively absorbed in the upper small intestine (~90% bioavailability). Regulated tightly by renal cortical collecting duct principal cells via aldosterone and ROMK channels. Na+/K+-ATPase pumps actively partition 98% of total body potassium inside cells.",
+                "steps": [
+                    {"stage": "Intestinal Absorption", "detail": "Absorbed passively and rapidly via non-saturable paracellular transport across the duodenal and jejunal mucosa."},
+                    {"stage": "Cellular Uptake (Insulin & Beta-2 Adrenergic)", "detail": "Postprandial insulin release and beta-2 adrenergic tone stimulate cellular Na+/K+-ATPase activity, buffering extracellular surges by driving K+ into myocytes and hepatocytes."},
+                    {"stage": "Renal Homeostatic Excretion", "detail": "90% excreted by the kidneys via ROMK (Kir1.1) and BK channels in the cortical collecting duct, modulated directly by plasma aldosterone levels."},
+                    {"stage": "Vascular Hyperpolarization", "detail": "Activates inward-rectifier potassium (Kir) channels and Na+/K+ pumps in endothelial and vascular smooth muscle cells, inducing vasodilation."}
+                ]
+            },
+            "uses": {
+                "strong": ["Reducing systolic and diastolic blood pressure in hypertensive individuals (average -5.3 / -3.1 mmHg)", "Reducing ischemic stroke risk by up to 21% with higher dietary intakes", "Preventing calcium oxalate kidney stone formation (via urinary citrate alkalinization with potassium citrate)"],
+                "moderate": ["Alleviating exercise-induced and nocturnal skeletal muscle cramps", "Preserving bone mineral density by buffering dietary acid load"],
+                "emerging": ["Improving insulin sensitivity and glucose tolerance in individuals with marginal hypokalemia"],
+                "insufficient": ["Replacing emergency medical treatments for cardiac arrhythmias or renal failure"]
+            },
+            "deficiency": {
+                "causes": ["High dietary sodium with low whole-food fruit and vegetable intake", "Use of potassium-wasting loop or thiazide diuretics without replenishment", "Excessive gastrointestinal fluid loss (vomiting, chronic diarrhea, laxative abuse)", "Heavy prolonged sweating in hot environments without electrolyte repletion"],
+                "effects": ["Hypokalemia (<3.5 mEq/L) leading to muscle weakness, fasciculations, and paralytic ileus", "Cardiac arrhythmias, flattened T-waves, ST depression, and prominent U-waves on ECG", "Elevated systemic blood pressure and blunted endothelium-mediated vasodilation"],
+                "symptoms": ["Muscle cramps, twitching & weakness", "Fatigue & persistent lethargy", "Constipation & abdominal bloating", "Heart palpitations or skipped beats"],
+                "symptoms_note": "Early marginal potassium insufficiency causes elevated blood pressure and muscle cramping before overt serum hypokalemia manifests.",
+                "timeline": "Inadequate dietary intake over several weeks depletes intracellular stores, although serum levels are maintained until tissue depletion is significant."
+            },
+            "food_sources": [
+                {"food": "Baked Potato (with skin)", "amount": "1 large (299 g)", "content": "1,081 mg", "bioavailability": "high", "serving": "1 potato", "type": "plant"},
+                {"food": "Avocado (Whole)", "amount": "1 medium (200 g)", "content": "975 mg", "bioavailability": "high", "serving": "1 avocado", "type": "plant"},
+                {"food": "Cooked Spinach", "amount": "1 cup (180 g)", "content": "839 mg", "bioavailability": "high", "serving": "1 cup", "type": "plant"},
+                {"food": "Wild Salmon (Cooked)", "amount": "1 fillet (150 g)", "content": "730 mg", "bioavailability": "high", "serving": "1 fillet", "type": "animal"},
+                {"food": "Coconut Water (100% Pure)", "amount": "1 cup (240 ml)", "content": "600 mg", "bioavailability": "high", "serving": "1 glass", "type": "plant"},
+                {"food": "Banana", "amount": "1 medium (118 g)", "content": "422 mg", "bioavailability": "high", "serving": "1 fruit", "type": "plant"}
+            ],
+            "absorption": {
+                "increases": ["Hydration and normal gastric emptying rate", "Consuming whole-food plant matrices with organic anions (citrate, malate)"],
+                "decreases": ["Excessive alcohol consumption", "Severe hypomagnesemia (magnesium deficiency impairs renal potassium retention by disabling ROMK channel closure)"],
+                "forms": [
+                    "Potassium Citrate: Highly bioavailable, systemic alkalinizing agent, ideal for kidney stone prevention",
+                    "Potassium Chloride: Standard clinical electrolyte replacement salt",
+                    "Potassium Bicarbonate: Buffers dietary acidity and metabolic acid loads",
+                    "Dietary Potassium: Naturally complexed with phytonutrients and dietary fiber"
+                ],
+                "notes": "Always correct Magnesium deficiency before attempting to treat stubborn low Potassium, as low Magnesium causes renal K+ wasting."
+            },
+            "requirements": {
+                "rda": "3,400 mg/day (Men), 2,600 mg/day (Women) — Optimal Longevity Target: 3,500-4,700 mg/day",
+                "groups": [
+                    {"group": "Adult Men", "amount": "3,400 mg/day"},
+                    {"group": "Adult Women", "amount": "2,600 mg/day"},
+                    {"group": "Pregnancy", "amount": "2,900 mg/day"},
+                    {"group": "Lactation", "amount": "2,800 mg/day"}
+                ],
+                "ul": "No UL established for healthy individuals consuming food; supplements are regulated due to hyperkalemia risk.",
+                "note": "Healthy kidneys rapidly excrete excess dietary potassium. The 99mg FDA supplement cap exists to protect against localized small-bowel ulceration from concentrated capsules."
+            },
+            "supplementation": {
+                "who_might": ["Individuals on potassium-wasting diuretics under physician supervision", "Endurance athletes with heavy sweat losses in hot climates", "People with recurrent calcium oxalate kidney stones (Potassium Citrate)"],
+                "who_probably_not":["Patients with Chronic Kidney Disease (CKD) or acute renal failure (high hyperkalemia risk)", "Individuals taking ACE inhibitors, ARBs, or potassium-sparing diuretics (Spironolactone) without clinical monitoring"],
+                "forms": ["Potassium Citrate Powder", "Electrolyte Hydration Drink Mixes", "Low-Sodium Salt Substitutes (KCl)"],
+                "typical_amounts": "Obtain primarily through food (3,000-4,000mg); supplemental powders provide 200-500mg per serving in diluted fluids",
+                "timing": "Divided across the day with meals and fluid intake",
+                "with_food": "Must take dissolved in substantial water or with whole meals to prevent GI irritation",
+                "duration": "Continuous through healthy dietary patterns",
+                "cycling": "No cycling required for dietary potassium."
+            },
+            "safety": {
+                "level": "yellow",
+                "upper_limit": "Food: No upper limit for healthy kidneys. Supplements: Use caution above 1,000mg supplemental per day.",
+                "toxicity": "Hyperkalemia (>5.5 mEq/L) can cause life-threatening cardiac conduction blocks, peaked T-waves, ventricular fibrillation, and cardiac arrest.",
+                "overdose": "Paresthesias, extreme muscular flaccidity, severe bradycardia, mental confusion, and cardiovascular collapse.",
+                "drug_interactions": ["ACE Inhibitors & ARBs (Lisinopril, Losartan): Elevate serum potassium", "Potassium-sparing diuretics (Spironolactone, Amiloride): Substantially increase hyperkalemia risk", "NSAIDs: Decrease renal prostaglandins and reduce K+ clearance"],
+                "contraindications": ["Chronic Kidney Disease (Stages 3b-5)", "Untreated Addison's disease (hypoaldosteronism)", "Hyperkalemic periodic paralysis"],
+                "special_populations": ["Individuals with impaired renal filtration (eGFR <45) must strictly limit dietary and supplemental potassium under nephrologist guidance."]
+            },
+            "interactions": [
+                {"substance": "Sodium", "interaction": "Physiological Antagonist", "mechanism": "Potassium promotes natriuresis and restores balanced fluid pressure dynamics.", "importance": "high"},
+                {"substance": "Magnesium", "interaction": "Obligatory Synergy", "mechanism": "Intracellular magnesium is required to inhibit the ROMK channel and prevent renal potassium wasting.", "importance": "high"},
+                {"substance": "ACE Inhibitors", "interaction": "Monitor", "mechanism": "Reduced aldosterone production decreases renal potassium excretion.", "importance": "high"}
+            ],
+            "timing": {
+                "matters": True,
+                "detail": "Distribute intake evenly across breakfast, lunch, and dinner rather than a single concentrated bolus."
+            },
+            "performance": {
+                "muscle": "Essential for neuromuscular action potentials and preventing involuntary muscle cramps.",
+                "strength": "Supports maximum voluntary isometric contraction and force generation in skeletal muscle fibers.",
+                "fat_loss": "Potassium-rich whole foods displace calorically dense ultra-processed sodium-laden foods.",
+                "recovery": "Facilitates post-workout muscle glycogen resynthesis and restores intracellular hydration balance.",
+                "athletic": "Maintains cardiac stroke volume and neuromuscular responsiveness during extended endurance events.",
+                "energy": "Drives the Na+/K+-ATPase pumps that utilize ~30% of total basal cellular ATP energy.",
+                "sleep": "Supports nocturnal blood pressure dipping and decreases nighttime awakenings from muscle cramps.",
+                "cognitive": "Maintains neuronal resting potentials and cerebral microvascular perfusion.",
+                "hormones": "Required for normal stimulus-secretion coupling of insulin from pancreatic beta cells.",
+                "metabolic": "Improves insulin sensitivity and reduces cardiovascular arterial stiffness."
+            },
+            "biomarkers": [
+                {"marker": "Serum Potassium", "measures": "Extracellular potassium concentration", "matters": "Reference range 3.5-5.0 mEq/L; values <3.5 (hypokalemia) or >5.2 (hyperkalemia) require clinical attention", "limitations": "Represents <2% of total body potassium stores; easily falsely elevated by hemolyzed blood draws", "when": "Basic and Comprehensive Metabolic Panels (BMP/CMP)"},
+                {"marker": "24-Hour Urine Potassium", "measures": "Daily renal potassium excretion", "matters": "Gold-standard objective assessment of true dietary potassium intake and renal handling", "limitations": "Requires complete 24-hour collection", "when": "Investigating refractory hypertension or unexplained hypokalemia"},
+                {"marker": "Sodium-to-Potassium Ratio", "measures": "Urinary or dietary balance of Na+ to K+", "matters": "Optimal urinary ratio is <1.0 for cardiovascular protection and blood pressure regulation", "limitations": "Calculated from dietary logs or spot/24-hr urine tests", "when": "Cardiovascular risk optimization"}
+            ],
+            "myths": [
+                {"myth": "Bananas are the highest potassium food on earth.", "fact": "A medium banana has ~422mg potassium. Baked potatoes (1,081mg), avocados (975mg), and cooked spinach (839mg) provide more than double the potassium of a banana per serving."},
+                {"myth": "Taking potassium pills is the best way to get enough potassium.", "fact": "Because pills are capped at 99mg by law, getting your 3,500-4,700mg goal from whole foods (potatoes, lentils, avocados, salmon, spinach) is vastly superior and safer."}
+            ],
+            "mistakes": [
+                "Trying to swallow 30 potassium 99mg pills instead of eating a baked potato and an avocado",
+                "Taking high-dose potassium supplements while on blood pressure medications like Lisinopril or Losartan",
+                "Ignoring magnesium status when attempting to fix chronic muscle cramps or low potassium",
+                "Boiling vegetables in excess water and discarding the broth (leaches up to 50% of the potassium into the water)"
+            ],
+            "if_low": [
+                "Incorporate high-potassium whole foods daily: baked potatoes with skin, avocados, cooked leafy greens, and coconut water",
+                "Steam or roast vegetables rather than boiling them to retain water-soluble potassium in the food matrix",
+                "Check serum magnesium levels to ensure renal K+ retention mechanisms are functioning properly",
+                "Gradually increase whole-food plant intake to achieve the optimal >3,500mg daily longevity target"
+            ],
+            "if_too_much": {
+                "acute": "Severe gastrointestinal nausea, abdominal cramping, and diarrhea from concentrated salts.",
+                "chronic": "Hyperkalemia with cardiac conduction delays, bradycardia, muscle flaccidity, and ventricular arrhythmias.",
+                "mechanism": "Depolarizes resting membrane potential, leading to inactivation of cardiac sodium channels and impaired conduction.",
+                "signs": "Tingling in extremities (paresthesias), sudden muscle weakness, slow irregular pulse, dizziness.",
+                "when_medical": "Seek immediate emergency medical care (ER) if experiencing palpitations accompanied by sudden muscle weakness or dizziness."
+            },
+            "research": [
+                {
+                    "title": "Effect of Increased Potassium Intake on Cardiovascular Risk Factors and Disease: Systematic Review and Meta-Analysis",
+                    "year": "2013",
+                    "study_type": "Cochrane Systematic Review & Meta-Analysis of 33 RCTs",
+                    "evidence_level": "strong",
+                    "summary": "Increased potassium intake (90-120 mmol/day) significantly reduced systolic blood pressure by 3.49 mmHg and lowered risk of incident stroke by 24% in adults.",
+                    "source": "British Medical Journal (BMJ)",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/23558164/"
+                },
+                {
+                    "title": "Sodium and Potassium Intake and the Risk of Cardiovascular Disease: A Prospective Cohort Study (NEJM)",
+                    "year": "2014",
+                    "study_type": "Prospective Cohort (n=101,945)",
+                    "evidence_level": "strong",
+                    "summary": "Demonstrated that higher potassium excretion (>2.5g/day) was associated with a significantly reduced risk of death and major cardiovascular events.",
+                    "source": "New England Journal of Medicine (NEJM)",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/25119607/"
+                }
+            ]
+        }
     }
 }
 
@@ -1638,11 +1815,11 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
     q_norm = re.sub(r'\bvitm?\b|\bvitamins?\b', 'vitamin', q)
     q_norm = re.sub(r'\bmag\b', 'magnesium', q_norm)
     q_norm = re.sub(r'\bcalc\b', 'calcium', q_norm)
-    q_norm = re.sub(r'\bpotass\b', 'potassium', q_norm)
+    q_norm = re.sub(r'\bpotass\b|\bpotasium\b|\bpotas\b', 'potassium', q_norm)
     q_norm = re.sub(r'[\s\-_]+', ' ', q_norm).strip()
     
     # 1. Direct and Alias Mappings
-    if "magnesium" in q_norm:
+    if "magnesium" in q_norm or "mg2" in q_norm:
         return TOPIC_PROFILES.get("magnesium")
     elif "iron" in q_norm or "ferritin" in q_norm or "heme" in q_norm:
         return TOPIC_PROFILES.get("iron")
@@ -1660,6 +1837,8 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
         return TOPIC_PROFILES.get("creatine")
     elif "omega" in q_norm or "fish oil" in q_norm or "epa" in q_norm or "dha" in q_norm or "krill" in q_norm:
         return TOPIC_PROFILES.get("omega_3")
+    elif "potassium" in q_norm or "k+" in q_norm:
+        return TOPIC_PROFILES.get("potassium")
     
     # 2. Check for direct key match in TOPIC_PROFILES
     for key, profile in TOPIC_PROFILES.items():
@@ -1668,4 +1847,5 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
             return profile
             
     return None
+
 

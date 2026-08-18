@@ -285,27 +285,88 @@ SECTION_KEYS = {
 def extract_json(text: str) -> Dict[str, Any]:
     text = text.strip()
     if text.startswith("```"):
-        text = re.sub(r"^```(json)?", "", text).strip()
-        text = re.sub(r"```$", "", text).strip()
+        text = re.sub(r"^```(json)?\s*", "", text).strip()
+        text = re.sub(r"\s*```$", "", text).strip()
     start = text.find("{")
     if start == -1:
         raise json.JSONDecodeError("no object", text, 0)
-    text = text[start:]
-    dec = json.JSONDecoder()
-    obj, end = dec.raw_decode(text)
-    rest = text[end:].strip()
-    if rest.startswith(","):
+    
+    clean_text = text[start:]
+    
+    # 1. Direct standard parse
+    try:
+        obj = json.loads(clean_text)
+        if isinstance(obj, dict):
+            if isinstance(obj.get("sections"), dict):
+                for k in list(obj.keys()):
+                    if k in SECTION_KEYS and k not in obj["sections"]:
+                        obj["sections"][k] = obj.pop(k)
+            return obj
+    except Exception:
+        pass
+
+    # 2. Raw decode
+    try:
+        dec = json.JSONDecoder()
+        obj, end = dec.raw_decode(clean_text)
+        if isinstance(obj, dict):
+            if isinstance(obj.get("sections"), dict):
+                for k in list(obj.keys()):
+                    if k in SECTION_KEYS and k not in obj["sections"]:
+                        obj["sections"][k] = obj.pop(k)
+            return obj
+    except Exception:
+        pass
+
+    # 3. Clean trailing commas and control characters
+    try:
+        repaired = re.sub(r',\s*([\]}])', r'\1', clean_text)
+        obj = json.loads(repaired)
+        if isinstance(obj, dict):
+            if isinstance(obj.get("sections"), dict):
+                for k in list(obj.keys()):
+                    if k in SECTION_KEYS and k not in obj["sections"]:
+                        obj["sections"][k] = obj.pop(k)
+            return obj
+    except Exception:
+        pass
+
+    # 4. Extract balanced braces
+    brace_count = 0
+    in_str = False
+    escape = False
+    end_pos = -1
+    for idx, ch in enumerate(clean_text):
+        if ch == '"' and not escape:
+            in_str = not in_str
+        elif ch == '\\' and not escape:
+            escape = True
+            continue
+        elif not in_str:
+            if ch == '{':
+                brace_count += 1
+            elif ch == '}':
+                brace_count -= 1
+                if brace_count == 0:
+                    end_pos = idx + 1
+                    break
+        escape = False
+
+    if end_pos != -1:
         try:
-            extra, _ = dec.raw_decode("{" + rest[1:])
-            for k, v in extra.items():
-                obj.setdefault(k, v)
+            candidate = clean_text[:end_pos]
+            candidate = re.sub(r',\s*([\]}])', r'\1', candidate)
+            obj = json.loads(candidate)
+            if isinstance(obj, dict):
+                if isinstance(obj.get("sections"), dict):
+                    for k in list(obj.keys()):
+                        if k in SECTION_KEYS and k not in obj["sections"]:
+                            obj["sections"][k] = obj.pop(k)
+                return obj
         except Exception:
             pass
-    if isinstance(obj.get("sections"), dict):
-        for k in list(obj.keys()):
-            if k in SECTION_KEYS and k not in obj["sections"]:
-                obj["sections"][k] = obj.pop(k)
-    return obj
+
+    raise json.JSONDecodeError("Failed to parse JSON", clean_text, 0)
 
 
 async def call_llm(system_message: str, user_text: str, max_tokens: int = 8000) -> Optional[str]:
@@ -328,13 +389,28 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 8000) 
                     {"role": "system", "content": system_message},
                     {"role": "user", "content": user_text},
                 ],
+                response_format={"type": "json_object"},
                 timeout=20.0,
             )
             if resp.choices and resp.choices[0].message.content:
                 return resp.choices[0].message.content
         except Exception as e:
-            logger.warning(f"LLM model '{m}' call failed ({e}). Trying fallback model...")
-            continue
+            # If response_format is not supported by a specific endpoint, retry without response_format
+            try:
+                resp = await client.chat.completions.create(
+                    model=m,
+                    max_tokens=max_tokens,
+                    messages=[
+                        {"role": "system", "content": system_message},
+                        {"role": "user", "content": user_text},
+                    ],
+                    timeout=20.0,
+                )
+                if resp.choices and resp.choices[0].message.content:
+                    return resp.choices[0].message.content
+            except Exception as e2:
+                logger.warning(f"LLM model '{m}' call failed ({e2}). Trying fallback model...")
+                continue
 
     return None
 

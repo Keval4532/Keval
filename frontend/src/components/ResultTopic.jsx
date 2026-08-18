@@ -122,7 +122,7 @@ export default function ResultTopic({ data, onAskFollowup }) {
     Overview: (
       <div className="space-y-6">
         {/* Explain It Like... Persona Switcher */}
-        <PersonaSwitcher subject={subject} context={s.what_is_it?.beginner || s.why_important?.[0]?.summary || ""} />
+        <PersonaSwitcher subject={subject} context={s.what_is_it?.beginner || s.why_important?.[0]?.summary || ""} data={data} />
 
         {/* Receipt Button */}
         <button
