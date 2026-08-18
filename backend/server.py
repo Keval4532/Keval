@@ -31,7 +31,7 @@ from services.biology_tools import (
 load_dotenv(ROOT_DIR / '.env')
 
 mongo_url = os.environ.get('MONGO_URL') or os.environ.get('MONGODB_URI') or os.environ.get('MONGO_URI') or 'mongodb://127.0.0.1:27017'
-client = AsyncIOMotorClient(mongo_url)
+client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=3000, connectTimeoutMS=3000)
 db = client[os.environ.get('DB_NAME', 'kevalbio')]
 
 
