@@ -1273,32 +1273,399 @@ TOPIC_PROFILES: Dict[str, Dict[str, Any]] = {
                 }
             ]
         }
+    },
+    # -----------------------------------------------------------------
+    # VITAMIN A
+    # -----------------------------------------------------------------
+    "vitamin_a": {
+        "subject": "Vitamin A (Retinol & Provitamin A Carotenoids)",
+        "category": "Vitamins",
+        "query_type": "vitamin",
+        "one_liner": "An essential fat-soluble micronutrient and nuclear receptor ligand crucial for retinal photoreception, mucosal epithelial barrier integrity, and cellular differentiation.",
+        "science_score": 97,
+        "science_score_rationale": "Backed by decades of human clinical trials, biochemical validation of retinal visual cycles, and nuclear RAR/RXR gene transcription pathways.",
+        "safety_level": "yellow",
+        "quick_answer": "Vitamin A is an essential fat-soluble nutrient existing as preformed retinoids (retinol, retinyl palmitate in animal foods) and provitamin A carotenoids (beta-carotene in plants). It forms rhodopsin for low-light vision, regulates genomic expression via RAR/RXR nuclear receptors for mucosal immunity, and maintains skin epidermal turnover.",
+        "followups": [
+            "What is the difference between preformed Retinol and Beta-Carotene?",
+            "What are the clinical signs of Vitamin A toxicity vs deficiency?",
+            "How does Vitamin A interact with Zinc and Thyroid function?",
+            "What is the safe upper limit for Vitamin A in pregnancy?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Vitamin A is a fat-soluble vitamin essential for sharp vision (especially at night), glowing skin, strong immunity, and healthy mucous membranes protecting your lungs and gut.",
+                "advanced": "Vitamin A encompasses a group of lipid-soluble retinoids (retinol, retinal, retinoic acid) and provitamin carotenoids (notably beta-carotene). 11-cis-retinal serves as the chromophore for rhodopsin in retinal rods, while all-trans-retinoic acid acts as a potent nuclear hormone ligand for RAR and RXR transcription factor complexes."
+            },
+            "why_important": [
+                {"title": "Visual Phototransduction & Rhodopsin", "evidence": "strong", "detail": "11-cis-retinal binds opsin to form rhodopsin in retinal rod cells; photon absorption triggers photoisomerization to all-trans-retinal, initiating optical nerve signaling."},
+                {"title": "Mucosal Immunity & Epithelial Integrity", "evidence": "strong", "detail": "All-trans-retinoic acid governs epithelial cell differentiation, secretory IgA production, and goblet cell mucin synthesis across respiratory and GI tracts."},
+                {"title": "Gene Expression via RAR/RXR", "evidence": "strong", "detail": "Binds retinoic acid receptors (RAR) and retinoid X receptors (RXR) to regulate over 500 gene networks involved in cell growth, embryogenesis, and hematopoiesis."},
+                {"title": "Dermal Keratinocyte Differentiation", "evidence": "strong", "detail": "Normalizes follicular hyperkeratosis, decreases sebum production, and accelerates dermal wound re-epithelialization."}
+            ],
+            "affects": [
+                {"system": "Eyes & Vision", "level": "primary", "detail": "Essential for rod and cone photoreceptor pigment regeneration and corneal surface maintenance."},
+                {"system": "Immune System & Mucosa", "level": "primary", "detail": "Maintains physical epithelial barriers and regulates T-helper (Th1/Th2/Treg) cell differentiation."},
+                {"system": "Skin & Epithelium", "level": "primary", "detail": "Governs epidermal cell turnover, keratin synthesis, and extracellular matrix remodeling."},
+                {"system": "Reproduction & Development", "level": "secondary", "detail": "Required for spermatogenesis, placental development, and embryonic pattern formation."}
+            ],
+            "mechanism": {
+                "summary": "Dietary retinyl esters and carotenoids are hydrolyzed in the gut lumen, incorporated into mixed micelles with dietary lipids, and absorbed into enterocytes. Converted to retinol, esterified, and packaged into chylomicrons for hepatic storage in stellate cells. In circulation, retinol binds Retinol-Binding Protein 4 (RBP4) and transthyretin (TTR). In target cells, it is oxidized to retinoic acid to activate nuclear RAR/RXR transcription factors.",
+                "steps": [
+                    {"stage": "Intestinal Micellar Absorption", "detail": "Requires dietary fat and bile salts; carotenoids are cleaved by BCO1 enzyme in enterocytes."},
+                    {"stage": "Hepatic Stellate Storage", "detail": "Over 80-90% of total body Vitamin A is stored as retinyl palmitate in liver lipid droplets."},
+                    {"stage": "RBP4-TTR Plasma Transport", "detail": "Mobilized as retinol complexed 1:1 with Retinol-Binding Protein 4 and transthyretin to prevent renal filtration."},
+                    {"stage": "Target Cell Nuclear Activation", "detail": "Oxidized to all-trans-retinoic acid (ATRA), which translocates to nucleus and binds RAR/RXR heterodimers on RARE DNA elements."}
+                ]
+            },
+            "uses": {
+                "strong": ["Preventing night blindness (nyctalopia) and corneal xerophthalmia", "Treating clinical deficiency and supporting mucosal barrier recovery during childhood measles", "Topical and systemic dermatological therapy for acne vulgaris and photoaging"],
+                "moderate": ["Supporting adaptive immune antibody response and mucosal IgA secretion", "Promoting wound healing in burn victims and post-surgical recovery"],
+                "emerging": ["Modulating gut barrier permeability and regulatory T-cell induction in inflammatory bowel conditions"],
+                "insufficient": ["High-dose supplementation for cancer prevention in smokers (beta-carotene supplements increase lung cancer risk in smokers)"]
+            },
+            "deficiency": {
+                "causes": ["Inadequate intake of preformed retinol (animal liver, dairy, eggs) or carotenoids (carrots, sweet potatoes)", "Fat malabsorption (celiac disease, Crohn's, cystic fibrosis, pancreatic insufficiency)", "Severe zinc deficiency (zinc is required to synthesize RBP4 and activate retinol dehydrogenase)"],
+                "effects": ["Impaired rhodopsin regeneration causing night blindness (nyctalopia)", "Bitot's spots, conjunctival xerosis, and progressive corneal keratomalacia", "Follicular hyperkeratosis (phrynoderma / 'goose-flesh' skin texture)", "Increased susceptibility to respiratory and diarrheal infections"],
+                "symptoms": ["Poor night vision / delayed dark adaptation", "Dry, gritty eyes (xerophthalmia)", "Dry, bumpy skin (keratosis pilaris / follicular hyperkeratosis)", "Frequent respiratory or gastrointestinal infections"],
+                "symptoms_note": "Night blindness and dry eyes are the hallmark early clinical indicators of tissue retinol depletion.",
+                "timeline": "Liver stores typically protect against deficiency for 3 to 12 months in well-nourished adults before clinical signs emerge."
+            },
+            "food_sources": [
+                {"food": "Beef Liver (Cooked)", "amount": "100 g", "content": "9,442 mcg RAE", "bioavailability": "high", "serving": "3.5 oz", "type": "animal"},
+                {"food": "Sweet Potato (Baked with skin)", "amount": "1 medium", "content": "1,096 mcg RAE (Beta-Carotene)", "bioavailability": "medium", "serving": "1 potato", "type": "plant"},
+                {"food": "Carrots (Cooked with olive oil)", "amount": "1 cup sliced", "content": "1,069 mcg RAE (Beta-Carotene)", "bioavailability": "medium", "serving": "1 cup (156g)", "type": "plant"},
+                {"food": "Spinach (Cooked)", "amount": "1 cup", "content": "943 mcg RAE (Beta-Carotene)", "bioavailability": "medium", "serving": "1 cup (180g)", "type": "plant"},
+                {"food": "Cod Liver Oil", "amount": "1 tsp (4.5g)", "content": "1,350 mcg RAE", "bioavailability": "high", "serving": "1 teaspoon", "type": "animal"},
+                {"food": "Pasture-Raised Whole Eggs", "amount": "2 large eggs", "content": "160 mcg RAE", "bioavailability": "high", "serving": "2 eggs", "type": "animal"}
+            ],
+            "absorption": {
+                "increases": ["Co-ingestion with 5-10g of dietary fat (retinoids and carotenoids are fat-soluble)", "Thermal cooking of plant carotenoids (breaks plant cell matrix to liberate beta-carotene)", "Adequate zinc status (required for enterocyte and hepatic transport proteins)"],
+                "decreases": ["Fat malabsorption syndromes, orlistat, bile acid sequestrants (cholestyramine)", "Extremely low-fat diets (<10g fat/day reduces carotenoid uptake by >80%)", "Mineral oil and severe alcohol abuse"],
+                "forms": [
+                    "Retinol / Retinyl Palmitate: Preformed, highly bioavailable (1:1 RAE)",
+                    "Beta-Carotene: Provitamin, conversion ratio ~12:1 to 24:1 in humans based on genetics (BCO1 enzyme variants)",
+                    "Retinoic Acid: Prescription topical/oral dermatological form, biologically active"
+                ],
+                "notes": "Individuals with low BCO1 genetic conversion efficiency require more preformed dietary retinol from animal sources rather than relying purely on plant beta-carotene."
+            },
+            "requirements": {
+                "rda": "900 mcg RAE/day (Men), 700 mcg RAE/day (Women)",
+                "groups": [
+                    {"group": "Adult Men", "amount": "900 mcg RAE/day (3,000 IU)"},
+                    {"group": "Adult Women", "amount": "700 mcg RAE/day (2,333 IU)"},
+                    {"group": "Pregnancy", "amount": "770 mcg RAE/day"},
+                    {"group": "Lactation", "amount": "1,300 mcg RAE/day"}
+                ],
+                "ul": "3,000 mcg RAE/day (10,000 IU preformed retinol)",
+                "note": "Tolerable Upper Intake Level (UL) of 3,000 mcg applies ONLY to preformed retinol, NOT provitamin carotenoids from food."
+            },
+            "supplementation": {
+                "who_might": ["Individuals with clinical fat malabsorption or bariatric surgery", "Strict vegans with BCO1 genetic polymorphisms causing poor beta-carotene conversion", "Patients with diagnosed retinal or skin disorders under medical supervision"],
+                "who_probably_not":["Pregnant women taking high-dose preformed retinol (teratogenic risk)", "Heavy tobacco smokers (high-dose beta-carotene supplements increase lung cancer incidence in clinical trials)", "Individuals regularly consuming liver multiple times per week"],
+                "forms": ["Retinyl Palmitate Capsules", "Beta-Carotene Softgels", "Cod Liver Oil"],
+                "typical_amounts": "700-900 mcg RAE (2,500-3,000 IU) daily",
+                "timing": "With the largest meal containing dietary fats",
+                "with_food": "Must take with a meal containing at least 5-10g dietary fat for optimal micellar absorption",
+                "duration": "Daily with meals, or cyclical based on serum biomarker testing",
+                "cycling": "Preformed retinol supplements should be periodic or biomarker-guided due to hepatic tissue accumulation."
+            },
+            "safety": {
+                "level": "yellow",
+                "upper_limit": "3,000 mcg RAE/day (10,000 IU preformed retinol)",
+                "toxicity": "Hypervitaminosis A occurs from excessive intake of preformed retinol (not beta-carotene). Leads to hepatic stellate hypertrophy, elevated intracranial pressure, bone demineralization, and teratogenicity in pregnancy.",
+                "overdose": "Acute high doses (>100,000 IU) cause severe headache, pseudotumor cerebri, nausea, vomiting, dizziness, and peeling skin.",
+                "drug_interactions": ["Oral Retinoids (Isotretinoin, Acitretin): Additive severe toxicity", "Warfarin: High-dose vitamin A may enhance bleeding risk", "Hepatotoxic drugs: Increased risk of liver injury"],
+                "contraindications": ["Pregnancy (doses >10,000 IU preformed retinol are teratogenic)", "Active liver disease or chronic alcoholism", "Concurrent prescription retinoid therapy"],
+                "special_populations": ["Women of childbearing potential should not exceed 3,000 mcg RAE preformed retinol daily."]
+            },
+            "interactions": [
+                {"substance": "Zinc", "interaction": "Synergistic", "mechanism": "Zinc is required to synthesize Retinol-Binding Protein (RBP4) and for retinol dehydrogenase activity.", "importance": "high"},
+                {"substance": "Vitamin E & C", "interaction": "Synergistic", "mechanism": "Protects Vitamin A and carotenoids from oxidative degradation in tissues.", "importance": "moderate"},
+                {"substance": "Isotretinoin", "interaction": "Contraindicated / Toxic", "mechanism": "Severe additive retinoid toxicity.", "importance": "high"}
+            ],
+            "timing": {
+                "matters": True,
+                "detail": "Take with lunch or dinner containing dietary fats for maximum micellar absorption."
+            },
+            "performance": {
+                "muscle": "Regulates protein synthesis and satellite cell differentiation via retinoic acid receptor signaling.",
+                "strength": "Supports testosterone biosynthesis and growth hormone axis in conjunction with zinc.",
+                "fat_loss": "Retinoic acid promotes uncoupling protein-1 (UCP1) expression and white-to-brown adipose browning in preclinical models.",
+                "recovery": "Essential for extracellular matrix repair, mucosal barrier recovery, and immune surveillance post-strenuous exercise.",
+                "athletic": "Maintains visual reaction time and low-light visual acuity in athletes.",
+                "energy": "Supports normal transferrin synthesis and erythropoiesis in the bone marrow.",
+                "sleep": "Maintains retinal melanopsin photoreceptor health for circadian light signaling.",
+                "cognitive": "Retinoic acid signaling in the hippocampus is essential for synaptic plasticity and spatial working memory.",
+                "hormones": "Required for normal testicular steroidogenesis and thyroid hormone receptor responsiveness.",
+                "metabolic": "Regulates hepatic gluconeogenesis and adipokine secretion."
+            },
+            "biomarkers": [
+                {"marker": "Serum Retinol", "measures": "Circulating preformed retinol (homeostatically regulated)", "matters": "Identifies severe depletion (<0.7 µmol/L) or toxic elevation (>3.5 µmol/L)", "limitations": "Maintained by liver stores until hepatic reserves are severely exhausted", "when": "Suspected deficiency, malabsorption, or bariatric surgery follow-up"},
+                {"marker": "Retinol-Binding Protein (RBP4)", "measures": "Specific carrier protein for retinol", "matters": "Validates transport capacity and reflects acute phase status (negative acute-phase reactant)", "limitations": "Suppressed during systemic inflammation and zinc deficiency", "when": "Comprehensive micronutrient and nutritional assessment"}
+            ],
+            "myths": [
+                {"myth": "Plant beta-carotene can cause Vitamin A liver toxicity.", "fact": "Beta-carotene is non-toxic because intestinal BCO1 enzyme cleavage down-regulates automatically as vitamin A stores fill. Excess carotenoids merely turn the skin harmlessly orange (carotenodermia)."},
+                {"myth": "Carrots provide identical vitamin A to liver or egg yolks.", "fact": "Carrots provide beta-carotene, which must be converted to active retinol with a conversion ratio between 12:1 and 24:1 depending on individual genetics."}
+            ],
+            "mistakes": [
+                "Taking high-dose preformed retinol supplements alongside prescription acne medications",
+                "Consuming plant carotenoids on a completely fat-free diet (drastically reduces absorption)",
+                "Exceeding the 3,000 mcg RAE upper limit during pregnancy",
+                "Assuming low serum retinol always means deficiency without checking CRP/inflammation"
+            ],
+            "if_low": [
+                "Incorporate 1-2 servings of whole food retinol (eggs, dairy, fish) and carotenoids (sweet potatoes, carrots, spinach) daily",
+                "Ensure meals contain at least 5-10g of healthy fats (olive oil, avocado, butter) to facilitate micellar transport",
+                "Check zinc biomarker status (serum zinc / alkaline phosphatase) to ensure adequate retinol transport proteins",
+                "If malabsorption exists, consult a physician for targeted water-miscible retinyl palmitate supplementation"
+            ],
+            "if_too_much": {
+                "acute": "Intense throbbing headache, pseudotumor cerebri, severe nausea, vomiting, and generalized skin desquamation.",
+                "chronic": "Hepatic fibrosis, portal hypertension, dry fissured lips (cheilitis), alopecia, bone pain, and hypercalcemia.",
+                "mechanism": "Excess retinol saturates RBP4 transport capacity, causing free circulating retinyl esters to disrupt cellular membranes and lysosomal integrity.",
+                "signs": "Severe headaches, visual blurring, elevated liver transaminases (ALT/AST), enlarged liver, bone demineralization.",
+                "when_medical": "Seek immediate emergency medical evaluation if experiencing sudden severe headache, blurred vision, or yellowing of the skin/eyes (jaundice)."
+            },
+            "research": [
+                {
+                    "title": "Vitamin A Deficiency and Its Global Burden on Ocular and Mucosal Health",
+                    "year": "2022",
+                    "study_type": "Systematic Review & Meta-Analysis",
+                    "evidence_level": "strong",
+                    "summary": "Confirmed that adequate vitamin A status reduces all-cause mortality and diarrheal disease severity by restoring epithelial barrier tight junctions.",
+                    "source": "The Lancet Global Health",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/35247318/"
+                },
+                {
+                    "title": "Retinoids in Dermatology: Mechanisms of Action and Clinical Efficacy",
+                    "year": "2020",
+                    "study_type": "Clinical Review",
+                    "evidence_level": "strong",
+                    "summary": "Detailed RAR-mediated nuclear transcription pathways through which topical and systemic retinoids modulate epidermal proliferation and reduce acne lesions.",
+                    "source": "Dermatologic Therapy",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/32415712/"
+                }
+            ]
+        }
+    },
+    # -----------------------------------------------------------------
+    # OMEGA-3 FATTY ACIDS
+    # -----------------------------------------------------------------
+    "omega_3": {
+        "subject": "Omega-3 Fatty Acids (EPA & DHA)",
+        "category": "Supplements",
+        "query_type": "supplement",
+        "one_liner": "Essential long-chain polyunsaturated fatty acids that integrate into cell phospholipid bilayers, resolving systemic inflammation and supporting neuronal membrane fluidity.",
+        "science_score": 98,
+        "science_score_rationale": "Supported by over 4,000 human randomized controlled trials, cardiovascular outcome studies, and mechanistic lipidomics.",
+        "safety_level": "green",
+        "quick_answer": "Omega-3 fatty acids, specifically Eicosapentaenoic Acid (EPA) and Docosahexaenoic Acid (DHA), are essential polyunsaturated fatty acids (PUFAs). They incorporate into cellular phospholipid membranes, produce Specialized Pro-resolving Mediators (resolvins, protectins), lower serum triglycerides by 20-30%, and maintain synaptic membrane fluidity in the brain.",
+        "followups": [
+            "What is the difference between EPA and DHA for mood vs heart health?",
+            "What is the optimal Omega-3 Index for longevity and cardiovascular health?",
+            "How does Fish Oil compare to Krill Oil and Algal Oil?",
+            "What is the ideal ratio of Omega-6 to Omega-3 in the diet?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Omega-3s are healthy essential fats found in fatty fish and algae that fight inflammation, protect your heart, sharpen brain function, and support joint comfort.",
+                "advanced": "Omega-3 polyunsaturated fatty acids (PUFAs) include plant-derived alpha-linolenic acid (ALA) and marine-derived eicosapentaenoic acid (EPA, 20:5n-3) and docosahexaenoic acid (DHA, 22:6n-3). EPA and DHA incorporate into cell membrane phospholipids, displacing arachidonic acid and serving as precursors to specialized pro-resolving mediators (SPMs) via lipoxygenase and cyclooxygenase pathways."
+            },
+            "why_important": [
+                {"title": "Membrane Phospholipid Fluidity & Receptors", "evidence": "strong", "detail": "DHA's 6 double bonds give cell membranes conformational flexibility, optimizing G-protein coupled receptor (GPCR) and rhodopsin signaling kinetics in neural synapses and retinal membranes."},
+                {"title": "Specialized Pro-resolving Mediators (SPMs)", "evidence": "strong", "detail": "Enzymatically converted into resolvins (E-series from EPA, D-series from DHA), protectins, and maresins that actively terminate leukocyte infiltration and clear inflammatory exudate without immune suppression."},
+                {"title": "Triglyceride Lowering & VLDL Clearance", "evidence": "strong", "detail": "Down-regulates SREBP-1c and activates PPAR-alpha to increase mitochondrial hepatic beta-oxidation, reducing VLDL triglyceride secretion by 20-30%."},
+                {"title": "Cardiovascular Endothelial Nitric Oxide & Plaque Stability", "evidence": "strong", "detail": "Improves flow-mediated dilation, reduces vascular cell adhesion molecule-1 (VCAM-1), and stabilizes atherosclerotic fibrous caps."}
+            ],
+            "affects": [
+                {"system": "Heart & Blood Vessels", "level": "primary", "detail": "Lowers serum triglycerides, reduces resting heart rate, and improves arterial compliance."},
+                {"system": "Brain & Nervous System", "level": "primary", "detail": "DHA comprises >40% of brain polyunsaturated fatty acids, supporting neurotransmission and neuroprotection."},
+                {"system": "Immune System & Joints", "level": "primary", "detail": "Shifts eicosanoid balance away from inflammatory prostaglandin E2 and leukotriene B4 toward pro-resolving mediators."},
+                {"system": "Eyes & Vision", "level": "secondary", "detail": "Concentrates in retinal photoreceptor outer segments to maintain phototransduction kinetics."}
+            ],
+            "mechanism": {
+                "summary": "Dietary EPA and DHA are emulsified by bile salts, hydrolyzed by pancreatic lipase into sn-2 monoglycerides and free fatty acids, absorbed into enterocytes, re-esterified into triglycerides, and transported via chylomicrons. Incorporated into cell membrane phospholipids, where they displace arachidonic acid and serve as substrates for SPM synthesis.",
+                "steps": [
+                    {"stage": "Micellar Duodenal Absorption", "detail": "Absorbed with dietary fat and transported via lymphatics in chylomicrons."},
+                    {"stage": "Cell Membrane Incorporation", "detail": "Enzymatically esterified into the sn-2 position of membrane phospholipids in red blood cells, myocardium, and neural tissue."},
+                    {"stage": "Displacement of Arachidonic Acid", "detail": "Competitively inhibits delta-5-desaturase and displaces Omega-6 arachidonic acid from membrane pools."},
+                    {"stage": "SPM Synthesis & PPAR Activation", "detail": "Acts as ligand for PPAR-alpha/gamma and substrate for 15-LOX/5-LOX to synthesize E-series and D-series resolvins."}
+                ]
+            },
+            "uses": {
+                "strong": ["Treating hypertriglyceridemia (reduces fasting triglycerides by 20-30%)", "Reducing cardiovascular mortality and events in high-risk patients (REDUCE-IT trial with high-dose pure EPA)", "Resolving chronic systemic low-grade inflammation"],
+                "moderate": ["Adjunctive therapy for major depressive disorder (especially EPA-dominant formulas with >60% EPA)", "Alleviating joint stiffness and pain in rheumatoid arthritis", "Improving dry eye syndrome symptoms"],
+                "emerging": ["Preserving cognitive function and reducing neuroinflammation in early mild cognitive impairment", "Accelerating muscle recovery and attenuating delayed onset muscle soreness (DOMS)"],
+                "insufficient": ["Replacing standard acute cardiovascular or psychiatric medical interventions"]
+            },
+            "deficiency": {
+                "causes": ["Low dietary intake of cold-water marine fish (salmon, sardines, mackerel)", "Excessive intake of refined vegetable oils high in Omega-6 linoleic acid", "Extremely poor human conversion of plant ALA to EPA (<5-10%) and DHA (<1%)"],
+                "effects": ["Omega-3 Index <4% (associated with substantially increased cardiovascular risk)", "Pro-inflammatory eicosanoid profile dominated by arachidonic acid metabolites", "Dry skin, rough patches, and poor wound healing", "Suboptimal cognitive processing and mood instability"],
+                "symptoms": ["Dry, scaly, or inflamed skin", "Poor concentration & mental fatigue", "Joint stiffness & persistent soreness", "Dry eyes & visual fatigue"],
+                "symptoms_note": "A low Omega-3 Index (<4%) is an established independent cardiovascular and all-cause mortality risk biomarker.",
+                "timeline": "Erythrocyte membrane fatty acid saturation (Omega-3 Index) requires 8 to 12 weeks of daily supplementation to reach the optimal >8% target."
+            },
+            "food_sources": [
+                {"food": "Wild Atlantic Salmon (Cooked)", "amount": "100 g (3.5 oz)", "content": "2,260 mg EPA+DHA", "bioavailability": "high", "serving": "1 fillet (150g)", "type": "animal"},
+                {"food": "Sardines in Olive Oil", "amount": "1 can (100 g)", "content": "1,480 mg EPA+DHA", "bioavailability": "high", "serving": "1 can", "type": "animal"},
+                {"food": "Mackerel (Cooked)", "amount": "100 g", "content": "2,500 mg EPA+DHA", "bioavailability": "high", "serving": "3.5 oz", "type": "animal"},
+                {"food": "Chia Seeds (ALA precursor)", "amount": "2 tbsp (28 g)", "content": "5,000 mg ALA (~250mg EPA equiv)", "bioavailability": "medium", "serving": "2 tbsp", "type": "plant"},
+                {"food": "Walnuts (ALA precursor)", "amount": "1 oz (28 g)", "content": "2,570 mg ALA (~120mg EPA equiv)", "bioavailability": "medium", "serving": "1 handful", "type": "plant"},
+                {"food": "Algal Oil (Vegan DHA+EPA)", "amount": "1 ml dropper", "content": "500 mg EPA+DHA", "bioavailability": "high", "serving": "1 ml", "type": "plant"}
+            ],
+            "absorption": {
+                "increases": ["Co-ingestion with a meal containing dietary fats (stimulates pancreatic lipase and bile flow 3-5x)", "Triglyceride (rTG) or phospholipid forms (superior bioavailability compared to ethyl ester forms on empty stomach)"],
+                "decreases": ["Taking fish oil capsules on a completely empty stomach with only water (reduces absorption by >60%)", "Fat malabsorption disorders and pancreatic insufficiency"],
+                "forms": [
+                    "Re-esterified Triglyceride (rTG): Highest bioavailability, natural triglyceride structure",
+                    "Ethyl Ester (EE): Standard concentrated pharmaceutical form; requires fat-containing meal for lipase hydrolysis",
+                    "Phospholipid (Krill Oil): Bound to phosphatidylcholine, highly absorbable",
+                    "Algal Oil: Direct vegan source of pure DHA and EPA"
+                ],
+                "notes": "Always consume Omega-3 supplements with the largest fat-containing meal of the day to ensure optimal pancreatic lipase activation."
+            },
+            "requirements": {
+                "rda": "500-1000 mg combined EPA+DHA daily for general health (AHA recommends 1g for CHD, 2-4g for hypertriglyceridemia)",
+                "groups": [
+                    {"group": "General Adult Health", "amount": "500-1,000 mg EPA+DHA/day"},
+                    {"group": "Cardiovascular Risk Reduction", "amount": "1,000-2,000 mg EPA+DHA/day"},
+                    {"group": "Hypertriglyceridemia (Clinical)", "amount": "2,000-4,000 mg EPA/day"},
+                    {"group": "Mood & Cognitive Support", "amount": "1,000-2,000 mg (≥60% EPA)/day"}
+                ],
+                "ul": "5,000 mg/day total EPA+DHA (FDA & EFSA safe upper guidance)",
+                "note": "Daily doses up to 3,000-4,000 mg are safely prescribed in clinical cardiology without adverse bleeding events."
+            },
+            "supplementation": {
+                "who_might": ["Individuals who do not consume 2+ servings of oily fish per week", "People with elevated triglycerides, high hs-CRP, or cardiovascular family history", "Athletes seeking improved muscle recovery and joint comfort", "Individuals seeking cognitive and mood support"],
+                "who_probably_not":["People consuming 3-4 portions of wild fatty fish weekly with an Omega-3 Index >8%", "Individuals with active bleeding disorders unless approved by a physician"],
+                "forms": ["rTG Fish Oil Softgels", "Pure EPA Ethyl Ester", "Liquid Fish Oil (IFOS Certified)", "Algal Oil (Vegan)"],
+                "typical_amounts": "1,000-2,000 mg combined EPA+DHA daily",
+                "timing": "With the heaviest meal of the day (lunch or dinner)",
+                "with_food": "Always take with meals containing dietary fats to optimize absorption and eliminate fishy burps",
+                "duration": "Continuous daily intake; minimum 8-12 weeks to achieve target membrane saturation",
+                "cycling": "No cycling required; ongoing essential nutrient."
+            },
+            "safety": {
+                "level": "green",
+                "upper_limit": "5,000 mg/day combined EPA+DHA",
+                "toxicity": "Non-toxic; extremely well tolerated across human clinical trials.",
+                "overdose": "Extremely high doses (>5g/day) may cause mild gastrointestinal looseness, fishy aftertaste, and minor platelet aggregation slowing.",
+                "drug_interactions": ["Anticoagulants & Antiplatelets (Warfarin, Clopidogrel, Aspirin): Mild additive antithrombotic effect; monitor INR if taking >3g/day", "Antihypertensive medications: Slight additive blood pressure reduction"],
+                "contraindications": ["Severe active hemorrhagic conditions or unmanaged severe bleeding disorders", "Known fish or shellfish allergy (unless using purified algal oil)"],
+                "special_populations": ["Safe and encouraged in pregnancy (DHA is vital for fetal brain and eye development)."]
+            },
+            "interactions": [
+                {"substance": "Vitamin D3", "interaction": "Synergistic", "mechanism": "Fat-soluble Vitamin D is absorbed with fish oil lipids and works additively on immune and vascular health.", "importance": "high"},
+                {"substance": "Curcumin", "interaction": "Synergistic", "mechanism": "Lipid vehicle enhances curcumin bioavailability; both downregulate NF-kB inflammatory cascades.", "importance": "high"},
+                {"substance": "Warfarin", "interaction": "Monitor", "mechanism": "Additive mild antithrombotic activity at high doses (>3g/day).", "importance": "moderate"}
+            ],
+            "timing": {
+                "matters": True,
+                "detail": "Take with lunch or dinner containing dietary fats for maximum bioavailability."
+            },
+            "performance": {
+                "muscle": "Enhances muscle protein synthesis sensitivity to amino acids and resistance training via mTORC1 sensitization.",
+                "strength": "Reduces delayed-onset muscle soreness (DOMS) and preserves muscle quality during recovery periods.",
+                "fat_loss": "Increases fatty acid oxidation through PPAR-alpha receptor activation.",
+                "recovery": "Accelerates clearance of exercise-induced muscle damage biomarkers (creatine kinase, LDH) and reduces soreness.",
+                "athletic": "Improves erythrocyte deformability and microvascular oxygen delivery to exercising skeletal muscle.",
+                "energy": "Supports mitochondrial membrane integrity and oxidative phosphorylation efficiency.",
+                "sleep": "DHA supports melatonin synthesis and nocturnal vagal tone.",
+                "cognitive": "Enhances working memory, reaction time, and cerebral blood flow during demanding cognitive tasks.",
+                "hormones": "Reduces cortisol response to acute psychological and physical stressors.",
+                "metabolic": "Improves cellular insulin receptor membrane fluidity and lowers fasting triglycerides."
+            },
+            "biomarkers": [
+                {"marker": "Omega-3 Index", "measures": "EPA + DHA percentage in red blood cell (RBC) membranes", "matters": "Target is 8% to 12% for optimal cardiovascular and cognitive protection (high risk <4%, moderate 4-8%)", "limitations": "Requires 8-12 weeks of consistent intake to reach steady state in RBCs", "when": "Baseline and 3-4 months after starting or adjusting Omega-3 supplementation"},
+                {"marker": "Fasting Triglycerides", "measures": "Serum VLDL and chylomicron lipid content", "matters": "Direct biomarker of Omega-3 lipid-lowering efficacy", "limitations": "Requires 10-12 hour fast", "when": "Routine metabolic panels (every 3-6 months)"},
+                {"marker": "High-Sensitivity C-Reactive Protein (hs-CRP)", "measures": "Systemic vascular inflammation", "matters": "Tracks anti-inflammatory response to EPA/DHA SPM synthesis", "limitations": "Elevated transiently during acute bacterial/viral infections", "when": "Cardiovascular risk stratification"}
+            ],
+            "myths": [
+                {"myth": "Flaxseed or Chia seeds provide all the Omega-3 your body needs.", "fact": "Flax and chia provide ALA, which humans convert to EPA at only <5-10% and to DHA at <1%. Marine EPA/DHA is necessary for direct tissue membrane incorporation."},
+                {"myth": "All fish oil supplements cause fishy burps and go rancid quickly.", "fact": "Fresh, high-quality re-esterified triglyceride (rTG) fish oil with low TOTOX oxidation values (<10) and natural tocopherols has zero odor and does not cause indigestion when taken with meals."}
+            ],
+            "mistakes": [
+                "Taking fish oil capsules on an empty stomach with a glass of water (greatly reduces absorption)",
+                "Purchasing cheap, unpurified oils with high TOTOX oxidation scores",
+                "Assuming 1,000mg fish oil capsule means 1,000mg EPA+DHA (check active EPA/DHA content on label)",
+                "Relying entirely on plant ALA while having an Omega-3 index <4%"
+            ],
+            "if_low": [
+                "Incorporate 2-3 servings of cold-water oily fish (wild salmon, sardines, mackerel) per week",
+                "Begin taking 1,000-2,000 mg combined EPA+DHA daily in rTG form with a fat-containing meal",
+                "Reduce excessive dietary consumption of refined seed oils (high Omega-6 linoleic acid)",
+                "Test your RBC Omega-3 Index after 12 weeks to verify reaching the >8% target zone"
+            ],
+            "if_too_much": {
+                "acute": "Loose stools, mild gastrointestinal upset, fishy aftertaste.",
+                "chronic": "Excessively prolonged bleeding time if taking massive doses (>10g/day) without clinical monitoring.",
+                "mechanism": "High doses displace platelet membrane arachidonic acid, reducing thromboxane A2 aggregation.",
+                "signs": "Easy bruising, minor nosebleeds, digestive discomfort.",
+                "when_medical": "Consult a healthcare provider if taking anticoagulant medications and noticing unexplained spontaneous bruising."
+            },
+            "research": [
+                {
+                    "title": "Cardiovascular Risk Reduction with Icosapent Ethyl for Hypertriglyceridemia (REDUCE-IT)",
+                    "year": "2019",
+                    "study_type": "Multicenter Double-Blind RCT (n=8,179)",
+                    "evidence_level": "strong",
+                    "summary": "4g/day of pure EPA reduced ischemic cardiovascular events including CV death by 25% in statin-treated patients with elevated triglycerides.",
+                    "source": "New England Journal of Medicine (NEJM)",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/30415628/"
+                },
+                {
+                    "title": "Omega-3 Fatty Acids and Depression: A Systematic Review and Meta-Analysis of Randomized Clinical Trials",
+                    "year": "2020",
+                    "study_type": "Meta-Analysis of 26 RCTs",
+                    "evidence_level": "strong",
+                    "summary": "Formulations with pure EPA or EPA:DHA ratio ≥60% demonstrated significant clinical efficacy in reducing depressive symptoms.",
+                    "source": "Translational Psychiatry",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/32770020/"
+                }
+            ]
+        }
     }
 }
 
 def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
-    """Look up a deeply accurate, scientifically verified profile by query string."""
+    """Look up a deeply accurate, scientifically verified profile by query string with fuzzy normalization."""
+    if not query:
+        return None
     q = query.strip().lower()
     
-    # Direct alias mappings
-    if "magnesium" in q:
-        return TOPIC_PROFILES.get("magnesium")
-    elif "iron" in q or "ferritin" in q:
-        return TOPIC_PROFILES.get("iron")
-    elif "vitamin d" in q or "d3" in q or "cholecalciferol" in q:
-        return TOPIC_PROFILES.get("vitamin_d")
-    elif "vitamin c" in q or "ascorbic" in q:
-        return TOPIC_PROFILES.get("vitamin_c")
-    elif "vitamin b12" in q or "b12" in q or "cobalamin" in q or "methylcobalamin" in q:
-        return TOPIC_PROFILES.get("vitamin_b12")
-    elif "zinc" in q:
-        return TOPIC_PROFILES.get("zinc")
-    elif "creatine" in q:
-        return TOPIC_PROFILES.get("creatine")
+    # Normalize common abbreviations and typos
+    q_norm = re.sub(r'\bvitm?\b|\bvitamins?\b', 'vitamin', q)
+    q_norm = re.sub(r'\bmag\b', 'magnesium', q_norm)
+    q_norm = re.sub(r'\bcalc\b', 'calcium', q_norm)
+    q_norm = re.sub(r'\bpotass\b', 'potassium', q_norm)
+    q_norm = re.sub(r'[\s\-_]+', ' ', q_norm).strip()
     
-    # Check for direct key match
+    # 1. Direct and Alias Mappings
+    if "magnesium" in q_norm:
+        return TOPIC_PROFILES.get("magnesium")
+    elif "iron" in q_norm or "ferritin" in q_norm or "heme" in q_norm:
+        return TOPIC_PROFILES.get("iron")
+    elif "vitamin d" in q_norm or "d3" in q_norm or "cholecalciferol" in q_norm or "25(oh)d" in q_norm:
+        return TOPIC_PROFILES.get("vitamin_d")
+    elif "vitamin c" in q_norm or "ascorbic" in q_norm or "ascorbate" in q_norm:
+        return TOPIC_PROFILES.get("vitamin_c")
+    elif "vitamin a" in q_norm or "retinol" in q_norm or "carotenoid" in q_norm or "beta carotene" in q_norm:
+        return TOPIC_PROFILES.get("vitamin_a")
+    elif "vitamin b12" in q_norm or "b12" in q_norm or "cobalamin" in q_norm or "methylcobalamin" in q_norm:
+        return TOPIC_PROFILES.get("vitamin_b12")
+    elif "zinc" in q_norm or "picolinate" in q_norm:
+        return TOPIC_PROFILES.get("zinc")
+    elif "creatine" in q_norm or "monohydrate" in q_norm:
+        return TOPIC_PROFILES.get("creatine")
+    elif "omega" in q_norm or "fish oil" in q_norm or "epa" in q_norm or "dha" in q_norm or "krill" in q_norm:
+        return TOPIC_PROFILES.get("omega_3")
+    
+    # 2. Check for direct key match in TOPIC_PROFILES
     for key, profile in TOPIC_PROFILES.items():
-        if key in q or profile.get("subject", "").lower() in q:
+        clean_key = key.replace("_", " ")
+        if clean_key in q_norm or profile.get("subject", "").lower() in q_norm:
             return profile
             
     return None
+
