@@ -41,7 +41,7 @@ def get_llm_client() -> tuple[Optional[AsyncOpenAI], Optional[str]]:
     openai_key = os.environ.get('OPENAI_API_KEY')
 
     if gemini_key:
-        model = os.environ.get('MODEL_NAME', 'gemini-2.0-flash')
+        model = os.environ.get('MODEL_NAME', 'gemini-3.6-flash')
         c = AsyncOpenAI(
             api_key=gemini_key,
             base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
