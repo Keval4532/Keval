@@ -2018,6 +2018,8 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
         return TOPIC_PROFILES.get("l_theanine")
     elif "coq10" in q_norm or "ubiquinol" in q_norm or "ubiquinone" in q_norm or "coenzyme q" in q_norm:
         return TOPIC_PROFILES.get("coq10")
+    elif "selenium" in q_norm or "selenomethionine" in q_norm:
+        return TOPIC_PROFILES.get("selenium")
     
     # 2. Check for direct key match in TOPIC_PROFILES
     for key, profile in TOPIC_PROFILES.items():

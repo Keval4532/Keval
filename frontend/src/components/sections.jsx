@@ -33,15 +33,21 @@ export function ExpandCard({ title, badge, children, defaultOpen = false, testId
 }
 
 export function Bullets({ items = [], color = "#00F0FF" }) {
-  if (!items?.length) return null;
+  if (!items) return null;
+  const list = Array.isArray(items) ? items : [items];
+  if (!list.length) return null;
   return (
     <ul className="space-y-2">
-      {items.map((it, i) => (
-        <li key={i} className="flex gap-2.5 text-sm text-white/70">
-          <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: color }} />
-          <span>{it}</span>
-        </li>
-      ))}
+      {list.map((it, i) => {
+        if (!it) return null;
+        const text = typeof it === "object" ? (it.detail || it.text || it.title || JSON.stringify(it)) : String(it);
+        return (
+          <li key={i} className="flex gap-2.5 text-sm text-white/70">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: color }} />
+            <span>{text}</span>
+          </li>
+        );
+      })}
     </ul>
   );
 }

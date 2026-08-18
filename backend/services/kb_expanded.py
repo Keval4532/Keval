@@ -501,5 +501,169 @@ EXPANDED_PROFILES: Dict[str, Dict[str, Any]] = {
                 }
             ]
         }
+    },
+
+    # -----------------------------------------------------------------
+    # SELENIUM
+    # -----------------------------------------------------------------
+    "selenium": {
+        "subject": "Selenium",
+        "category": "Trace Minerals",
+        "query_type": "mineral",
+        "one_liner": "An indispensable essential trace mineral incorporated into 25 selenoproteins, including glutathione peroxidases (GPx) and iodothyronine deiodinases for thyroid hormone activation.",
+        "science_score": 96,
+        "science_score_rationale": "Backed by extensive human RCTs, established molecular biology of selenocysteine (Sec) incorporation, and thyroid metabolic literature.",
+        "safety_level": "yellow",
+        "quick_answer": "Selenium is an essential trace element incorporated as selenocysteine (the 21st amino acid) into catalytic sites of 25 human selenoproteins. It drives cellular antioxidant defense via Glutathione Peroxidases (GPx1-4), protects the thyroid gland from oxidative damage, and powers deiodinase enzymes (DIO1/DIO2) that convert inactive thyroxine (T4) into active triiodothyronine (T3).",
+        "followups": [
+            "How does Selenium protect the thyroid during high Iodine intake?",
+            "Why is just 1 to 2 Brazil Nuts enough for your daily Selenium needs?",
+            "What is the clinical difference between Selenomethionine and Sodium Selenite?",
+            "What are the toxic symptoms of Selenium overdose (Selenosis)?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Selenium is an essential mineral your body needs to protect cells from damage, keep your thyroid gland healthy, and boost your immune defenses.",
+                "advanced": "Selenium (Se) is unique among trace elements because it is genetically encoded directly into the peptide backbone of selenoproteins as selenocysteine (Sec) via a UGA codon directed by a SECIS RNA element. It functions primarily in cellular redox homeostasis, thyroid hormone biocatalysis, and immune lymphocyte proliferation."
+            },
+            "why_important": [
+                {"title": "Glutathione Peroxidase (GPx) Antioxidant Defense", "evidence": "strong", "detail": "Catalytic selenocysteine residue in GPx1-4 reduces toxic hydrogen peroxide and lipid hydroperoxides to water and harmless lipid alcohols, protecting cell membranes and DNA."},
+                {"title": "Thyroid Hormone Conversion (Deiodinases)", "evidence": "strong", "detail": "Iodothyronine deiodinases (DIO1 and DIO2) are selenoenzymes responsible for outer-ring deiodination of prohormone T4 into active metabolic T3."},
+                {"title": "Thyroid Autoantibody Attenuation", "evidence": "strong", "detail": "Human clinical trials show 200 µg/day selenomethionine reduces anti-thyroperoxidase (TPO-Ab) titers by 20-40% in Hashimoto's thyroiditis patients."},
+                {"title": "Immune Cell Proliferation & Antiviral Defense", "evidence": "strong", "detail": "Selenoprotein K and S are essential for endoplasmic reticulum calcium flux, T-cell receptor signaling, and natural killer (NK) cell cytotoxicity."}
+            ],
+            "affects": [
+                {"system": "Thyroid & Metabolism", "level": "primary", "detail": "Drives T4 to T3 conversion and shields thyroid follicular cells from H2O2 oxidative damage."},
+                {"system": "Immune System", "level": "primary", "detail": "Enhances lymphocyte proliferation, antibody production, and viral resistance."},
+                {"system": "Heart & Vascular", "level": "primary", "detail": "Prevents oxidative modification of LDL and protects cardiac myocytes (Keshan disease prevention)."},
+                {"system": "Reproductive System", "level": "secondary", "detail": "Required for sperm mitochondrial capsule protein (GPx4) and male motility."}
+            ],
+            "mechanism": {
+                "summary": "Absorbed in the duodenum via amino acid transport systems (selenomethionine) or passive diffusion (selenite/selenate). Incorporated co-translationally into selenoproteins via selenocysteine tRNA(Sec) to provide catalytic redox activity.",
+                "steps": [
+                    {"stage": "Intestinal Absorption", "detail": "Organic selenomethionine is absorbed >90% efficiently across enterocytes via neutral amino acid transporters."},
+                    {"stage": "Hepatic Selenoprotein P Synthesis", "detail": "The liver synthesizes Selenoprotein P (SELENOP), which carries >50% of plasma selenium to peripheral tissues."},
+                    {"stage": "Target Organ Uptake", "detail": "Endocytosed by target tissues (brain, thyroid, testes) via ApoER2 and megalin receptor pathways."},
+                    {"stage": "Catalytic Enzyme Function", "detail": "Selenocysteine's low pKa (5.2) and high nucleophilicity enable rapid peroxide neutralization and deiodination."}
+                ]
+            },
+            "uses": {
+                "strong": [" Hashimoto's thyroiditis support: significantly reduces elevated anti-TPO antibody titers", "Keshan disease & Kashin-Beck cardiomyopathy prevention in endemic low-selenium regions", "Replenishing cellular glutathione peroxidase antioxidant defenses"],
+                "moderate": ["Improving sperm quality, morphology, and motility in male factor subfertility", "Reducing inflammatory biomarkers (hs-CRP) in autoimmune conditions"],
+                "emerging": ["Modulating viral mutation rates and supporting immune resilience during respiratory infections"],
+                "insufficient": ["High-dose supplementation for cancer prevention in selenium-replete populations (SELECT trial showed no benefit)"]
+            },
+            "deficiency": {
+                "causes": ["Consuming foods grown in selenium-depleted volcanic or glacial soils", "Total parenteral nutrition (TPN) without trace mineral supplementation", "Severe gastrointestinal malabsorption (Celiac disease, Crohn's, short bowel syndrome)"],
+                "effects": ["Keshan disease (endemic cardiomyopathy), Kashin-Beck osteoarthropathy, and impaired thyroid hormone production", "Increased susceptibility to oxidative cellular injury and viral virulence"],
+                "symptoms": ["Chronic fatigue & persistent brain fog", "Hypothyroidism symptoms (cold intolerance, slow metabolism)", "Hair loss and brittle, white-spotted fingernails"],
+                "symptoms_note": "A single Brazil nut provides 68-91 µg of selenium, rapidly reversing dietary insufficiency.",
+                "timeline": "Plasma selenium responds within days; tissue selenoprotein saturation occurs in 4-8 weeks."
+            },
+            "food_sources": [
+                {"food": "Brazil Nuts (Unblanched)", "amount": "1 kernel (5 g)", "content": "68-91 mcg", "bioavailability": "high", "serving": "1 nut", "type": "plant"},
+                {"food": "Yellowfin Tuna (Cooked)", "amount": "3 oz (85 g)", "content": "92 mcg", "bioavailability": "high", "serving": "1 steak", "type": "animal"},
+                {"food": "Halibut / Sardines", "amount": "3 oz (85 g)", "content": "47-55 mcg", "bioavailability": "high", "serving": "1 fillet", "type": "animal"},
+                {"food": "Grass-Fed Beef Liver", "amount": "3 oz (85 g)", "content": "32 mcg", "bioavailability": "high", "serving": "1 slice", "type": "animal"},
+                {"food": "Pasture-Raised Whole Eggs", "amount": "2 large eggs", "content": "30 mcg", "bioavailability": "high", "serving": "2 eggs", "type": "animal"}
+            ],
+            "absorption": {
+                "increases": ["Simultaneous presence of Vitamin E, Vitamin A, and dietary protein", "Organic forms like L-Selenomethionine and Selenium-enriched yeast (90-95% absorbed)"],
+                "decreases": ["Very high elemental sulfur or heavy metal exposure (mercury binds selenium into insoluble complexes)", "Excessive phytates in unsoaked legumes"],
+                "forms": [
+                    "L-Selenomethionine: Organic form naturally found in food; incorporated directly into body protein pools",
+                    "Selenium-Enriched Yeast: High-bioavailability fermented whole-food matrix",
+                    "Sodium Selenite / Selenate: Inorganic salts; absorbed rapidly but retained less efficiently in tissue"
+                ],
+                "notes": "Always pair selenium with adequate iodine status; supplementing iodine without selenium can trigger thyroid oxidative damage."
+            },
+            "requirements": {
+                "rda": "55 mcg/day (Adults), 60 mcg/day (Pregnancy), 70 mcg/day (Lactation)",
+                "groups": [
+                    {"group": "Adult Men & Women", "amount": "55 mcg/day"},
+                    {"group": "Thyroid Autoimmunity Protocol", "amount": "100-200 mcg/day (under clinical supervision)"},
+                    {"group": "Pregnancy & Lactation", "amount": "60-70 mcg/day"}
+                ],
+                "ul": "400 mcg/day (Tolerable Upper Intake Level to avoid selenosis)",
+                "note": "A daily intake of 100-200 mcg is the optimal therapeutic sweet spot."
+            },
+            "supplementation": {
+                "who_might": ["Individuals with Hashimoto's thyroiditis or elevated anti-TPO/anti-Tg antibodies", "Men with suboptimal sperm motility and high seminal oxidative stress", "People living in low-selenium soil regions (parts of Europe, China, New Zealand)"],
+                "who_probably_not": ["Individuals regularly eating 2-3 Brazil nuts per week or consuming abundant seafood", "People with baseline plasma selenium >130-150 µg/L"],
+                "forms": ["L-Selenomethionine", "Selenium Yeast", "Se-Methylselenocysteine"],
+                "typical_amounts": "100-200 mcg daily",
+                "timing": "Morning or midday with any whole meal",
+                "with_food": "Take with meals containing protein or healthy fats",
+                "duration": "6 months for thyroid antibody protocols, followed by maintenance",
+                "cycling": "Continuous within safe RDA limits."
+            },
+            "safety": {
+                "level": "yellow",
+                "upper_limit": "400 mcg/day",
+                "toxicity": "Selenosis (chronic selenium toxicity) occurs at intakes >800-1,000 mcg/day, characterized by garlic breath odor, alopecia (hair loss), fingernail brittleness/sloughing, and peripheral neuropathy.",
+                "overdose": "Garlic breath odor (due to dimethyl selenide expiration), metallic taste, fatigue, nausea, and transverse white lines on nails (Mees' lines).",
+                "drug_interactions": ["Cisplatin Chemotherapy: Selenium may reduce nephrotoxicity (requires oncologist coordination)", "Statins & Niacin: High-dose antioxidant combinations may blunt HDL-raising effects"],
+                "contraindications": ["Existing clinical selenosis or hyper-selenium status"],
+                "special_populations": ["Do not exceed 400 mcg/day from all combined food and supplemental sources."]
+            },
+            "interactions": [
+                {"substance": "Iodine", "interaction": "Obligatory Partner", "mechanism": "Selenium is required to detoxify hydrogen peroxide generated during thyroid hormone synthesis.", "importance": "high"},
+                {"substance": "Vitamin E", "interaction": "Synergistic", "mechanism": "Dual antioxidant protection: Vitamin E stops lipid chain reactions, while Selenium GPx destroys peroxides.", "importance": "high"},
+                {"substance": "Zinc", "interaction": "Complementary", "mechanism": "Synergistic support for immune maturation and thyroid hormone receptor binding.", "importance": "moderate"}
+            ],
+            "timing": {
+                "matters": False,
+                "detail": "Can be taken at any time of day with a meal. Consistent daily intake is more important than specific hour."
+            },
+            "performance": {
+                "muscle": "Protects skeletal myocytes against exhaustive exercise-induced lipid peroxidation.",
+                "strength": "Supports basal metabolic rate and muscular power through optimal thyroid T3 status.",
+                "fat_loss": "Ensures efficient thyroid thermogenesis and basal metabolic expenditure.",
+                "recovery": "Accelerates systemic glutathione peroxidase recovery post-endurance competition.",
+                "athletic": "Maintains red blood cell membrane deformability and oxygen delivery during hypoxia.",
+                "energy": "Powers cellular ATP synthesis by maintaining thyroid-dependent mitochondrial biogenesis.",
+                "sleep": "Supports nocturnal thyroid hormone release and neuroprotection.",
+                "cognitive": "Protects hippocampal neurons and microglial cells against neuroinflammatory damage.",
+                "hormones": "Essential for thyroid T4->T3 peripheral conversion and testicular testosterone production.",
+                "metabolic": "Modulates fasting glucose metabolism and hepatic insulin signaling."
+            },
+            "biomarkers": [
+                {"marker": "Serum / Plasma Selenium", "measures": "Recent dietary intake and circulating selenium", "matters": "Optimal therapeutic target is 100-140 µg/L; levels <70 indicate deficiency", "limitations": "Reflects short-term dietary changes", "when": "Investigating thyroid dysfunction or nutritional adequacy"},
+                {"marker": "Thyroid Peroxidase Antibodies (Anti-TPO)", "measures": "Autoimmune activity against thyroid gland", "matters": "Monitors therapeutic reduction in autoimmune attack", "limitations": "May fluctuate over time", "when": "Hashimoto's management"},
+                {"marker": "Free T3 & Free T4", "measures": "Active and prohormone circulating thyroid hormones", "matters": "Assesses peripheral deiodinase conversion efficiency", "limitations": "Diurnal fluctuation", "when": "Comprehensive metabolic evaluations"}
+            ],
+            "myths": [
+                {"myth": "Eating a whole bag of Brazil nuts every day is a healthy superfood habit.", "fact": "A single bag can contain 2,000-5,000 mcg of selenium—eating more than 2-3 nuts daily can lead to selenosis toxicity."},
+                {"myth": "Selenium can completely cure thyroid disease on its own.", "fact": "Selenium optimizes deiodinase conversion and reduces antibodies, but works in synergy with iodine, iron, vitamin D, and clinical management."}
+            ],
+            "mistakes": [
+                "Eating 10+ Brazil nuts a day without realizing you are exceeding the 400 mcg toxicity limit",
+                "Taking high-dose iodine supplements for thyroid fatigue without ensuring adequate selenium status first",
+                "Assuming all multivitamins contain enough selenium when soil depletion has reduced dietary intake"
+            ],
+            "if_low": [
+                "Eat 1-2 Brazil nuts 3-4 times per week, or incorporate wild yellowfin tuna, sardines, and pastured eggs",
+                "If managing Hashimoto's thyroiditis, consult your doctor about 100-200 mcg/day of L-selenomethionine",
+                "Test serum selenium and thyroid panel to ensure you achieve the optimal 100-140 µg/L range"
+            ],
+            "if_too_much": {
+                "acute": "Garlic-like breath odor, nausea, vomiting, and abdominal pain.",
+                "chronic": "Hair brittleness and diffuse alopecia, fingernail deformities, fatigue, and peripheral neuropathy.",
+                "mechanism": "Excess selenium displaces sulfur in keratin and critical proteins, disrupting enzyme tertiary structure.",
+                "signs": "Garlic odor on breath, nail dystrophy, sudden hair shedding.",
+                "when_medical": "Seek medical evaluation if experiencing sudden hair loss, nail changes, and garlic breath after taking high-dose supplements."
+            },
+            "research": [
+                {
+                    "title": "Selenium supplementation in patients with Hashimoto's thyroiditis: a systematic review and meta-analysis",
+                    "year": "2016",
+                    "study_type": "Systematic Review and Meta-Analysis of 16 RCTs",
+                    "evidence_level": "strong",
+                    "summary": "Selenium supplementation significantly decreased serum thyroid peroxidase antibodies (TPO-Ab) at 3, 6, and 12 months, and improved subjective well-being in patients on levothyroxine.",
+                    "source": "Thyroid (Official Journal of the American Thyroid Association)",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/27702390/"
+                }
+            ]
+        }
     }
 }
