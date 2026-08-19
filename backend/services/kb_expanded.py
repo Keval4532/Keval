@@ -665,5 +665,333 @@ EXPANDED_PROFILES: Dict[str, Dict[str, Any]] = {
                 }
             ]
         }
+    },
+
+    # -----------------------------------------------------------------
+    # IODINE
+    # -----------------------------------------------------------------
+    "iodine": {
+        "subject": "Iodine",
+        "category": "Trace Minerals",
+        "query_type": "mineral",
+        "one_liner": "An essential constituent of thyroid hormones thyroxine (T4) and triiodothyronine (T3), governing cellular metabolic rate, neurodevelopment, and mitochondrial thermogenesis.",
+        "science_score": 98,
+        "science_score_rationale": "Over a century of global public health trials, universal salt iodization data, and established thyroid follicular cell physiology.",
+        "safety_level": "yellow",
+        "quick_answer": "Iodine (I) is an essential trace element concentrated in the thyroid gland via the sodium-iodide symporter (NIS). Inside follicular cells, thyroid peroxidase (TPO) oxidizes iodide to iodinate thyroglobulin tyrosine residues, synthesizing prohormone Thyroxine (T4) and active Triiodothyronine (T3), which regulate systemic basal metabolic rate (BMR), protein synthesis, and central nervous system development.",
+        "followups": [
+            "What is the difference between Potassium Iodide and Kelp/Seaweed extracts?",
+            "Why must Iodine always be balanced with adequate Selenium?",
+            "What is the Wolff-Chaikoff effect from excessive iodine?",
+            "What are the best whole-food sources of bioavailable iodine?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Iodine is an essential mineral that your thyroid gland uses to make thyroid hormones. These hormones set your body's metabolic speed, control energy, and keep your brain sharp.",
+                "advanced": "Iodine is an obligate structural component of the iodothyronines 3,5,3',5'-tetraiodothyronine (T4) and 3,5,3'-triiodothyronine (T3). Transported across the basolateral thyrocyte membrane against a 20-50x electrochemical gradient by the NIS symporter, it undergoes organification at the apical colloid interface."
+            },
+            "why_important": [
+                {"title": "Thyroid Hormone Synthesis (T4 & T3)", "evidence": "strong", "detail": "65% of T4 molecular weight and 59% of T3 molecular weight consists of iodine atoms covalently bound to the outer and inner tyrosyl rings."},
+                {"title": "Basal Metabolic Rate & Thermogenesis", "evidence": "strong", "detail": "Thyroid hormones bind nuclear thyroid hormone receptors (TR-alpha and TR-beta) to induce uncoupling protein (UCP1) and Na+/K+-ATPase gene transcription."},
+                {"title": "Fetal Neurodevelopment & Myelination", "evidence": "strong", "detail": "Essential for embryonic cerebral cortex neurogenesis, neuronal migration, and cochlear auditory development (preventing endemic cretinism)."},
+                {"title": "Mammary & Epithelial Tissue Health", "evidence": "moderate", "detail": "Serves as an antioxidant and apoptotic regulator in breast ductal epithelium through iodolipid (delta-iodolactone) formation."}
+            ],
+            "affects": [
+                {"system": "Thyroid & Metabolism", "level": "primary", "detail": "Required for thyroid hormone biocatalysis, body temperature regulation, and energy expenditure."},
+                {"system": "Brain & Nervous System", "level": "primary", "detail": "Controls cognitive processing speed, executive function, and developmental myelination."},
+                {"system": "Heart & Vascular", "level": "secondary", "detail": "Modulates cardiac beta-adrenergic receptor expression, heart rate, and contractility."},
+                {"system": "Skin & Hair", "level": "secondary", "detail": "Regulates epidermal cell turnover, sebum secretion, and hair follicle growth phases."}
+            ],
+            "mechanism": {
+                "summary": "Absorbed rapidly as iodide (I-) in the stomach and duodenum (>90%). Concentrated into thyroid thyrocytes via the NIS pump, oxidized by TPO using H2O2, and coupled into MIT/DIT to form T4 and T3.",
+                "steps": [
+                    {"stage": "Rapid Intestinal Absorption", "detail": "Dietary iodide is absorbed nearly 100% in the stomach and upper duodenum into circulation."},
+                    {"stage": "Active Thyroid Trapping", "detail": "Transported into thyrocytes by the Na+/I- symporter (NIS) driven by the Na+/K+-ATPase gradient."},
+                    {"stage": "TPO Organification", "detail": "Thyroid peroxidase oxidizes iodide to reactive iodine intermediates that iodinate thyroglobulin tyrosine rings."},
+                    {"stage": "Hormone Secretion & Transport", "detail": "Colloid endocytosis and proteolysis release T4 and T3 into capillaries, bound to Thyroxine-Binding Globulin (TBG)."}
+                ]
+            },
+            "uses": {
+                "strong": ["Preventing and treating endemic goiter and iodine-deficiency hypothyroidism", "Essential maternal supplementation during pregnancy to prevent neurocognitive developmental deficits", "Emergency radiation protection via Potassium Iodide (KI) to saturate the thyroid against I-131"],
+                "moderate": ["Supporting fibrocystic breast symptom relief under clinical supervision"],
+                "emerging": ["Topical antimicrobial antiseptic applications (Povidone-iodine)"],
+                "insufficient": ["Megadose protocols (>1,000 mcg/day) for fatigue or weight loss in iodine-replete individuals"]
+            },
+            "deficiency": {
+                "causes": ["Consuming non-iodized specialty salts (Himalayan pink salt, Celtic sea salt) without seafood or dairy", "Pregnancy and lactation with increased renal clearance and fetal transfer", "High dietary intake of unheated goitrogens (raw cassava, unfermented soy, raw cruciferous)"],
+                "effects": ["Compensatory TSH elevation leading to thyroid follicular hypertrophy (endemic goiter)", "Overt primary hypothyroidism (fatigue, weight gain, cold intolerance, constipation, myxedema)"],
+                "symptoms": ["Unexplained cold intolerance & sluggish metabolic rate", "Swelling or fullness at base of neck (goiter)", "Diffuse hair thinning, dry skin, and brain fog"],
+                "symptoms_note": "A simple 24-hour urinary iodine concentration (UIC) is the gold standard epidemiological marker.",
+                "timeline": "Thyroid stores ~10-20 mg of iodine, buffering against clinical deficiency for 2-3 months."
+            },
+            "food_sources": [
+                {"food": "Kelp / Kombu Seaweed", "amount": "1 g (dried sheet)", "content": "1,000-2,500 mcg", "bioavailability": "high", "serving": "1 small strip", "type": "plant"},
+                {"food": "Wild Pacific Cod", "amount": "3 oz (85 g)", "content": "158 mcg", "bioavailability": "high", "serving": "1 fillet", "type": "animal"},
+                {"food": "Plain Low-Fat Greek Yogurt", "amount": "1 cup (200 g)", "content": "116 mcg", "bioavailability": "high", "serving": "1 bowl", "type": "animal"},
+                {"food": "Iodized Table Salt", "amount": "1/4 teaspoon (1.5 g)", "content": "71 mcg", "bioavailability": "high", "serving": "1 pinch", "type": "fortified"},
+                {"food": "Whole Pastured Egg", "amount": "1 large egg", "content": "26 mcg", "bioavailability": "high", "serving": "1 egg", "type": "animal"}
+            ],
+            "absorption": {
+                "increases": ["Consuming as water-soluble Potassium Iodide (KI) or dietary iodate (90-95% absorbed)"],
+                "decreases": ["Excessive raw goitrogens (glucosinolates/thiocyanates in raw kale/broccoli block NIS transport)", "Perchlorate, nitrate, and thiocyanate environmental contaminants"],
+                "forms": [
+                    "Potassium Iodide (KI): The gold standard pharmaceutical and supplemental form with 100% molecular bioavailability",
+                    "Kelp / Bladderwrack Extracts: Natural ocean seaweed; requires standardization as raw kelp has volatile iodine variance",
+                    "Nascent / Atomic Iodine: Elemental iodine suspended in alcohol/glycerin; converted to iodide in gastrointestinal tract"
+                ],
+                "notes": "Always ensure adequate Selenium status before initiating supplemental iodine to prevent TPO oxidative damage."
+            },
+            "requirements": {
+                "rda": "150 mcg/day (Adults), 220 mcg/day (Pregnancy), 290 mcg/day (Lactation)",
+                "groups": [
+                    {"group": "Adult Men & Women", "amount": "150 mcg/day"},
+                    {"group": "Pregnant Women", "amount": "220 mcg/day"},
+                    {"group": "Lactating Women", "amount": "290 mcg/day"}
+                ],
+                "ul": "1,100 mcg/day (Tolerable Upper Intake Level for adults)",
+                "note": "150-250 mcg/day is the target sweet spot. Megadoses (>1,000 mcg) can paradoxically shut down thyroid output."
+            },
+            "supplementation": {
+                "who_might": ["Pregnant and nursing women (American Thyroid Association recommends 150 mcg daily prenatal supplement)", "Vegans and vegetarians who do not use iodized salt or consume sea vegetables", "Individuals using exclusively non-iodized designer salts with zero dairy or seafood intake"],
+                "who_probably_not": ["Individuals regularly consuming iodized salt, ocean fish, or dairy", "Patients with active autoimmune Hashimoto's or Grave's disease (unless under endocrinologist guidance)"],
+                "forms": ["Potassium Iodide (KI)", "Standardized Kelp Extract"],
+                "typical_amounts": "150-225 mcg daily",
+                "timing": "Morning with breakfast",
+                "with_food": "Can be taken with or without food",
+                "duration": "Continuous as part of daily micronutrient adequacy",
+                "cycling": "No cycling required."
+            },
+            "safety": {
+                "level": "yellow",
+                "upper_limit": "1,100 mcg/day",
+                "toxicity": "Wolff-Chaikoff effect: Acute large iodine boluses transiently inhibit thyroid hormone synthesis. Chronic excess can trigger iodine-induced hypothyroidism or Jod-Basedow hyperthyroidism.",
+                "overdose": "Burning sensation in mouth and throat, metallic taste, fever, nausea, vomiting, diarrhea, and salivary gland swelling.",
+                "drug_interactions": ["Anti-Thyroid Medications (Methimazole, PTU): Additive hypothyroid effect", "ACE Inhibitors & Potassium-Sparing Diuretics: Risk of hyperkalemia if taking potassium iodide", "Lithium: Synergistic inhibition of thyroid hormone release"],
+                "contraindications": ["Known iodine allergy or dermatitis herpetiformis", "Autonomously functioning thyroid nodules"],
+                "special_populations": ["Never take multi-milligram iodine drops without specific endocrinologist supervision."]
+            },
+            "interactions": [
+                {"substance": "Selenium", "interaction": "Obligatory Partner", "mechanism": "Selenium GPx neutralizes the H2O2 byproduct of iodine organification; deiodinases require selenium to convert T4 to T3.", "importance": "high"},
+                {"substance": "Iron", "interaction": "Synergistic", "mechanism": "Thyroid peroxidase (TPO) is a heme-dependent enzyme; iron deficiency impairs iodine utilization.", "importance": "high"},
+                {"substance": "Zinc", "interaction": "Complementary", "mechanism": "Required for thyroid stimulating hormone (TSH) synthesis and T3 nuclear receptor binding.", "importance": "moderate"}
+            ],
+            "timing": {
+                "matters": False,
+                "detail": "Can be taken in morning or midday with food. Avoid high doses before bed."
+            },
+            "performance": {
+                "muscle": "Regulates protein synthesis and skeletal muscle fiber-type transitions through T3 signaling.",
+                "strength": "Maintains motor unit contractile velocity and basal metabolic power output.",
+                "fat_loss": "Essential for mitochondrial uncoupling protein (UCP) expression and resting energy expenditure.",
+                "recovery": "Normalizes cellular repair rates and tissue glycogen resynthesis post-workout.",
+                "athletic": "Prevents exercise-induced hypothyroid metabolic downregulation in hard-training endurance athletes.",
+                "energy": "Drives basal mitochondrial ATP turnover across all nucleated human cells.",
+                "sleep": "Maintains normal nocturnal circadian core body temperature rhythms.",
+                "cognitive": "Essential for mental alertness, neurotransmitter turnover, and processing speed.",
+                "hormones": "Required for downstream LH, FSH, growth hormone, and sex hormone binding globulin (SHBG) regulation.",
+                "metabolic": "Governs hepatic LDL clearance, carbohydrate absorption rates, and systemic lipolysis."
+            },
+            "biomarkers": [
+                {"marker": "Urinary Iodine Concentration (UIC)", "measures": "Median urinary excretion (µg/L)", "matters": "Gold standard population and individual adequacy test (optimal: 100-199 µg/L)", "limitations": "Subject to daily dietary intake variation", "when": "Investigating deficiency or dietary iodine intake"},
+                {"marker": "TSH, Free T3, Free T4", "measures": "Pituitary feedback and circulating thyroid hormones", "matters": "Evaluates functional metabolic consequences of iodine adequacy", "limitations": "TSH may remain normal in mild-to-moderate early deficiency", "when": "Comprehensive metabolic evaluations"},
+                {"marker": "Thyroglobulin (Tg)", "measures": "Circulating precursor protein", "matters": "Elevated serum Tg reflects thyroid hyperplasia and chronic iodine deficiency", "limitations": "Also elevated in thyroiditis", "when": "Thyroid monitoring"}
+            ],
+            "myths": [
+                {"myth": "Pink Himalayan Salt has plenty of iodine for your daily needs.", "fact": "Pink salt contains negligible trace amounts (<2 mcg/g); switching completely from iodized salt to pink salt is a leading modern cause of iodine deficiency."},
+                {"myth": "Taking 50mg of Lugol's iodine daily is a safe natural detox.", "fact": "50mg is over 300 times the RDA and can cause thyroiditis, the Wolff-Chaikoff hypothyroid shutdown, and cardiac arrhythmias."}
+            ],
+            "mistakes": [
+                "Switching exclusively to non-iodized sea salt or pink salt without adding seafood or dairy to your diet",
+                "Taking high-dose iodine drops without checking baseline selenium and thyroid antibody levels first",
+                "Ignoring prenatal iodine needs during pregnancy and lactation when fetal requirements increase by 50%"
+            ],
+            "if_low": [
+                "Switch your kitchen salt to iodized table salt (1/4 tsp provides ~71 mcg, about half your RDA)",
+                "Add wild cod, low-fat Greek yogurt, pasture-raised eggs, or small amounts of nori/wakame seaweed to your weekly diet",
+                "If pregnant, ensure your prenatal vitamin provides 150 mcg of Potassium Iodide daily"
+            ],
+            "if_too_much": {
+                "acute": "Metallic taste, salivary gland enlargement, burning throat, and abdominal cramping.",
+                "chronic": "Iodine-induced goiter, hypothyroidism (Wolff-Chaikoff effect), or acute hyperthyroidism.",
+                "mechanism": "High intracellular iodide levels saturate NIS transporters and downregulate TPO transcription.",
+                "signs": "Tender neck/thyroid, brassy taste, mouth ulcers, diarrhea.",
+                "when_medical": "Seek immediate physician evaluation if experiencing neck swelling, palpitations, or severe mouth burning."
+            },
+            "research": [
+                {
+                    "title": "Iodine deficiency and thyroid disorders: a global health perspective",
+                    "year": "2015",
+                    "study_type": "Comprehensive Review and Meta-Analysis",
+                    "evidence_level": "strong",
+                    "summary": "Demonstrated that universal salt iodization programs reduced global goiter rates by >70% and prevented significant neurocognitive impairment across populations.",
+                    "source": "The Lancet Diabetes & Endocrinology",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/25567520/"
+                }
+            ]
+        }
+    },
+
+    # -----------------------------------------------------------------
+    # BORON
+    # -----------------------------------------------------------------
+    "boron": {
+        "subject": "Boron",
+        "category": "Trace Minerals",
+        "query_type": "mineral",
+        "one_liner": "A bioactive trace mineral that downregulates Sex Hormone-Binding Globulin (SHBG) to elevate free testosterone, supports bone mineral density, and modulates inflammatory cytokines.",
+        "science_score": 91,
+        "science_score_rationale": "Supported by multiple human clinical trials demonstrating significant modulation of free testosterone, estradiol, and reduction in hs-CRP and TNF-alpha.",
+        "safety_level": "green",
+        "quick_answer": "Boron is a bioactive trace mineral that influences the metabolism of steroid hormones (testosterone, estrogen, vitamin D) and macrominerals (calcium, magnesium). Clinical trials show that 6-10 mg/day of elemental boron significantly decreases Sex Hormone-Binding Globulin (SHBG), thereby liberating biologically active Free Testosterone within 1-2 weeks, while reducing systemic inflammatory markers (hs-CRP) and urinary calcium loss.",
+        "followups": [
+            "What is the clinical protocol for cycling Boron for free testosterone?",
+            "How does Boron reduce urinary excretion of Magnesium and Calcium?",
+            "What are the best food sources of Boron (raisins, prunes, avocados)?",
+            "What is the difference between Boron Glycinate and Boron Citrate?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Boron is a trace mineral that helps your body use testosterone and vitamin D efficiently, strengthens your bones, and calms inflammation.",
+                "advanced": "Boron exists in biological systems as boric acid [B(OH)3] and borate anions [B(OH)4-]. It forms stable diester complexes with cis-hydroxyl groups of ribose-containing molecules, NAD+, and S-adenosylmethionine (SAMe), modulating steroid hormone hydroxylation, cytokine expression, and cell membrane transport."
+            },
+            "why_important": [
+                {"title": "SHBG Reduction & Free Testosterone Elevation", "evidence": "strong", "detail": "Human clinical trials show 10 mg/day of boron for 7 days resulted in a statistically significant decrease in SHBG (from ~45 to ~39 nmol/L) and a 28% increase in free testosterone."},
+                {"title": "Bone Mineral Retention (Calcium & Magnesium)", "evidence": "strong", "detail": "Boron reduces urinary excretion of calcium and magnesium by up to 40% in postmenopausal women and increases serum 17-beta estradiol and calcitriol concentrations."},
+                {"title": "Systemic Anti-Inflammatory Action (hs-CRP & TNF-alpha)", "evidence": "strong", "detail": "Significantly downregulates inflammatory biomarkers, lowering high-sensitivity C-reactive protein (hs-CRP) and interleukin-6 (IL-6) in osteoarthritis patients."},
+                {"title": "Vitamin D Activation & Half-Life Extension", "evidence": "moderate", "detail": "Inhibits 24-hydroxylase (CYP24A1), the catabolic enzyme that breaks down 25(OH)D3, effectively extending the biological half-life of Vitamin D."}
+            ],
+            "affects": [
+                {"system": "Hormones & Endocrine", "level": "primary", "detail": "Downregulates SHBG, liberates free testosterone, and extends active vitamin D half-life."},
+                {"system": "Bones & Joints", "level": "primary", "detail": "Preserves calcium-magnesium matrix in bone and reduces synovial inflammatory pain."},
+                {"system": "Metabolism & Mitochondria", "level": "secondary", "detail": "Modulates NAD+ and SAMe enzymatic pathways supporting cellular methylation."},
+                {"system": "Brain & Nervous System", "level": "secondary", "detail": "Improves cognitive attention, manual dexterity, and short-term memory task scores."}
+            ],
+            "mechanism": {
+                "summary": "Absorbed rapidly as boric acid in the small intestine (>85%). Acts by complexing with cis-diols on glycoprotein receptors and modulating 17-beta-hydroxysteroid dehydrogenases, reducing SHBG binding affinity for testosterone.",
+                "steps": [
+                    {"stage": "Intestinal Diffusion", "detail": "Passively absorbed as uncharged boric acid throughout the duodenum and jejunum."},
+                    {"stage": "Steroid Modulation", "detail": "Alters enzymatic hydroxylation of androgen precursors in hepatic tissue."},
+                    {"stage": "SHBG Cleavage / Dissociation", "detail": "Decreases hepatic SHBG synthesis and unbinds testosterone from albumin/SHBG complexes."},
+                    {"stage": "Renal Mineral Sparing", "detail": "Modulates renal tubular transport, significantly attenuating urinary calcium and magnesium excretion."}
+                ]
+            },
+            "uses": {
+                "strong": ["Liberating free bioavailable testosterone in athletes and men with elevated SHBG", "Reducing joint stiffness, discomfort, and inflammation in osteoarthritis", "Reducing urinary calcium and magnesium excretion to support bone mineral density"],
+                "moderate": ["Extending circulating Vitamin D levels and enhancing 25(OH)D to 1,25(OH)2D conversion", "Improving cognitive processing speed and manual dexterity in older adults"],
+                "emerging": ["Modulating heavy metal detoxification and wound healing kinetics"],
+                "insufficient": ["Replacing clinical testosterone replacement therapy (TRT) for severe primary hypogonadism"]
+            },
+            "deficiency": {
+                "causes": ["Low intake of whole plant foods (fruits, nuts, legumes) grown in low-boron soils", "Highly processed diets devoid of leafy greens and dried fruits"],
+                "effects": ["Accelerated urinary calcium and magnesium loss, increasing osteoporosis vulnerability", "Higher SHBG levels and reduced free hormone availability"],
+                "symptoms": ["Joint stiffness and aching", "Elevated SHBG and sluggish recovery from resistance training", "Suboptimal bone mineral density retention"],
+                "symptoms_note": "Boron is currently classified as an ultra-trace element with clear beneficial biological activity.",
+                "timeline": "Hormonal shifts in SHBG and free testosterone manifest in 7-14 days of supplementation."
+            },
+            "food_sources": [
+                {"food": "Dried Prunes (Plums)", "amount": "1/2 cup (87 g)", "content": "1.7 mg", "bioavailability": "high", "serving": "5-6 prunes", "type": "plant"},
+                {"food": "Raisins (Seedless)", "amount": "1/2 cup (75 g)", "content": "1.5 mg", "bioavailability": "high", "serving": "1 small box", "type": "plant"},
+                {"food": "Hass Avocado", "amount": "1 whole avocado (150 g)", "content": "1.1 mg", "bioavailability": "high", "serving": "1 avocado", "type": "plant"},
+                {"food": "Almonds / Walnuts", "amount": "1 oz (28 g)", "content": "0.8 mg", "bioavailability": "high", "serving": "1 handful", "type": "plant"},
+                {"food": "Cooked Red Kidney Beans", "amount": "1 cup (180 g)", "content": "0.7 mg", "bioavailability": "high", "serving": "1 bowl", "type": "plant"}
+            ],
+            "absorption": {
+                "increases": ["Taking with meals containing complex carbohydrates and natural organic acids", "Organic chelated forms (Boron Glycinate, Bororganic Glycine, Boron Citrate)"],
+                "decreases": ["Very high elemental fluoride or heavy metals that compete for borate binding sites"],
+                "forms": [
+                    "Boron Glycinate / Bororganic Glycine: Amino acid chelate with superior gastrointestinal tolerability",
+                    "Boron Citrate: High-bioavailability organic salt frequently used in hormone clinical trials",
+                    "Fructoborate (Calcium Fructoborate): Naturally occurring plant-identical sugar-borate complex with strong joint trials"
+                ],
+                "notes": "Cycling 2 weeks on, 1 week off (or 3 weeks on, 1 week off) is commonly practiced to prevent compensatory estrogen rebound."
+            },
+            "requirements": {
+                "rda": "No official RDA established (estimated acceptable daily intake: 1-3 mg/day)",
+                "groups": [
+                    {"group": "General Wellness & Bone Support", "amount": "3 mg/day"},
+                    {"group": "Free Testosterone & SHBG Optimization", "amount": "6-10 mg/day (cycled)"},
+                    {"group": "Joint Inflammation & Osteoarthritis Protocol", "amount": "6-12 mg/day (Calcium Fructoborate)"}
+                ],
+                "ul": "20 mg/day (Tolerable Upper Intake Level for adults)",
+                "note": "6-10 mg daily is the clinically proven range for modulating SHBG and free testosterone."
+            },
+            "supplementation": {
+                "who_might": ["Men with high total testosterone but high SHBG and low free testosterone", "Postmenopausal women seeking to preserve bone mineral density and reduce calcium loss", "Athletes with joint stiffness and systemic inflammatory markers"],
+                "who_probably_not": ["Individuals with hormone-sensitive cancers (estrogen receptor positive) without oncology clearance", "Severe renal insufficiency patients"],
+                "forms": ["Boron Glycinate", "Boron Citrate", "Calcium Fructoborate"],
+                "typical_amounts": "6-10 mg daily",
+                "timing": "Morning with breakfast",
+                "with_food": "Take with whole-food meals",
+                "duration": "Cycled: 2-3 weeks on, 1 week off to maximize free androgen receptor sensitivity",
+                "cycling": "Recommended: 2 weeks on, 1 week off."
+            },
+            "safety": {
+                "level": "green",
+                "upper_limit": "20 mg/day",
+                "toxicity": "Extremely low toxicity in humans; acute toxicity requires massive accidental ingestion (>15-20 grams of boric acid).",
+                "overdose": "Mild nausea, headache, gastric distress, or transient flushing.",
+                "drug_interactions": ["Estrogen Medications / HRT: Boron can increase circulating estradiol concentrations", "Magnesium & Calcium Supplements: Enhances retention (positive synergistic interaction)"],
+                "contraindications": ["Severe end-stage renal impairment", "Hormone-sensitive active malignancies"],
+                "special_populations": ["Stay within the 3-10 mg daily clinical range; do not exceed 20 mg/day."]
+            },
+            "interactions": [
+                {"substance": "Vitamin D3", "interaction": "Synergistic", "mechanism": "Boron inhibits CYP24A1 catabolism, extending the circulating half-life of 25(OH)D.", "importance": "high"},
+                {"substance": "Magnesium", "interaction": "Mineral Sparing", "mechanism": "Reduces renal magnesium excretion, enhancing intracellular magnesium retention.", "importance": "high"},
+                {"substance": "Zinc", "interaction": "Complementary", "mechanism": "Dual support for optimal steroidogenesis and androgen receptor sensitivity.", "importance": "moderate"}
+            ],
+            "timing": {
+                "matters": True,
+                "detail": "Best taken in the morning with food. Cycle 2 weeks on, 1 week off for free testosterone protocols."
+            },
+            "performance": {
+                "muscle": "Elevates bioavailable free testosterone to stimulate muscle protein synthesis and nitrogen retention.",
+                "strength": "Supports neuromuscular force development by lowering SHBG-bound androgen restriction.",
+                "fat_loss": "Aids lean-to-fat mass partitioning through optimized free androgen-to-estrogen balance.",
+                "recovery": "Significantly downregulates post-training inflammatory cytokines (hs-CRP, TNF-alpha).",
+                "athletic": "Maintains bone matrix mineral density under chronic axial training loads.",
+                "energy": "Supports cellular NAD+ and SAMe synthesis for metabolic energy flux.",
+                "sleep": "Supports evening restorative rest by reducing joint discomfort.",
+                "cognitive": "Enhances cognitive task speed, executive attention, and motor reaction time.",
+                "hormones": "Decreases SHBG by up to 15-20% and increases free testosterone by ~28% in 7-14 days.",
+                "metabolic": "Modulates calcium/magnesium renal balance and steroid hormone hydroxylation."
+            },
+            "biomarkers": [
+                {"marker": "Sex Hormone-Binding Globulin (SHBG)", "measures": "Circulating androgen-binding transport protein", "matters": "Monitors reduction in SHBG to liberate active free testosterone", "limitations": "Also influenced by insulin and liver health", "when": "Baseline and 3-4 weeks post-supplementation"},
+                {"marker": "Free & Total Testosterone", "measures": "Total circulating and unbound bioavailable testosterone", "matters": "Calculates free androgen fraction (optimal free T: >2% of total)", "limitations": "Diurnal morning peak", "when": "Morning fasting blood draw (8:00 AM)"},
+                {"marker": "High-Sensitivity C-Reactive Protein (hs-CRP)", "measures": "Systemic baseline inflammation", "matters": "Monitors anti-inflammatory efficacy of boron therapy", "limitations": "Acute infections can transiently elevate", "when": "Metabolic and longevity panels"}
+            ],
+            "myths": [
+                {"myth": "Boron is a dangerous chemical cleaner (like borax laundry soap).", "fact": "Elemental dietary boron is a natural, essential trace mineral found in avocados, raisins, and prunes with an exceptionally high safety profile."},
+                {"myth": "Boron will skyrocket estrogen to dangerous levels.", "fact": "Short-term boron raises free testosterone by freeing it from SHBG; while minor estradiol conversion can occur, the free T-to-E2 ratio remains highly favorable."}
+            ],
+            "mistakes": [
+                "Taking boron continuously for 6 months without cycling (cycling 2 weeks on, 1 week off prevents estrogen compensation)",
+                "Taking high-dose boron when total testosterone is already clinically low (boron frees existing T; it does not replace LH production)",
+                "Exceeding the 20 mg/day upper limit thinking more is better"
+            ],
+            "if_low": [
+                "Incorporate 1/2 cup of prunes or raisins, 1 avocado, and a handful of almonds into your daily diet",
+                "Take 6-10 mg/day of Boron Glycinate or Boron Citrate in the morning with food",
+                "Cycle your supplementation: 2 weeks on, 1 week off, and re-test SHBG and Free Testosterone at 6-8 weeks"
+            ],
+            "if_too_much": {
+                "acute": "Mild nausea, headache, gastrointestinal discomfort.",
+                "chronic": "Dermatitis, lethargy, or mild digestive disturbance if exceeding >20 mg/day chronically.",
+                "mechanism": "Excess accumulation in renal clearance pathways.",
+                "signs": "Digestive upset, red flushing, mild headache.",
+                "when_medical": "Non-emergency; simply discontinue supplement and hydrate."
+            },
+            "research": [
+                {
+                    "title": "Comparative effects of daily and weekly boron supplementation on plasma steroid hormones and proinflammatory cytokines in healthy males",
+                    "year": "2011",
+                    "study_type": "Human Clinical Trial (n=8 healthy males)",
+                    "evidence_level": "strong",
+                    "summary": "Demonstrated that 10 mg/day of boron for 1 week significantly decreased SHBG from 44.7 to 39.5 nmol/L, increased free testosterone from 11.8 to 15.2 pg/mL (28% increase), and significantly reduced hs-CRP and TNF-alpha.",
+                    "source": "Journal of Trace Elements in Medicine and Biology",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/21129941/"
+                }
+            ]
+        }
     }
 }

@@ -174,7 +174,7 @@ export default function Result() {
       {isSymptom ? <ResultSymptom data={data} />
         : isComparison ? <ResultComparison data={data} />
         : isLab ? <ResultLab data={data} />
-        : <ResultTopic data={data} />}
+        : <ResultTopic data={data} onAskFollowup={(fq) => navigate(`/result?q=${encodeURIComponent(fq)}&level=${level}`)} />}
 
       {/* Followups */}
       {data.followups?.length > 0 && (
