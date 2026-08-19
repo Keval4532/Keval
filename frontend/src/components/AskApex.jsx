@@ -13,7 +13,15 @@ const SUGGESTIONS = [
 ];
 
 function renderText(text) {
-  const lines = text.split("\n").filter((l) => l.trim() !== "");
+  if (!text) return null;
+  let clean = text;
+  if (typeof clean === "string" && clean.trim().startsWith("{")) {
+    try {
+      const obj = JSON.parse(clean);
+      clean = obj.response || obj.answer || obj.explanation || clean;
+    } catch { /* ignore */ }
+  }
+  const lines = String(clean).split("\n").filter((l) => l.trim() !== "");
   return lines.map((line, i) => {
     const isBullet = /^\s*[-*]\s+/.test(line);
     const content = line.replace(/^\s*[-*]\s+/, "");
