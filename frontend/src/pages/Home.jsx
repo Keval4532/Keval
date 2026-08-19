@@ -8,9 +8,13 @@ import {
   Plus, Activity, Filter, CheckCircle2, ChevronRight
 } from "lucide-react";
 import { getTrending, getLocalProfile } from "../lib/api";
+import { useAuth } from "../context/AuthContext";
 import OneMinuteBiology from "../components/OneMinuteBiology";
 import PersonalizationModal from "../components/PersonalizationModal";
 import MicroExperimentTracker from "../components/MicroExperimentTracker";
+import PublicHeroSection from "../components/landing/PublicHeroSection";
+import InteractiveFeatureShowcase from "../components/landing/InteractiveFeatureShowcase";
+import PublicPricingSection from "../components/monetization/PublicPricingSection";
 
 // ----------------------------- DATA MATRICES -----------------------------
 
@@ -182,6 +186,7 @@ const HOME_TOOLS = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const [mode, setMode] = useState("learn"); // "learn" | "solve"
   const [q, setQ] = useState("");
   const [focused, setFocused] = useState(false);
@@ -193,6 +198,27 @@ export default function Home() {
   useEffect(() => {
     setProfile(getLocalProfile());
   }, []);
+
+  // When unauthenticated, render the high-converting Public Preview Landing Experience
+  if (!isAuthenticated) {
+    return (
+      <div className="relative space-y-16 pb-20">
+        {/* 1. Public Hero Section with "Try 1 Free Search" Sandbox */}
+        <PublicHeroSection />
+
+        {/* 2. Interactive Feature Showcase Live Micro-Demos */}
+        <InteractiveFeatureShowcase />
+
+        {/* 3. Public Pricing Matrix & Plan Comparison */}
+        <PublicPricingSection showComparison={true} />
+
+        {/* 4. One-Minute Biology & Micro-Learning */}
+        <div className="mx-auto max-w-4xl px-4">
+          <OneMinuteBiology />
+        </div>
+      </div>
+    );
+  }
 
   const handleSearch = (customQuery) => {
     const text = (customQuery ?? q).trim();

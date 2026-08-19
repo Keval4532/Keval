@@ -52,6 +52,7 @@ export default function AskApex({ subject, category, level, triggerQuestion }) {
       setOpen(true);
       send(triggerQuestion.question);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggerQuestion]);
 
   const send = async (text) => {

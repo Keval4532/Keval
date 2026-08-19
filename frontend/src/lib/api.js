@@ -14,6 +14,19 @@ export const API = BACKEND_URL ? `${BACKEND_URL}/api` : "/api";
 
 const client = axios.create({ baseURL: API, timeout: 180000 });
 
+// Automatically attach JWT token if available
+client.interceptors.request.use((config) => {
+  try {
+    const token = localStorage.getItem("kevalbio_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  } catch {
+    // localStorage might not be available in SSR
+  }
+  return config;
+});
+
 export const analyzeQuery = async (query, level = "intermediate", mode = null, profile = null, timeframe = "all") => {
   const { data } = await client.post("/analyze", { query, level, mode, profile, timeframe });
   return data;
@@ -194,6 +207,38 @@ export const getHydrationCalc = async (payload) => {
 
 export const auditSupplementFormula = async (formula_text) => {
   const { data } = await client.post("/tools/supplement-audit", { formula_text });
+  return data;
+};
+
+// ----------------------------- Authentication & Provisioning APIs -----------------------------
+
+export const loginUser = async ({ email, password, remember_me = false }) => {
+  const { data } = await client.post("/auth/login", { email, password, remember_me });
+  return data;
+};
+
+export const getAuthMe = async () => {
+  const { data } = await client.get("/auth/me");
+  return data;
+};
+
+export const logoutUser = async () => {
+  const { data } = await client.post("/auth/logout");
+  return data;
+};
+
+export const provisionSubscriberApi = async (payload) => {
+  const { data } = await client.post("/auth/provision-subscriber", payload);
+  return data;
+};
+
+export const forgotPasswordApi = async ({ email }) => {
+  const { data } = await client.post("/auth/forgot-password", { email });
+  return data;
+};
+
+export const demoLoginApi = async (payload = { tier: "PRO_ANNUAL" }) => {
+  const { data } = await client.post("/auth/demo-login", payload);
   return data;
 };
 

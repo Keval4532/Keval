@@ -5,7 +5,7 @@ import {
   FlaskConical, Pill, Utensils, BookOpen, Clock, HeartHandshake
 } from "lucide-react";
 import { toast } from "sonner";
-import { createCheckoutSession, getDeviceId } from "../lib/api";
+import { useAuth } from "../context/AuthContext";
 
 const TIERS = [
   {
@@ -52,31 +52,16 @@ const TIERS = [
 ];
 
 export default function PricingModal({ isOpen, onClose, onUpgraded }) {
+  const { openCheckoutModal } = useAuth();
   const [billingCycle, setBillingCycle] = useState("annual"); // "annual" | "monthly"
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleUpgrade = async () => {
-    setLoading(true);
-    const deviceId = getDeviceId();
+  const handleUpgrade = () => {
     const tier = billingCycle === "annual" ? "PRO_ANNUAL" : "PRO_MONTHLY";
-
-    try {
-      const res = await createCheckoutSession({
-        device_id: deviceId,
-        tier: tier,
-        provider: "simulation"
-      });
-
-      toast.success(res.message || "Upgraded to KEVALBIO Pro!");
-      if (onUpgraded) onUpgraded();
-      onClose();
-    } catch (err) {
-      toast.error("Failed to activate upgrade. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    onClose();
+    openCheckoutModal(tier);
   };
 
   const proTier = TIERS[1];

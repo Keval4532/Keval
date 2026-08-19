@@ -1,6 +1,7 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
+import { AuthProvider } from "@/context/AuthContext";
 import Layout from "@/components/Layout";
 import Home from "@/pages/Home";
 import Result from "@/pages/Result";
@@ -27,36 +28,38 @@ import SupplementAuditorPage from "@/pages/tools/SupplementAuditorPage";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/problem" element={<ProblemAnalysis />} />
-            <Route path="/diet" element={<DietAnalyzer />} />
-            <Route path="/stack" element={<StackAnalyzer />} />
-            <Route path="/caffeine" element={<CaffeineCalculator />} />
-            <Route path="/tools/caffeine" element={<CaffeineCalculator />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/tools/lab-scanner" element={<LabScannerPage />} />
-            <Route path="/tools/circadian" element={<CircadianPage />} />
-            <Route path="/tools/fasting" element={<FastingPage />} />
-            <Route path="/tools/hydration" element={<HydrationPage />} />
-            <Route path="/tools/supplement-auditor" element={<SupplementAuditorPage />} />
-            <Route path="/result" element={<Result />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/compare" element={<Compare />} />
-            <Route path="/labs" element={<LabScannerPage />} />
-            <Route path="/symptoms" element={<Symptom />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/coach" element={<Coach />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/my-bio" element={<MyKevalBio />} />
-            <Route path="/my-kevalbio" element={<MyKevalBio />} />
-            <Route path="/saved" element={<MyKevalBio />} />
-          </Routes>
-        </Layout>
-        <Toaster theme="dark" position="top-center" richColors />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/problem" element={<ProblemAnalysis />} />
+              <Route path="/diet" element={<DietAnalyzer />} />
+              <Route path="/stack" element={<StackAnalyzer />} />
+              <Route path="/caffeine" element={<CaffeineCalculator />} />
+              <Route path="/tools/caffeine" element={<CaffeineCalculator />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/tools/lab-scanner" element={<LabScannerPage />} />
+              <Route path="/tools/circadian" element={<CircadianPage />} />
+              <Route path="/tools/fasting" element={<FastingPage />} />
+              <Route path="/tools/hydration" element={<HydrationPage />} />
+              <Route path="/tools/supplement-auditor" element={<SupplementAuditorPage />} />
+              <Route path="/result" element={<Result />} />
+              <Route path="/explore" element={<Explore />} />
+              <Route path="/compare" element={<Compare />} />
+              <Route path="/labs" element={<LabScannerPage />} />
+              <Route path="/symptoms" element={<Symptom />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/coach" element={<Coach />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/my-bio" element={<MyKevalBio />} />
+              <Route path="/my-kevalbio" element={<MyKevalBio />} />
+              <Route path="/saved" element={<MyKevalBio />} />
+            </Routes>
+          </Layout>
+          <Toaster theme="dark" position="top-center" richColors />
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }

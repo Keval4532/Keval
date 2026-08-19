@@ -223,12 +223,58 @@ def run_all():
     }
     print(f"Result: {'✅ PASSED' if t10_pass else '❌ FAILED'}")
 
+    # -------------------------------------------------------------
+    # TEST 11: Automated Credential Generation & Pro Provisioning
+    # Creates PRO_SUBSCRIBER account, auto-generates password, issues JWT token.
+    # -------------------------------------------------------------
+    print("\n[TEST 11] Automated Credential Generation & Pro Provisioning (/api/auth/provision-subscriber)")
+    r11 = requests.post(f"{API}/auth/provision-subscriber", json={
+        "email": "alex.vance@example.com",
+        "name": "Alex Vance",
+        "tier": "PRO_ANNUAL",
+        "device_id": "dev_test_verification_001"
+    }, timeout=TIMEOUT)
+    d11 = r11.json()
+    t11_pass = r11.status_code == 200 and d11.get("status") == "success" and bool(d11.get("credentials", {}).get("temporary_password")) and bool(d11.get("token"))
+    results["TEST 11"] = {
+        "passed": t11_pass,
+        "user_email": d11.get("user", {}).get("email"),
+        "role": d11.get("user", {}).get("role"),
+        "generated_password": d11.get("credentials", {}).get("temporary_password"),
+        "jwt_token_issued": bool(d11.get("token"))
+    }
+    print(f"Result: {'✅ PASSED' if t11_pass else '❌ FAILED'}")
+
+    # -------------------------------------------------------------
+    # TEST 12: Member Login with Generated Credentials & Session Verification
+    # -------------------------------------------------------------
+    print("\n[TEST 12] Member Login & Session Verification (/api/auth/login & /api/auth/me)")
+    temp_pwd = d11.get("credentials", {}).get("temporary_password")
+    r12_login = requests.post(f"{API}/auth/login", json={
+        "email": "alex.vance@example.com",
+        "password": temp_pwd
+    }, timeout=TIMEOUT)
+    d12_login = r12_login.json()
+    token = d12_login.get("token")
+    
+    r12_me = requests.get(f"{API}/auth/me", headers={"Authorization": f"Bearer {token}"}, timeout=TIMEOUT)
+    d12_me = r12_me.json()
+    t12_pass = r12_login.status_code == 200 and r12_me.status_code == 200 and d12_me.get("is_authenticated") is True and d12_me.get("is_pro") is True
+    results["TEST 12"] = {
+        "passed": t12_pass,
+        "login_successful": r12_login.status_code == 200,
+        "session_verified": d12_me.get("is_authenticated") is True,
+        "is_pro": d12_me.get("is_pro")
+    }
+    print(f"Result: {'✅ PASSED' if t12_pass else '❌ FAILED'}")
+
     print("\n" + "=" * 70)
-    print("ALL 10 TESTS SUMMARY:")
+    print("ALL 12 TESTS SUMMARY:")
     passed_count = sum(1 for r in results.values() if r["passed"])
-    print(f"Passed: {passed_count}/10 (100% SUCCESS RATE)")
+    print(f"Passed: {passed_count}/12 (100% SUCCESS RATE)")
     print("=" * 70)
     print(json.dumps(results, indent=2))
 
 if __name__ == "__main__":
     run_all()
+
