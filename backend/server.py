@@ -62,17 +62,17 @@ def get_llm_client() -> tuple[Optional[AsyncOpenAI], Optional[str]]:
     openai_key = os.environ.get('OPENAI_API_KEY')
 
     if gemini_key:
-        model = os.environ.get('MODEL_NAME', 'gemini-3.6-flash')
+        model = os.environ.get('MODEL_NAME', 'gemini-flash-lite-latest')
         c = AsyncOpenAI(
             api_key=gemini_key,
             base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
             max_retries=0,
-            timeout=6.0
+            timeout=8.0
         )
         return c, model
     elif openai_key:
         model = os.environ.get('MODEL_NAME', 'gpt-4o-mini')
-        c = AsyncOpenAI(api_key=openai_key, max_retries=0, timeout=6.0)
+        c = AsyncOpenAI(api_key=openai_key, max_retries=0, timeout=8.0)
         return c, model
     return None, None
 
@@ -378,7 +378,7 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000, 
 
     models_to_try = [model]
     if "gemini" in model.lower():
-        for fm in ["gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3.7-flash", "gemini-flash-latest"]:
+        for fm in ["gemini-flash-lite-latest", "gemini-3.1-flash-lite-preview", "gemini-flash-latest"]:
             if fm not in models_to_try:
                 models_to_try.append(fm)
 
@@ -782,12 +782,21 @@ async def analyze(req: AnalyzeRequest):
 
     data = None
 
-    # 1. Instant Verified Knowledge Base Lookup (<5ms)
-    verified = get_topic_profile(q)
-    if verified and req.mode not in ("symptom", "comparison", "lab"):
-        data = dict(verified)
+    # Check if query is a natural user question or conversational inquiry
+    q_lower = q.lower()
+    is_question = (
+        any(q_lower.startswith(w) for w in ["can ", "why ", "how ", "what ", "is ", "should ", "when ", "does ", "which ", "are ", "will ", "do "])
+        or "?" in q
+        or len(q.split()) > 3
+    )
 
-    # 2. Dynamic LLM Generation for custom queries, symptoms, comparisons, and labs
+    # 1. Instant Verified Knowledge Base Lookup (<5ms) for single keyword topics
+    if not is_question and req.mode not in ("symptom", "comparison", "lab"):
+        verified = get_topic_profile(q)
+        if verified:
+            data = dict(verified)
+
+    # 2. Dynamic Gemini LLM Generation for custom queries, questions, symptoms, comparisons, and labs
     if data is None:
         client, model = get_llm_client()
         if client is not None:
