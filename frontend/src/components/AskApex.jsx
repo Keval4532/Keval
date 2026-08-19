@@ -28,7 +28,7 @@ function renderText(text) {
   });
 }
 
-export default function AskApex({ subject, category, level }) {
+export default function AskApex({ subject, category, level, triggerQuestion }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -38,6 +38,13 @@ export default function AskApex({ subject, category, level }) {
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
+
+  useEffect(() => {
+    if (triggerQuestion?.question) {
+      setOpen(true);
+      send(triggerQuestion.question);
+    }
+  }, [triggerQuestion]);
 
   const send = async (text) => {
     const q = (text ?? input).trim();

@@ -24,6 +24,7 @@ export default function Result() {
   const [error, setError] = useState(null);
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [triggerQuestion, setTriggerQuestion] = useState(null);
 
   const fetchData = useCallback(async (lvl) => {
     setLoading(true); setError(null);
@@ -174,7 +175,7 @@ export default function Result() {
       {isSymptom ? <ResultSymptom data={data} />
         : isComparison ? <ResultComparison data={data} />
         : isLab ? <ResultLab data={data} />
-        : <ResultTopic data={data} onAskFollowup={(fq) => navigate(`/result?q=${encodeURIComponent(fq)}&level=${level}`)} />}
+        : <ResultTopic data={data} onAskFollowup={(fq) => setTriggerQuestion({ question: fq, id: Date.now() })} />}
 
       {/* Followups */}
       {data.followups?.length > 0 && (
@@ -182,7 +183,7 @@ export default function Result() {
           <div className="mb-3 text-[10px] uppercase tracking-[0.25em] text-white/40">Keep exploring</div>
           <div className="flex flex-wrap gap-2">
             {data.followups.map((f, i) => (
-              <button key={i} data-testid={`followup-${i}`} onClick={() => navigate(`/result?q=${encodeURIComponent(f)}&level=${level}`)}
+              <button key={i} data-testid={`followup-${i}`} onClick={() => setTriggerQuestion({ question: f, id: Date.now() })}
                 className="rounded-full border border-white/10 bg-white/[0.02] px-3.5 py-1.5 text-xs text-white/65 hover:border-cyan-400/40 hover:text-white">
                 {f}
               </button>
@@ -195,7 +196,7 @@ export default function Result() {
         KevalBio provides educational information only and is not a substitute for professional medical advice, diagnosis, or treatment.
       </div>
 
-      <AskApex subject={data.subject} category={data.category} level={level} />
+      <AskApex subject={data.subject} category={data.category} level={level} triggerQuestion={triggerQuestion} />
     </div>
   );
 }
