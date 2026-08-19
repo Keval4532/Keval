@@ -1,8 +1,15 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL !== undefined 
-  ? process.env.REACT_APP_BACKEND_URL 
-  : (typeof window !== "undefined" && window.location.hostname !== "localhost" ? "" : "http://localhost:8000");
+// In production on Vercel or any remote domain, ALWAYS use relative path "" so requests route to /api on the same origin.
+// In local development, fall back to localhost:8000 if running separate dev servers.
+const isProd = 
+  process.env.NODE_ENV === "production" || 
+  (typeof window !== "undefined" && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1");
+
+const BACKEND_URL = isProd 
+  ? "" 
+  : (process.env.REACT_APP_BACKEND_URL || "http://localhost:8000");
+
 export const API = BACKEND_URL ? `${BACKEND_URL}/api` : "/api";
 
 const client = axios.create({ baseURL: API, timeout: 180000 });

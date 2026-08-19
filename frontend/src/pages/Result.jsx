@@ -8,10 +8,9 @@ import { ScoreGauge, SafetyIndicator } from "../components/primitives";
 import ResultTopic from "../components/ResultTopic";
 import { ResultSymptom, ResultComparison, ResultLab } from "../components/ResultSpecial";
 import AskApex from "../components/AskApex";
+import IntelligentLoader from "../components/IntelligentLoader";
 
 const LEVELS = ["beginner", "intermediate", "advanced"];
-
-import IntelligentLoader from "../components/IntelligentLoader";
 
 export default function Result() {
   const [params, setParams] = useSearchParams();
