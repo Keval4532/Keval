@@ -1158,5 +1158,168 @@ EXPANDED_PROFILES: Dict[str, Dict[str, Any]] = {
                 }
             ]
         }
+    },
+
+    # -----------------------------------------------------------------
+    # RHODIOLA ROSEA (GOLDEN ROOT / ARCTIC ROOT)
+    # -----------------------------------------------------------------
+    "rhodiola_rosea": {
+        "subject": "Rhodiola Rosea",
+        "category": "Adaptogens & Nootropics",
+        "query_type": "supplement",
+        "one_liner": "A high-altitude adaptogenic botanical that modulates cortisol, attenuates central fatigue, and enhances monoaminergic neurotransmission (serotonin, dopamine, norepinephrine).",
+        "science_score": 93,
+        "science_score_rationale": "Multiple double-blind, placebo-controlled human trials demonstrating significant reduction in burnout fatigue, mental exhaustion, and exercise-induced cortisol elevation.",
+        "safety_level": "green",
+        "quick_answer": "Rhodiola Rosea (Golden Root) is an adaptogenic herb containing active bioactive salidrosides and rosavins (standardized to a 3:1 ratio). It acts upon the hypothalamic-pituitary-adrenal (HPA) axis by dampening stress-induced cortisol spikes, stimulating molecular chaperone Hsp70, and inhibiting monoamine oxidase (MAO), thereby sustaining synaptic dopamine, serotonin, and norepinephrine during prolonged physical or cognitive stress.",
+        "followups": [
+            "What is the ideal ratio of Rosavins to Salidroside (3:1 standard)?",
+            "Why should Rhodiola Rosea be taken early in the day rather than at night?",
+            "How does Rhodiola Rosea compare to Ashwagandha for stress vs energy?",
+            "What is the clinical protocol for preventing Rhodiola tolerance/adaptation?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Rhodiola Rosea is an Arctic mountain herb that helps your brain and body resist stress, fight off mental burnout, and maintain sharp focus without caffeine jitters.",
+                "advanced": "Rhodiola rosea L. (Crassulaceae) is a perennial flowering adaptogen rich in phenylpropanoids (rosavin, rosin, rosarin), phenylethanol derivatives (salidroside/rhodioloside, tyrosol), and flavonoids. It modulates stress-activated protein kinase (SAPK/p38 MAPK) and neuropeptide Y (NPY)."
+            },
+            "why_important": [
+                {"title": "HPA Axis & Stress-Induced Cortisol Modulation", "evidence": "strong", "detail": "Human clinical trials demonstrate significant attenuation of salivary cortisol awakening responses and subjective burnout exhaustion scores under chronic stress."},
+                {"title": "Central Fatigue Resistance & ATP Turnover", "evidence": "strong", "detail": "Enhances mitochondrial energy metabolism by stimulating cellular ATP re-synthesis and glycogen storage during prolonged physical exertion."},
+                {"title": "Monoamine Neurotransmitter Preservation (Dopamine/Serotonin)", "evidence": "strong", "detail": "Reversibly inhibits Monoamine Oxidase A and B (MAO-A/B), sustaining extracellular dopamine, serotonin, and norepinephrine in the prefrontal cortex."},
+                {"title": "Neuroprotection & Heat Shock Protein (Hsp70) Induction", "evidence": "moderate", "detail": "Upregulates Hsp70 molecular chaperones, protecting neuronal synapses and mitochondrial membranes from oxidative protein misfolding."}
+            ],
+            "affects": [
+                {"system": "Brain & Nervous System", "level": "primary", "detail": "Enhances executive working memory, mental endurance, processing speed, and mood resilience."},
+                {"system": "Hormones & Endocrine", "level": "primary", "detail": "Regulates adrenal gland cortisol output and sympathetic nervous system tone."},
+                {"system": "Mitochondria & Energy", "level": "primary", "detail": "Stimulates cellular ATP replenishment and attenuates muscular lactate accumulation."},
+                {"system": "Heart & Vascular", "level": "secondary", "detail": "Protects myocardium from stress-induced catecholamine surges and tachycardia."}
+            ],
+            "mechanism": {
+                "summary": "Absorbed in the upper small intestine. Salidroside and rosavins cross the blood-brain barrier to modulate corticotropin-releasing hormone (CRH), stimulate AMPK/SIRT1 pathways, and inhibit monoamine catabolism.",
+                "steps": [
+                    {"stage": "Bioactive Absorption", "detail": "Rosavins and salidrosides are rapidly absorbed in the jejunum and reach peak plasma concentrations within 1-2 hours."},
+                    {"stage": "HPA Axis Homeostasis", "detail": "Downregulates hypothalamic CRH and pituitary ACTH hyper-secretion during acute stress exposures."},
+                    {"stage": "Monoaminergic Synaptic Retention", "detail": "Mild reversible MAO-A/B inhibition prevents premature degradation of synaptic serotonin, dopamine, and norepinephrine."},
+                    {"stage": "Mitochondrial Protection", "detail": "Induces cellular Hsp70 and stimulates mitochondrial biogenesis through the AMPK/PGC-1alpha axis."}
+                ]
+            },
+            "uses": {
+                "strong": ["Relieving mental fatigue, cognitive burnout, and exhaustion in high-stress work or study environments", "Improving physical endurance capacity and reducing perceived exertion during prolonged exercise", "Alleviating mild-to-moderate mood low states and situational stress anxiety"],
+                "moderate": ["Enhancing cognitive reaction time, calculation speed, and proofreading accuracy under sleep debt"],
+                "emerging": ["Cardioprotection against stress-induced arrhythmias and hypoxia"],
+                "insufficient": ["Replacing prescription pharmaceutical monoamine oxidase inhibitors (MAOIs) for clinical major depressive disorder"]
+            },
+            "deficiency": {
+                "causes": ["Non-essential botanical; deficiency does not exist in biological nutrition", "Chronic unmitigated psychological and physical stress leading to HPA axis dysregulation and adrenal burnout"],
+                "effects": ["Elevated morning cortisol, brain fog, sluggish motivation, and reduced aerobic endurance"],
+                "symptoms": ["Afternoon energy crashes despite adequate caffeine", "Mental fog and poor working memory when multitasking", "Prolonged physical exhaustion following workouts"],
+                "symptoms_note": "Rhodiola is an exogenous adaptogen used to build biological stress resilience.",
+                "timeline": "Acute anti-fatigue benefits occur within 60-120 minutes; chronic adaptogenic resilience builds over 4-6 weeks."
+            },
+            "food_sources": [
+                {"food": "Standardized Rhodiola Rosea Extract (3% Rosavins, 1% Salidroside)", "amount": "200-400 mg", "content": "6-12 mg Rosavins, 2-4 mg Salidroside", "bioavailability": "high", "serving": "1 capsule", "type": "plant"},
+                {"food": "Rhodiola Rosea Root Tea / Decoction", "amount": "1 cup (2-3 g root)", "content": "Variable herbal phytochemicals", "bioavailability": "moderate", "serving": "1 cup", "type": "plant"},
+                {"food": "Whole Dried Arctic Root Powder", "amount": "500-1,000 mg", "content": "Full-spectrum natural glycosides", "bioavailability": "moderate", "serving": "1 teaspoon", "type": "plant"}
+            ],
+            "absorption": {
+                "increases": ["Taking on an empty stomach 30-45 minutes before breakfast or prior to workout sessions", "Using extract standardized to SHR-5 or minimum 3% rosavins and 1% salidroside"],
+                "decreases": ["Taking late in the evening (can cause stimulating mild insomnia)", "Taking alongside high-dose competing adrenergic stimulants"],
+                "forms": [
+                    "Standardized Extract (3% Rosavins / 1% Salidroside): The gold standard clinical extract (e.g. SHR-5) used in published human trials",
+                    "Salidroside-Isolated Extract (e.g. 3% Salidroside): Highly stimulating, focused primarily on acute dopaminergic drive and physical output",
+                    "Whole Root Powder: Traditional herbal preparation; unstandardized with natural variable potency"
+                ],
+                "notes": "Always verify that your product specifies Rhodiola rosea (containing rosavins), rather than other species like Rhodiola crenulata which lack rosavins."
+            },
+            "requirements": {
+                "rda": "No official RDA established (botanical adaptogen)",
+                "groups": [
+                    {"group": "General Stress Resistance & Mental Focus", "amount": "200-300 mg/day"},
+                    {"group": "Severe Chronic Burnout & Exhaustion Protocol", "amount": "400-600 mg/day (split morning/midday)"},
+                    {"group": "Acute Athletic Performance & Pre-Workout", "amount": "200-400 mg (60 mins pre-workout)"}
+                ],
+                "ul": "1,000 mg/day (doses above 600 mg offer no additional benefit and may cause overstimulation).",
+                "note": "A bell-shaped dose-response curve is observed: moderate doses (200-400 mg) are energizing; excessive doses (>800 mg) can cause drowsiness or irritability."
+            },
+            "supplementation": {
+                "who_might": ["Knowledge workers and students experiencing cognitive burnout and mental fatigue", "Endurance and strength athletes seeking to reduce perceived exertion and blunted cortisol surges", "Individuals under chronic emotional or occupational stress needing non-jittery energy"],
+                "who_probably_not": ["Individuals with bipolar disorder (can trigger hypomania or manic episodes due to stimulating monoaminergic action)", "Pregnant and nursing women"],
+                "forms": ["Standardized 3% Rosavins / 1% Salidroside Extract"],
+                "typical_amounts": "200-400 mg once or twice daily",
+                "timing": "Morning upon waking and/or early afternoon (before 2:00 PM)",
+                "with_food": "Take 30 minutes before food on an empty stomach for maximum absorption",
+                "duration": "6 to 12 weeks",
+                "cycling": "Recommended: 6-8 weeks daily use followed by 1-2 weeks off to maintain receptor sensitivity."
+            },
+            "safety": {
+                "level": "green",
+                "upper_limit": "600-800 mg/day",
+                "toxicity": "Extremely well tolerated in clinical human studies; LD50 in animal models equates to >20,000 mg in humans.",
+                "overdose": "Agitation, mild insomnia, restlessness, dry mouth, or transient palpitations.",
+                "drug_interactions": ["Prescription Antidepressants (SSRIs, SNRIs, MAOIs): Theoretical additive risk of serotonin syndrome", "Stimulants (Adderall, high caffeine): Additive adrenergic stimulation", "Antidiabetic Medications: Enhances insulin sensitivity; monitor blood sugar"],
+                "contraindications": ["Bipolar affective disorder (risk of triggering manic phase)", "Severe agitated depression or severe panic disorder"],
+                "special_populations": ["Avoid in children, pregnant, and breastfeeding individuals due to lack of longitudinal safety data."]
+            },
+            "interactions": [
+                {"substance": "Caffeine", "interaction": "Synergistic Energy", "mechanism": "Rhodiola smooths out caffeine jitters while caffeine enhances acute alertness.", "importance": "high"},
+                {"substance": "L-Theanine", "interaction": "Complementary Focus", "mechanism": "Theanine promotes calm alpha brainwaves while Rhodiola elevates monoamine neurotransmitters.", "importance": "high"},
+                {"substance": "Ashwagandha", "interaction": "Adaptogen Pairing", "mechanism": "Rhodiola provides morning/daytime energizing resilience; Ashwagandha provides evening calm and GABAergic relaxation.", "importance": "high"}
+            ],
+            "timing": {
+                "matters": True,
+                "detail": "Take in the morning and/or early afternoon. Avoid taking within 5 hours of bedtime due to mild stimulating properties."
+            },
+            "performance": {
+                "muscle": "Attenuates muscle damage biomarkers (CK, LDH) post-strenuous resistance training.",
+                "strength": "Sustains motor unit recruitment velocity during high-volume training blocks.",
+                "fat_loss": "Stimulates hormone-sensitive lipase (HSL) to promote fatty acid mobilization during aerobic exercise.",
+                "recovery": "Significantly accelerates heart rate recovery and reduces post-workout muscle soreness.",
+                "athletic": "Decreases rating of perceived exertion (RPE) and prolongs time-to-exhaustion in endurance time trials.",
+                "energy": "Stimulates cellular ATP regeneration without triggering post-stimulant adenosine crashes.",
+                "sleep": "Improves nocturnal restorative sleep indirectly by stabilizing daytime cortisol curves.",
+                "cognitive": "Enhances working memory, associative thinking, computational speed, and proofreading accuracy.",
+                "hormones": "Normalizes flattened or hyper-elevated diurnal salivary cortisol curves under stress.",
+                "metabolic": "Activates AMPK signaling to improve insulin-stimulated skeletal muscle glucose disposal."
+            },
+            "biomarkers": [
+                {"marker": "Diurnal Salivary Cortisol Curve", "measures": "4-point morning to evening cortisol awakening response (CAR)", "matters": "Monitors normalization of HPA axis stress response", "limitations": "Subject to acute emotional fluctuations", "when": "Baseline and 6-8 weeks into adaptogenic protocol"},
+                {"marker": "Heart Rate Variability (HRV)", "measures": "Autonomic parasympathetic vs sympathetic tone", "matters": "Increases in baseline rMSSD/HRV reflect improved systemic stress recovery", "limitations": "Wearable sensor variability", "when": "Daily morning HRV tracking"},
+                {"marker": "Creatine Kinase (CK) & hs-CRP", "measures": "Post-training muscle breakdown and systemic inflammation", "matters": "Demonstrates accelerated athletic recovery kinetics", "limitations": "Rises acutely post-workout", "when": "Athletic recovery assessments"}
+            ],
+            "myths": [
+                {"myth": "Rhodiola is just another herbal caffeine substitute.", "fact": "Rhodiola does not block adenosine receptors or stimulate cardiac beta-receptors; it works by reducing central fatigue and stress-induced cortisol."},
+                {"myth": "All Rhodiola species sold in stores are the same.", "fact": "Only Rhodiola rosea contains the active rosavins; Rhodiola crenulata and Rhodiola serrata lack rosavins and have different pharmacology."}
+            ],
+            "mistakes": [
+                "Taking Rhodiola right before bed (its activating properties can disrupt sleep onset)",
+                "Buying cheap unstandardized root powder with zero verified rosavin or salidroside content",
+                "Taking mega-doses (>1,000 mg) expecting faster results (moderate 200-400 mg doses are far more effective due to bell-shaped response curve)"
+            ],
+            "if_low": [
+                "Take 200-300 mg of Rhodiola Rosea extract (standardized to 3% rosavins / 1% salidroside) 30 minutes before breakfast",
+                "If preparing for heavy cognitive or athletic exertion, take an additional 200 mg 45 minutes prior to the session",
+                "Pair with foundational sleep hygiene (7.5+ hours) and daily morning sunlight exposure",
+                "Cycle: Take for 6-8 weeks, followed by a 1-week wash-out period to maintain full receptor responsiveness"
+            ],
+            "if_too_much": {
+                "acute": "Overstimulation, restlessness, jitteriness, dry mouth, mild sleep onset latency.",
+                "chronic": "Tolerance or diminished efficacy due to receptor downregulation from chronic excessive dosing.",
+                "mechanism": "Excess monoaminergic accumulation and adrenergic signaling.",
+                "signs": "Difficulty settling down at night, racing thoughts, mild headache.",
+                "when_medical": "Non-emergency; reduce dose or skip 2-3 days and resume at standard 200 mg/day."
+            },
+            "research": [
+                {
+                    "title": "Rhodiola rosea in stress-induced fatigue: a double-blind cross-over study of a standardized extract SHR-5",
+                    "year": "2000",
+                    "study_type": "Randomized, Double-Blind, Placebo-Controlled Trial (n=56 physicians on night duty)",
+                    "evidence_level": "strong",
+                    "summary": "Demonstrated a statistically significant improvement in cognitive fatigue index (comprising perceptive and cognitive functions like associative thinking, short-term memory, concentration, and speed of visual and auditory perception) without any reported side effects.",
+                    "source": "Phytomedicine: International Journal of Phytotherapy and Phytopharmacology",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/11081987/"
+                }
+            ]
+        }
     }
 }

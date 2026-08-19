@@ -285,15 +285,21 @@ SECTION_KEYS = {
 
 
 def extract_json(text: str) -> Dict[str, Any]:
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(json)?\s*", "", text).strip()
-        text = re.sub(r"\s*```$", "", text).strip()
-    start = text.find("{")
-    if start == -1:
-        raise json.JSONDecodeError("no object", text, 0)
+    if not text or not isinstance(text, str):
+        raise json.JSONDecodeError("Empty text for JSON extraction", "", 0)
     
-    clean_text = text[start:]
+    clean_text = text.strip()
+    
+    # Strip markdown code blocks
+    clean_text = re.sub(r"^```(?:json)?\s*", "", clean_text, flags=re.IGNORECASE).strip()
+    clean_text = re.sub(r"\s*```$", "", clean_text).strip()
+    
+    start = clean_text.find("{")
+    end = clean_text.rfind("}")
+    if start == -1 or end == -1 or end <= start:
+        raise json.JSONDecodeError("No JSON object found", clean_text, 0)
+    
+    clean_text = clean_text[start:end+1]
     
     # 1. Direct standard parse
     try:
@@ -635,7 +641,7 @@ def generate_fallback_topic(query: str, level: str = "intermediate", mode: Optio
                 {"substance": "Balanced Micronutrient Spectrum", "interaction": "Synergistic", "mechanism": "Co-factors support enzymatic activation and biological utilization.", "importance": "moderate"}
             ],
             "timing": {
-                "matters": true,
+                "matters": True,
                 "detail": "Consistent daily timing alongside meals produces the most reliable biological benefits."
             },
             "performance": {

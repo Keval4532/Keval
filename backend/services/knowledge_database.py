@@ -2026,6 +2026,8 @@ def get_topic_profile(query: str) -> Optional[Dict[str, Any]]:
         return TOPIC_PROFILES.get("boron")
     elif "growth hormone" in q_norm or "hgh" in q_norm or "somatotropin" in q_norm:
         return TOPIC_PROFILES.get("growth_hormone")
+    elif "rhodiola" in q_norm or "golden root" in q_norm or "arctic root" in q_norm:
+        return TOPIC_PROFILES.get("rhodiola_rosea")
     
     # 2. Check for direct key match in TOPIC_PROFILES
     for key, profile in TOPIC_PROFILES.items():
