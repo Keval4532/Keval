@@ -993,5 +993,170 @@ EXPANDED_PROFILES: Dict[str, Dict[str, Any]] = {
                 }
             ]
         }
+    },
+
+    # -----------------------------------------------------------------
+    # GROWTH HORMONE (HGH / SOMATOTROPIN)
+    # -----------------------------------------------------------------
+    "growth_hormone": {
+        "subject": "Growth Hormone",
+        "category": "Endocrine & Hormones",
+        "query_type": "hormone",
+        "one_liner": "A 191-amino acid peptide hormone secreted by the anterior pituitary, orchestrating tissue regeneration, lipolysis, protein synthesis, and hepatic IGF-1 synthesis.",
+        "science_score": 96,
+        "science_score_rationale": "Decades of endocrinology trials, somatotropic axis physiology, and recombinant somatropin clinical guidelines.",
+        "safety_level": "yellow",
+        "quick_answer": "Growth Hormone (GH, or Somatotropin) is a master anabolic peptide secreted in nocturnal pulsatile bursts by anterior pituitary somatotrophs under the dual control of GHRH (stimulatory) and Somatostatin (inhibitory). GH directly stimulates adipocyte lipolysis and cellular amino acid uptake, while traveling to the liver to induce the transcription and systemic release of Insulin-Like Growth Factor 1 (IGF-1), driving musculoskeletal protein synthesis and collagen regeneration.",
+        "followups": [
+            "How does deep slow-wave sleep (SWS) maximize nocturnal growth hormone pulses?",
+            "What is the biological difference between Growth Hormone and IGF-1?",
+            "How do intermittent fasting and low insulin levels elevate natural GH secretion?",
+            "What resistance training protocols trigger the highest acute GH response?"
+        ],
+        "sections": {
+            "what_is_it": {
+                "beginner": "Growth hormone is a natural hormone made in your brain that helps your body rebuild muscle, burn fat for fuel, repair joints, and keep you youthful and energized.",
+                "advanced": "Somatotropin (GH1) is a 22 kDa single-chain polypeptide containing 191 amino acid residues stabilized by two internal disulfide bonds. It binds the extracellular domain of the Growth Hormone Receptor (GHR), inducing receptor homodimerization and downstream JAK2/STAT5 signaling cascades."
+            },
+            "why_important": [
+                {"title": "Musculoskeletal Hypertrophy & Nitrogen Balance", "evidence": "strong", "detail": "Enhances cellular amino acid transport across sarcolemmal membranes and reduces whole-body leucine oxidation, preserving lean tissue."},
+                {"title": "Direct Adipocyte Lipolysis & Fat Partitioning", "evidence": "strong", "detail": "Activates hormone-sensitive lipase (HSL) in adipose depots, stimulating free fatty acid mobilization and preferential lipid oxidation."},
+                {"title": "Collagen Synthesis & Joint Connective Tissue Repair", "evidence": "strong", "detail": "Upregulates mRNA expression of procollagen types I and III in tendons, ligaments, and bone osteoblasts via local paracrine IGF-1."},
+                {"title": "Hepatic IGF-1 Biocatalysis", "evidence": "strong", "detail": "Drives hepatic synthesis of IGF-1 and its binding protein IGFBP-3, which circulate systemically to stimulate cellular mitosis and tissue hypertrophy."}
+            ],
+            "affects": [
+                {"system": "Endocrine & Hormones", "level": "primary", "detail": "Central coordinator of the somatotropic axis, interacting with thyroid, insulin, and gonadal steroids."},
+                {"system": "Muscles & Protein", "level": "primary", "detail": "Promotes cellular amino acid uptake, nitrogen retention, and satellite cell proliferation."},
+                {"system": "Metabolism & Fat", "level": "primary", "detail": "Accelerates lipolysis and spares muscle glycogen during prolonged fasting and high-intensity exercise."},
+                {"system": "Bones & Joints", "level": "secondary", "detail": "Stimulates epiphyseal chondrocyte proliferation, bone mineral accrual, and tendon tensile strength."}
+            ],
+            "mechanism": {
+                "summary": "Secreted in 6-12 daily pulses (highest pulse during stage 3-4 slow-wave sleep). Binds GHR to activate JAK2/STAT5 and MAPK pathways, elevating hepatic IGF-1 transcription and inhibiting adipocyte glucose uptake.",
+                "steps": [
+                    {"stage": "Hypothalamic GHRH Pulsing", "detail": "GHRH binds pituitary somatotrophs, stimulating cAMP/PKA and Ca2+ influx to release GH granules into systemic circulation."},
+                    {"stage": "GHR Dimerization", "detail": "Circulating GH binds preformed GHR homodimers, activating intracellular Janus Kinase 2 (JAK2) transphosphorylation."},
+                    {"stage": "STAT5b Nuclear Translocation", "detail": "Phosphorylated STAT5b dimers enter the nucleus to upregulate target genes, prominently hepatic IGF-1 and IGFBP-3."},
+                    {"stage": "Peripheral Tissue Regeneration", "detail": "Direct GH action stimulates adipocyte lipolysis, while IGF-1 binds IGF-1R across muscles and tendons to drive protein synthesis."}
+                ]
+            },
+            "uses": {
+                "strong": ["Treatment of adult and pediatric Growth Hormone Deficiency (GHD)", "Reversal of muscle wasting syndromes and short bowel syndrome", "Natural optimization for muscle recovery, connective tissue repair, and body composition in healthy adults"],
+                "moderate": ["Enhancing tendon and ligament collagen turnover post-injury"],
+                "emerging": ["Anti-aging epigenetic age modulation under clinical trial supervision"],
+                "insufficient": ["Megadose non-medical injection without clinical deficiency (carries high side-effect risks)"]
+            },
+            "deficiency": {
+                "causes": ["Pituitary microadenomas, traumatic brain injury (TBI), or chronic severe circadian disruption", "Severe chronic sleep deprivation (<5 hours/night) blunting nocturnal pulses", "Chronic hyperinsulinemia and high visceral adipose tissue suppressing pituitary output"],
+                "effects": ["Increased visceral adiposity, decreased muscle mass, reduced bone mineral density, and fatigue", "Elevated LDL cholesterol, impaired cardiac output, and reduced psychological vigor"],
+                "symptoms": ["Stubborn central abdominal fat accumulation", "Sluggish recovery from exercise and persistent joint stiffness", "Loss of muscular fullness and reduced daytime vitality"],
+                "symptoms_note": "Serum GH is highly pulsatile; serum IGF-1 and IGFBP-3 provide the accurate stable clinical markers of 24-hour GH output.",
+                "timeline": "Lifestyle interventions (sleep optimization, fasting, heavy lifting) elevate pulse amplitude within 2-4 weeks."
+            },
+            "food_sources": [
+                {"food": "Deep Sleep (Slow-Wave Sleep Architecture)", "amount": "7-9 hours/night", "content": "70-80% of daily GH output", "bioavailability": "high", "serving": "1 full night", "type": "plant"},
+                {"food": "Intermittent Fasting (16:8 Protocol)", "amount": "16 hours fasted", "content": "200-300% pulse elevation", "bioavailability": "high", "serving": "1 fasting window", "type": "plant"},
+                {"food": "High-Intensity Resistance Training / Sprints", "amount": "30-45 mins session", "content": "Acute 400-500% surge", "bioavailability": "high", "serving": "1 workout", "type": "plant"},
+                {"food": "L-Arginine / L-Ornithine (Empty Stomach)", "amount": "3-5 g", "content": "Transient somatostatin suppression", "bioavailability": "moderate", "serving": "1 dose", "type": "plant"},
+                {"food": "L-Glutamine", "amount": "2 g", "content": "Mild acute bicarbonate/pulse stimulation", "bioavailability": "moderate", "serving": "1 scoop", "type": "plant"}
+            ],
+            "absorption": {
+                "increases": ["Achieving 90+ minutes of Stage 3 Slow-Wave Deep Sleep (early night)", "Low circulating blood glucose and basal insulin (insulin and GH are physiologically antagonistic)", "High-intensity multi-joint resistance training (squats, deadlifts, compound pulls)"],
+                "decreases": ["Consuming high-glycemic carbohydrates right before bed (spikes insulin, blunting nocturnal GH surge)", "Elevated circulating free fatty acids and high visceral adiposity", "Chronic high-dose glucocorticoid / cortisol elevation"],
+                "forms": [
+                    "Natural Lifestyle Optimization: Deep sleep, intermittent fasting, and compound resistance training (100% endogenous and safe)",
+                    "Secretagogues (e.g. CJC-1295, Ipamorelin, MK-677): Mimic GHRH or Ghrelin; require physician supervision",
+                    "Recombinant Human GH (Somatropin): Prescription pharmaceutical injection for clinical GHD"
+                ],
+                "notes": "Always prioritize nocturnal sleep hygiene; the major GH pulse occurs within the first 60-90 minutes of sleep onset."
+            },
+            "requirements": {
+                "rda": "Endogenous physiological secretion: ~0.4 to 1.0 mg/day in young adults",
+                "groups": [
+                    {"group": "Adolescent Peak", "amount": "1.0 - 1.5 mg/day (pubertal growth spurt)"},
+                    {"group": "Young Adults (20-35 yrs)", "amount": "0.5 - 0.8 mg/day"},
+                    {"group": "Older Adults (>60 yrs)", "amount": "0.1 - 0.3 mg/day (Somatopause)"}
+                ],
+                "ul": "Non-clinical supra-physiological dosing (>4-8 IU/day) risks insulin resistance and acromegaly.",
+                "note": "Natural lifestyle optimization enhances amplitude of natural pulses without shutting down endogenous feedback loops."
+            },
+            "supplementation": {
+                "who_might": ["Athletes prioritizing maximal tissue recovery, connective tissue repair, and lean body composition", "Individuals with verified age-related somatopause under endocrinological evaluation", "Active trainees seeking natural secretagogue support (sleep protocols, glycine, glutamine)"],
+                "who_probably_not": ["Active cancer or malignancy patients (IGF-1 promotes cellular proliferation)", "Uncontrolled diabetics (GH promotes hepatic gluconeogenesis and peripheral insulin resistance)"],
+                "forms": ["Sleep Hygiene & Fasting", "Oral Amino Secretagogues (Glycine 3g, Arginine 3-5g)", "Prescription Somatropin (clinical only)"],
+                "typical_amounts": "Natural lifestyle protocols; 3g Glycine before bed",
+                "timing": "Nocturnal (pre-bed for sleep depth)",
+                "with_food": "Take amino acid secretagogues on an empty stomach to avoid transport competition",
+                "duration": "Continuous lifestyle integration",
+                "cycling": "Natural protocols do not require cycling."
+            },
+            "safety": {
+                "level": "yellow",
+                "upper_limit": "Endogenous regulation via somatostatin feedback",
+                "toxicity": "Exogenous abuse can cause peripheral edema, carpal tunnel syndrome, insulin resistance, hyperglycemia, and bone remodeling (acromegaly).",
+                "overdose": "Fluid retention, joint arthralgia, elevated fasting glucose, and paresthesias.",
+                "drug_interactions": ["Insulin and Oral Antidiabetics: GH antagonizes insulin sensitivity", "Corticosteroids: High glucocorticoids blunt GH effectiveness", "Estrogen Therapy: Oral estrogens increase hepatic GH resistance, requiring higher GH for equivalent IGF-1"],
+                "contraindications": ["Active malignant neoplasia", "Proliferative diabetic retinopathy"],
+                "special_populations": ["Avoid exogenous peptide injections without strict physician and biomarker monitoring."]
+            },
+            "interactions": [
+                {"substance": "Insulin", "interaction": "Physiological Antagonist", "mechanism": "Insulin promotes glucose storage and lipogenesis; high insulin directly suppresses pituitary GH release.", "importance": "high"},
+                {"substance": "Thyroid (T3)", "interaction": "Permissive Partner", "mechanism": "Adequate T3 is required for pituitary GH gene transcription and hepatic GHR sensitivity.", "importance": "high"},
+                {"substance": "Testosterone", "interaction": "Synergistic Anabolism", "mechanism": "Testosterone stimulates GHRH amplitude and enhances IGF-1 muscular sensitivity.", "importance": "high"}
+            ],
+            "timing": {
+                "matters": True,
+                "detail": "Over 70% of 24-hour endogenous GH is released in nocturnal slow-wave sleep. Keep pre-bed meals low in sugar."
+            },
+            "performance": {
+                "muscle": "Snares circulating amino acids to preserve nitrogen balance and accelerate muscle myofibrillar repair.",
+                "strength": "Increases connective tissue tensile strength (tendons, ligaments) allowing higher force transmission.",
+                "fat_loss": "Potent stimulant of adipocyte lipolysis, mobilizing triglycerides for mitochondrial beta-oxidation.",
+                "recovery": "Significantly accelerates repair of microtrauma in muscle, tendons, and cartilage post-workout.",
+                "athletic": "Improves work capacity, connective tissue durability, and glycogen repletion kinetics.",
+                "energy": "Supports daytime alertness by optimizing metabolic fuel flexibility.",
+                "sleep": "Intimately tied to Slow-Wave Sleep (SWS); optimal sleep stimulates GH, and adequate GH deepens recovery.",
+                "cognitive": "Supports hippocampal neurogenesis, synaptic plasticity, and executive processing.",
+                "hormones": "Drives hepatic IGF-1 synthesis and interacts with testosterone and thyroid for systemic anabolism.",
+                "metabolic": "Promotes free fatty acid utilization while preserving blood glucose for cerebral tissues."
+            },
+            "biomarkers": [
+                {"marker": "Insulin-Like Growth Factor 1 (IGF-1)", "measures": "Serum total and free IGF-1 (ng/mL)", "matters": "Gold standard stable surrogate for 24-hour growth hormone output (optimal: 180-280 ng/mL depending on age)", "limitations": "Reduced in liver disease and severe malnutrition", "when": "Baseline and 8-12 weeks into hormone protocols"},
+                {"marker": "IGFBP-3 (Binding Protein 3)", "measures": "Major circulating IGF-1 binding protein", "matters": "Assesses bioavailable fraction and GH receptor signaling integrity", "limitations": "Subject to acute inflammatory fluctuations", "when": "Comprehensive endocrine panels"},
+                {"marker": "Fasting Blood Glucose & HbA1c", "measures": "Glycemic control and insulin sensitivity", "matters": "Ensures elevated GH signaling does not induce hepatic insulin resistance", "limitations": "Evaluates downstream metabolic effect", "when": "Routine metabolic checks"}
+            ],
+            "myths": [
+                {"myth": "Taking oral HGH pills from supplement shops increases growth hormone.", "fact": "Growth hormone is a fragile 191-amino acid protein that is 100% denatured and digested by stomach acid and pepsin; oral HGH pills are biologically inactive scams."},
+                {"myth": "Eating carbs right before bed helps you release more growth hormone.", "fact": "A bedtime carbohydrate spike elevates insulin, which directly suppresses the nocturnal pituitary GH pulse during stage 3 sleep."}
+            ],
+            "mistakes": [
+                "Eating large high-sugar meals 30 minutes before bed (blunts the biggest natural GH pulse of the day)",
+                "Sacrificing deep slow-wave sleep (<6 hours) while spending thousands on recovery supplements",
+                "Buying expensive 'oral HGH sprays or pills' that get digested instantly in the stomach"
+            ],
+            "if_low": [
+                "Prioritize 7.5-8.5 hours of dark, cool sleep to maximize Stage 3 Slow-Wave Deep Sleep",
+                "Stop consuming high-glycemic carbohydrates 2-3 hours before bedtime to keep insulin low during early sleep",
+                "Incorporate heavy compound strength training (squats, deadlifts, overhead presses) 3-4 days per week",
+                "Experiment with intermittent fasting (e.g. 16:8 protocol) to induce natural GHRH pulsatile release"
+            ],
+            "if_too_much": {
+                "acute": "Puffiness in hands and feet, carpal tunnel symptoms, elevated morning blood glucose.",
+                "chronic": "Acromegaly (enlargement of facial bones, hands, feet), severe insulin resistance, cardiomegaly.",
+                "mechanism": "Excess IGF-1 promotes soft tissue and periosteal bone growth and hepatic gluconeogenesis.",
+                "signs": "Tight rings/shoes, joint stiffness, numb fingers in morning, elevated fasting glucose.",
+                "when_medical": "Seek endocrinology evaluation if experiencing persistent morning hand numbness, joint swelling, or facial bone changes."
+            },
+            "research": [
+                {
+                    "title": "Sleep-associated growth hormone release in humans: physiology and regulation",
+                    "year": "2018",
+                    "study_type": "Comprehensive Review and Clinical Analysis",
+                    "evidence_level": "strong",
+                    "summary": "Demonstrated that the major physiological surge in GH secretion occurs shortly after sleep onset during slow-wave sleep (SWS), accounting for up to 70% of total daily output, and that sleep deprivation dramatically suppresses somatotropic signaling.",
+                    "source": "Frontiers in Endocrinology",
+                    "url": "https://pubmed.ncbi.nlm.nih.gov/30050502/"
+                }
+            ]
+        }
     }
 }

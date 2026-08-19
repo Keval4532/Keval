@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "backend/server.py": {
+      "maxDuration": 60
+    }
+  },
   "services": {
     "frontend": {
       "root": "frontend",

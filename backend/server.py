@@ -393,7 +393,7 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000, 
                     {"role": "system", "content": system_message},
                     {"role": "user", "content": user_text},
                 ],
-                timeout=7.0,
+                timeout=15.0,
                 **extra_kwargs,
             )
             if resp.choices and resp.choices[0].message.content:
@@ -408,7 +408,7 @@ async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000, 
                             {"role": "system", "content": system_message},
                             {"role": "user", "content": user_text},
                         ],
-                        timeout=7.0,
+                        timeout=15.0,
                     )
                     if resp.choices and resp.choices[0].message.content:
                         return resp.choices[0].message.content
@@ -802,7 +802,7 @@ async def analyze(req: AnalyzeRequest):
         if client is not None:
             system, user_text = build_analyze_prompt(level, q, profile_ctx=pctx, mode_hint=req.mode)
             try:
-                raw = await call_llm(system, user_text, max_tokens=4000, json_mode=True)
+                raw = await call_llm(system, user_text, max_tokens=2200, json_mode=True)
                 if raw:
                     data = extract_json(raw)
             except Exception as e:
