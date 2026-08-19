@@ -74,10 +74,10 @@ export default function Layout({ children }) {
               <span className="absolute inset-0 border border-cyan-400/0 group-hover:border-cyan-400/60 rounded-lg transition-colors" />
             </span>
             <div className="leading-none text-left">
-              <span className="font-display text-lg font-bold tracking-tight text-white">
+              <span className="font-display text-lg font-extrabold tracking-tight text-white">
                 KEVAL<span className="text-cyan-400">BIO</span>
               </span>
-              <div className="text-[8px] uppercase tracking-[0.3em] text-[#64748B] mt-0.5 font-mono">
+              <div className="text-[8px] uppercase tracking-[0.25em] text-[#64748B] mt-0.5 font-mono font-semibold">
                 Biology Intelligence
               </div>
             </div>

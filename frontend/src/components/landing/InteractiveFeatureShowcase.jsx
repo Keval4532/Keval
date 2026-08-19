@@ -61,10 +61,10 @@ export default function InteractiveFeatureShowcase() {
           <Zap className="h-3.5 w-3.5" />
           <span>Interactive Biology Engine</span>
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-light text-white">
-          State-of-the-Art <span className="font-semibold text-cyan-400">Live Micro-Tools</span>
+        <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          State-of-the-Art <span className="font-extrabold text-cyan-400">Live Micro-Tools</span>
         </h2>
-        <p className="text-sm text-[#94A3B8] font-light">
+        <p className="text-sm text-[#94A3B8] font-medium">
           Experience the computational precision built into KEVALBIO. Try the live interactive teasers below.
         </p>
       </div>

@@ -139,15 +139,15 @@ export default function PublicHeroSection() {
           </span>
         </motion.div>
 
-        {/* Large Pitch Headline */}
+        {/* Large Punchy Headline (Blinkit-Style Neo-Grotesque) */}
         <motion.h1
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="font-display text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight text-white leading-[1.08]"
+          className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter text-white leading-[1.05]"
         >
           Understand Your Biology.{" "}
-          <span className="font-normal bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
+          <span className="font-extrabold bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
             Make Evidence-Based Decisions.
           </span>
         </motion.h1>
@@ -157,7 +157,7 @@ export default function PublicHeroSection() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mx-auto max-w-2xl text-sm sm:text-base text-[#94A3B8] font-light leading-relaxed"
+          className="mx-auto max-w-2xl text-sm sm:text-base text-[#94A3B8] font-medium leading-relaxed"
         >
           The AI-powered human performance, clinical nutrition, and physiological intelligence engine. No supplement marketing hype—just verifiable science.
         </motion.p>
@@ -244,10 +244,10 @@ export default function PublicHeroSection() {
                   </span>
                   <span className="text-[10px] text-[#64748B] font-mono">• {activeResult.rct_count}</span>
                 </div>
-                <h3 className="font-display text-2xl sm:text-3xl font-light text-white">
+                <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
                   {activeResult.subject}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#94A3B8] font-light leading-relaxed pt-0.5">
+                <p className="text-xs sm:text-sm text-[#94A3B8] font-normal leading-relaxed pt-0.5">
                   {activeResult.one_liner}
                 </p>
               </div>

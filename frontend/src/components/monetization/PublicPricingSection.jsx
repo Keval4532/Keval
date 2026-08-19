@@ -74,10 +74,10 @@ export default function PublicPricingSection({ showComparison = true }) {
           <span>Transparent Biology Pricing</span>
         </motion.div>
 
-        <h2 className="font-display text-3xl sm:text-5xl font-light tracking-tight text-white">
-          Invest in Your <span className="text-amber-400 font-normal">Biological Intelligence</span>
+        <h2 className="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+          Invest in Your <span className="text-amber-400 font-extrabold">Biological Intelligence</span>
         </h2>
-        <p className="text-sm text-[#94A3B8] font-light leading-relaxed">
+        <p className="text-sm text-[#94A3B8] font-medium leading-relaxed">
           No vague advice or supplement marketing hype. Full evidence-based pharmacokinetic engines and waste detection.
         </p>
 
@@ -172,9 +172,9 @@ export default function PublicPricingSection({ showComparison = true }) {
             </div>
 
             <div>
-              <div className="font-display text-5xl font-bold text-white">
+              <div className="font-display text-5xl font-extrabold text-white tracking-tight tabular-nums">
                 {billingCycle === "annual" ? "$79.99" : "$9.99"}
-                <span className="text-xs text-amber-300/80 font-mono font-normal ml-1.5">
+                <span className="text-xs text-amber-300/80 font-mono font-bold ml-1.5">
                   {billingCycle === "annual" ? "/ year ($6.67/mo)" : "/ month"}
                 </span>
               </div>
