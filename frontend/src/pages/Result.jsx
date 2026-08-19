@@ -71,12 +71,12 @@ export default function Result() {
   if (error) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 text-center px-4">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 max-w-md space-y-3">
-          <div className="text-sm font-medium text-white">{error}</div>
-          <p className="text-xs text-white/50">Please try rephrasing or check our library.</p>
+        <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-8 max-w-md space-y-3 shadow-sm">
+          <div className="text-sm font-bold text-slate-900 dark:text-white">{error}</div>
+          <p className="text-xs text-slate-600 dark:text-white/50">Please try rephrasing or check our library.</p>
           <div className="flex justify-center gap-3 pt-2">
-            <button data-testid="result-retry" onClick={() => fetchData(level)} className="rounded-xl border border-white/15 px-4 py-2 text-xs hover:bg-white/5">Try again</button>
-            <button onClick={() => navigate("/")} className="rounded-xl bg-cyan-400 px-4 py-2 text-xs text-black font-semibold">Back home</button>
+            <button data-testid="result-retry" onClick={() => fetchData(level)} className="rounded-xl border border-slate-200 dark:border-white/15 px-4 py-2 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-white/5">Try again</button>
+            <button onClick={() => navigate("/")} className="rounded-xl bg-cyan-500 dark:bg-cyan-400 px-4 py-2 text-xs text-white dark:text-black font-bold shadow">Back home</button>
           </div>
         </div>
       </div>
@@ -90,27 +90,27 @@ export default function Result() {
   const isLab = qt === "lab";
 
   return (
-    <div className="pb-16">
-      <button data-testid="result-back" onClick={() => navigate("/")} className="mb-4 flex items-center gap-1.5 text-xs text-white/45 hover:text-white">
+    <div className="pb-16 text-slate-900 dark:text-white">
+      <button data-testid="result-back" onClick={() => navigate("/")} className="mb-4 flex items-center gap-1.5 text-xs text-slate-500 dark:text-white/45 hover:text-slate-900 dark:hover:text-white font-medium font-mono">
         <ArrowLeft className="h-3.5 w-3.5" /> New search
       </button>
 
       {data.emergency && (
-        <div className="mb-6 flex items-start gap-3 border border-red-500/40 bg-red-500/[0.06] p-4">
-          <AlertOctagon className="h-5 w-5 shrink-0 text-red-400" />
-          <div className="text-sm text-red-200">These may be emergency symptoms. Please seek immediate medical care or contact emergency services now.</div>
+        <div className="mb-6 flex items-start gap-3 rounded-2xl border border-red-500/40 bg-red-50 dark:bg-red-500/[0.06] p-4 shadow-sm">
+          <AlertOctagon className="h-5 w-5 shrink-0 text-red-600 dark:text-red-400" />
+          <div className="text-sm text-red-900 dark:text-red-200">These may be emergency symptoms. Please seek immediate medical care or contact emergency services now.</div>
         </div>
       )}
 
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-        className="mb-8 flex flex-col gap-6 border border-white/10 bg-[#0A0A0A] p-6 sm:flex-row sm:items-center sm:justify-between">
+        className="mb-8 flex flex-col gap-6 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0E141D] p-6 sm:flex-row sm:items-center sm:justify-between shadow-sm">
         <div className="min-w-0">
           <div className="mb-2 flex items-center gap-2">
-            <span className="rounded-full border border-cyan-400/30 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-cyan-400">{data.category || qt}</span>
+            <span className="rounded-full border border-cyan-500/30 dark:border-cyan-400/30 bg-cyan-50 dark:bg-cyan-400/10 px-3 py-1 text-[10px] uppercase font-bold tracking-[0.2em] text-cyan-700 dark:text-cyan-400 font-mono">{data.category || qt}</span>
           </div>
-          <h1 className="font-display text-4xl font-light tracking-tight sm:text-5xl">{data.subject}</h1>
-          <p className="mt-3 max-w-2xl text-base text-white/60">{data.one_liner}</p>
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">{data.subject}</h1>
+          <p className="mt-3 max-w-2xl text-sm sm:text-base text-slate-600 dark:text-white/60 font-normal leading-relaxed">{data.one_liner}</p>
           {data.safety_level && <div className="mt-4"><SafetyIndicator level={data.safety_level} testId="header-safety" /></div>}
         </div>
         <div className="flex shrink-0 items-center gap-6">
@@ -119,11 +119,11 @@ export default function Result() {
           </div>
           <div className="flex flex-col gap-2">
             <button data-testid="save-topic-btn" onClick={handleSave}
-              className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-xs transition-colors ${saved ? "border-cyan-400/40 text-cyan-400" : "border-white/15 text-white/60 hover:bg-white/5"}`}>
+              className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold transition-colors ${saved ? "border-cyan-500 dark:border-cyan-400/40 text-cyan-700 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-400/10" : "border-slate-200 dark:border-white/15 text-slate-600 dark:text-white/60 hover:bg-slate-50 dark:hover:bg-white/5"}`}>
               {saved ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}{saved ? "Saved" : "Save"}
             </button>
-            <button data-testid="share-btn" onClick={handleShare} className="flex items-center gap-2 rounded-lg border border-white/15 px-3 py-2 text-xs text-white/60 hover:bg-white/5">
-              {copied ? <Check className="h-4 w-4 text-cyan-400" /> : <Share2 className="h-4 w-4" />}Share
+            <button data-testid="share-btn" onClick={handleShare} className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/15 px-3 py-2 text-xs text-slate-600 dark:text-white/60 hover:bg-slate-50 dark:hover:bg-white/5 font-semibold">
+              {copied ? <Check className="h-4 w-4 text-emerald-600 dark:text-cyan-400" /> : <Share2 className="h-4 w-4" />}Share
             </button>
           </div>
         </div>
@@ -132,18 +132,18 @@ export default function Result() {
       {/* Quick answer + level */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         {data.quick_answer && !isSymptom && !isComparison && !isLab && (
-          <div className="border-l-2 border-cyan-400 bg-white/[0.02] p-5 sm:max-w-2xl">
-            <div className="mb-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400">Quick answer</div>
-            <p className="text-sm leading-relaxed text-white/80">{data.quick_answer}</p>
+          <div className="rounded-2xl border-l-4 border-cyan-500 bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 p-5 sm:max-w-2xl shadow-sm">
+            <div className="mb-2 text-[10px] uppercase font-bold tracking-[0.25em] text-cyan-700 dark:text-cyan-400 font-mono">Quick answer</div>
+            <p className="text-sm leading-relaxed text-slate-800 dark:text-white/80 font-normal">{data.quick_answer}</p>
           </div>
         )}
         <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-white/40">Learning level</div>
-          <div className="flex gap-1 rounded-full border border-white/10 bg-white/[0.02] p-1 text-xs">
+          <div className="text-[10px] uppercase font-bold tracking-[0.2em] text-slate-500 dark:text-white/40 font-mono">Learning level</div>
+          <div className="flex gap-1 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/[0.02] p-1 text-xs shadow-sm">
             {LEVELS.map((l) => (
               <button key={l} data-testid={`result-level-${l}`} onClick={() => changeLevel(l)}
-                className={`relative rounded-full px-3 py-1.5 capitalize ${level === l ? "text-black" : "text-white/50 hover:text-white"}`}>
-                {level === l && <motion.span layoutId="result-level" className="absolute inset-0 rounded-full bg-cyan-400" />}
+                className={`relative rounded-full px-3.5 py-1.5 capitalize font-bold transition-all ${level === l ? "text-white dark:text-black" : "text-slate-600 dark:text-white/50 hover:text-slate-950 dark:hover:text-white"}`}>
+                {level === l && <motion.span layoutId="result-level" className="absolute inset-0 rounded-full bg-cyan-500 dark:bg-cyan-400 shadow" />}
                 <span className="relative">{l}</span>
               </button>
             ))}
@@ -152,20 +152,20 @@ export default function Result() {
       </div>
 
       {data.science_score_rationale && (
-        <div className="mb-8 flex items-start gap-2 text-xs text-white/45">
-          <span className="mt-0.5 rounded border border-white/10 px-1.5 py-0.5 uppercase tracking-wider">Score rationale</span>
-          <span className="max-w-3xl">{data.science_score_rationale}</span>
+        <div className="mb-8 flex items-start gap-2 text-xs text-slate-600 dark:text-white/45">
+          <span className="mt-0.5 rounded border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 px-2 py-0.5 uppercase tracking-wider font-mono font-bold">Score rationale</span>
+          <span className="max-w-3xl leading-relaxed font-normal">{data.science_score_rationale}</span>
         </div>
       )}
 
       {data.personalized && (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
           data-testid="personalized-callout"
-          className="mb-8 flex gap-3 border border-cyan-400/30 bg-cyan-400/[0.05] p-5">
-          <Sparkles className="h-5 w-5 shrink-0 text-cyan-400" />
+          className="mb-8 flex gap-3 rounded-2xl border border-cyan-300 dark:border-cyan-400/30 bg-cyan-50/70 dark:bg-cyan-400/[0.05] p-5 shadow-sm">
+          <Sparkles className="h-5 w-5 shrink-0 text-cyan-600 dark:text-cyan-400" />
           <div>
-            <div className="mb-1 text-[10px] uppercase tracking-[0.25em] text-cyan-400">Tailored for you</div>
-            <p className="text-sm leading-relaxed text-white/85">{data.personalized}</p>
+            <div className="mb-1 text-[10px] uppercase font-bold tracking-[0.25em] text-cyan-700 dark:text-cyan-400 font-mono">Tailored for you</div>
+            <p className="text-sm leading-relaxed text-slate-800 dark:text-white/85 font-normal">{data.personalized}</p>
           </div>
         </motion.div>
       )}
@@ -178,24 +178,30 @@ export default function Result() {
 
       {/* Followups */}
       {data.followups?.length > 0 && (
-        <div className="mt-10">
-          <div className="mb-3 text-[10px] uppercase tracking-[0.25em] text-white/40">Keep exploring</div>
+        <div className="mt-10 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.02] p-6 shadow-sm">
+          <div className="mb-3 text-[10px] uppercase font-bold tracking-[0.25em] text-cyan-700 dark:text-cyan-400 font-mono">Related Questions to Explore</div>
           <div className="flex flex-wrap gap-2">
             {data.followups.map((f, i) => (
-              <button key={i} data-testid={`followup-${i}`} onClick={() => setTriggerQuestion({ question: f, id: Date.now() })}
-                className="rounded-full border border-white/10 bg-white/[0.02] px-3.5 py-1.5 text-xs text-white/65 hover:border-cyan-400/40 hover:text-white">
-                {f}
+              <button
+                key={i}
+                data-testid={`followup-${i}`}
+                onClick={() => setTriggerQuestion({ question: f, id: Date.now() })}
+                className="rounded-full border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.02] px-3.5 py-1.5 text-xs text-slate-800 dark:text-white/70 hover:border-cyan-500 hover:bg-cyan-50 dark:hover:border-cyan-400/40 dark:hover:text-white transition-all shadow-sm font-medium"
+              >
+                {f} →
               </button>
             ))}
           </div>
         </div>
       )}
 
-      <div className="mt-12 border-t border-white/10 pt-6 text-xs text-white/30">
-        KevalBio provides educational information only and is not a substitute for professional medical advice, diagnosis, or treatment.
-      </div>
-
-      <AskApex subject={data.subject} category={data.category} level={level} triggerQuestion={triggerQuestion} />
+      {/* Ask KevalBio Drawer */}
+      <AskApex
+        subject={data.subject}
+        category={data.category || qt}
+        level={level}
+        triggerQuestion={triggerQuestion}
+      />
     </div>
   );
 }
