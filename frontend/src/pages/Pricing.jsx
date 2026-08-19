@@ -38,7 +38,7 @@ export default function Pricing() {
 
       {/* FAQ Accordion */}
       <div className="space-y-4 max-w-3xl mx-auto px-4">
-        <h3 className="font-display text-2xl font-light text-center text-white">
+        <h3 className="font-display text-2xl font-bold text-center text-slate-900 dark:text-white">
           Frequently Asked Questions
         </h3>
 
@@ -48,19 +48,19 @@ export default function Pricing() {
             return (
               <div
                 key={i}
-                className="rounded-2xl border border-[#1E2E42] bg-[#0E141D] p-5 space-y-2 cursor-pointer transition-all hover:border-white/20"
+                className="rounded-2xl border border-slate-200 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D] p-5 space-y-2 cursor-pointer transition-all hover:border-slate-300 dark:hover:border-white/20 shadow-sm"
                 onClick={() => setOpenFaq(isOp ? null : i)}
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className="font-semibold text-sm text-white">{faq.q}</span>
+                  <span className="font-bold text-sm text-slate-900 dark:text-white">{faq.q}</span>
                   {isOp ? (
-                    <ChevronUp className="h-4 w-4 text-amber-400" />
+                    <ChevronUp className="h-4 w-4 text-amber-500 dark:text-amber-400" />
                   ) : (
-                    <ChevronDown className="h-4 w-4 text-[#64748B]" />
+                    <ChevronDown className="h-4 w-4 text-slate-400 dark:text-[#64748B]" />
                   )}
                 </div>
                 {isOp && (
-                  <p className="text-xs text-[#94A3B8] leading-relaxed font-light pt-1 border-t border-white/5">
+                  <p className="text-xs text-slate-600 dark:text-[#94A3B8] leading-relaxed font-normal pt-1 border-t border-slate-100 dark:border-white/5">
                     {faq.a}
                   </p>
                 )}

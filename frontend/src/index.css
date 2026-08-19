@@ -5,14 +5,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* -------------------------------------------------------------
+   LIGHT MODE DESIGN SYSTEM TOKENS
+   ------------------------------------------------------------- */
 :root {
+    --background: 210 40% 98%; /* #F8FAFC Crisp Slate Canvas */
+    --foreground: 222 47% 11%; /* #0F172A Deep Navy Charcoal */
+    --card: 0 0% 100%; /* #FFFFFF Crisp Pure White */
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 189 94% 43%; /* Cyan-600 #0891B2 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%; /* #F1F5F9 */
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%; /* #64748B */
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 347 90% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%; /* #E2E8F0 */
+    --input: 214 32% 91%;
+    --ring: 189 94% 43%;
+    --radius: 0.75rem;
+
+    /* Semantic tokens for easy CSS referencing */
+    --app-bg: #F8FAFC;
+    --app-surface: #FFFFFF;
+    --app-surface-muted: #F1F5F9;
+    --app-border: #E2E8F0;
+    --app-text: #0F172A;
+    --app-text-muted: #64748B;
+    --app-heading: #0F172A;
+
+    /* Typography Stack */
+    --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+    --font-display: 'Plus Jakarta Sans', 'Cabinet Grotesk', 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* -------------------------------------------------------------
+   DARK MODE DESIGN SYSTEM TOKENS
+   ------------------------------------------------------------- */
+.dark {
     --background: 220 33% 5%; /* #080B10 Deep Obsidian Slate */
     --foreground: 210 40% 98%;
     --card: 217 33% 8%; /* #0E141D */
     --card-foreground: 210 40% 98%;
     --popover: 217 33% 8%;
     --popover-foreground: 210 40% 98%;
-    --primary: 186 100% 50%; /* Luminous Cyan */
+    --primary: 186 100% 50%; /* Luminous Cyan #06B6D4 */
     --primary-foreground: 0 0% 0%;
     --secondary: 215 28% 12%;
     --secondary-foreground: 210 40% 98%;
@@ -25,22 +69,25 @@
     --border: 217 33% 17%; /* #1E293B */
     --input: 215 28% 12%;
     --ring: 186 100% 50%;
-    --radius: 0.75rem;
-    
-    /* Blinkit-Style Typography Tokens */
-    --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-heading: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
-    --font-display: 'Plus Jakarta Sans', 'Cabinet Grotesk', 'Inter', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+
+    --app-bg: #080B10;
+    --app-surface: #0E141D;
+    --app-surface-muted: #080B10;
+    --app-border: #1E2E42;
+    --app-text: #CBD5E1;
+    --app-text-muted: #94A3B8;
+    --app-heading: #FFFFFF;
 }
 
 * {
-    border-color: #1E293B;
+    border-color: var(--app-border);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 html, body, #root {
-    background-color: #080B10;
-    color: #CBD5E1;
+    background-color: var(--app-bg);
+    color: var(--app-text);
+    min-height: 100vh;
 }
 
 body {
@@ -57,12 +104,12 @@ h1, h2, h3, h4, h5, h6, .font-display, .font-heading {
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #FFFFFF;
+    color: var(--app-heading);
 }
 
 h1 {
     letter-spacing: -0.035em;
-    line-height: 1.1;
+    line-height: 1.08;
 }
 
 h2 {
@@ -75,19 +122,19 @@ h3 {
     line-height: 1.25;
 }
 
-/* Monospaced & Tabular Data Metrics (Pharmacokinetics, Biomarkers, Timers) */
+/* Monospaced & Tabular Data Metrics */
 .font-mono, .tabular, .font-numeric, code, pre, .metric-value {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums lining-nums;
     font-feature-settings: 'tnum' 1, 'lnum' 1;
 }
 
-/* High-Impact Quick-Commerce Micro-Typography Classes */
+/* High-Impact Micro-Typography Classes */
 .text-punchy-hero {
     font-family: var(--font-display);
     font-weight: 800;
     letter-spacing: -0.038em;
-    line-height: 1.06;
+    line-height: 1.05;
 }
 
 .text-punchy-title {
@@ -116,64 +163,113 @@ h3 {
     color: #FFFFFF;
 }
 
-/* Custom Sleek Scrollbar */
+/* Custom Sleek Scrollbars for Light and Dark */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #080B10; }
-::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 6px; }
+::-webkit-scrollbar-track { background: var(--app-bg); }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
+.dark ::-webkit-scrollbar-thumb { background: #1E293B; }
 ::-webkit-scrollbar-thumb:hover { background: #06B6D4; }
 
 .grid-bg {
     background-image:
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+.dark .grid-bg {
+    background-image:
         linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 48px 48px;
 }
 
 .glass {
-    background: rgba(14, 20, 29, 0.85);
+    background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    border-color: #E2E8F0;
+}
+.dark .glass {
+    background: rgba(14, 20, 29, 0.85);
     border-color: #1E293B;
 }
 
 .card-slate {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+.dark .card-slate {
     background-color: rgba(14, 20, 29, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border: 1px solid #1E2E42;
+    box-shadow: none;
 }
 
 /* Category-Specific Semantic Color Tokens */
 .theme-vitamins {
+    border-color: #BAE6FD;
+    color: #0284C7;
+}
+.dark .theme-vitamins {
     border-color: #1E2E42;
     color: #38BDF8;
 }
+
 .theme-supplements {
+    border-color: #A7F3D0;
+    color: #059669;
+}
+.dark .theme-supplements {
     border-color: #1F2E1E;
     color: #34D399;
 }
+
 .theme-hormones {
+    border-color: #F5D0FE;
+    color: #C026D3;
+}
+.dark .theme-hormones {
     border-color: #331D3B;
     color: #E879F9;
 }
+
 .theme-longevity {
+    border-color: #FDE68A;
+    color: #D97706;
+}
+.dark .theme-longevity {
     border-color: #332814;
     color: #FBBF24;
 }
+
 .theme-cellular {
+    border-color: #DDD6FE;
+    color: #6D28D9;
+}
+.dark .theme-cellular {
     border-color: #221C38;
     color: #A5B4FC;
 }
+
 .theme-safety {
+    border-color: #FECDD3;
+    color: #E11D48;
+}
+.dark .theme-safety {
     border-color: #3B1A20;
     color: #FDA4AF;
 }
 
 .search-glow {
+    box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+}
+.dark .search-glow {
     box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.35);
 }
 
 .gold-glow {
+    box-shadow: 0 0 20px -3px rgba(245, 158, 11, 0.3);
+}
+.dark .gold-glow {
     box-shadow: 0 0 20px -3px rgba(245, 158, 11, 0.4);
 }
 
@@ -184,5 +280,5 @@ h3 {
 .animate-ping-slow { animation: ping-slow 2.4s cubic-bezier(0,0,0.2,1) infinite; }
 
 @layer base {
-    body { @apply bg-[#080B10] text-[#CBD5E1]; }
+    body { @apply bg-[#F8FAFC] dark:bg-[#080B10] text-[#0F172A] dark:text-[#CBD5E1]; }
 }

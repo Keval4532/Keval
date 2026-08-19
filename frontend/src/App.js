@@ -1,6 +1,7 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { AuthProvider } from "@/context/AuthContext";
 import Layout from "@/components/Layout";
 import Home from "@/pages/Home";
@@ -28,10 +29,11 @@ import SupplementAuditorPage from "@/pages/tools/SupplementAuditorPage";
 function App() {
   return (
     <div className="App">
-      <AuthProvider>
-        <BrowserRouter>
-          <Layout>
-            <Routes>
+      <ThemeProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Layout>
+              <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/problem" element={<ProblemAnalysis />} />
               <Route path="/diet" element={<DietAnalyzer />} />
@@ -57,11 +59,12 @@ function App() {
               <Route path="/saved" element={<MyKevalBio />} />
             </Routes>
           </Layout>
-          <Toaster theme="dark" position="top-center" richColors />
+          <Toaster theme="system" position="top-center" richColors />
         </BrowserRouter>
       </AuthProvider>
-    </div>
-  );
+    </ThemeProvider>
+  </div>
+);
 }
 
 export default App;
