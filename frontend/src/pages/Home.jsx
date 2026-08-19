@@ -344,17 +344,17 @@ export default function Home() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.12 }}
-          className="mt-6 inline-flex items-center rounded-2xl border border-[#1E2E42] bg-[#0E141D] p-1.5 shadow-xl"
+          className="mt-6 inline-flex items-center rounded-2xl border border-slate-200 dark:border-[#1E2E42] bg-slate-100 dark:bg-[#0E141D] p-1.5 shadow-md dark:shadow-xl"
         >
           <button
             onClick={() => {
               setMode("learn");
               setActiveCategory("all");
             }}
-            className={`flex items-center gap-2 rounded-xl px-4 sm:px-5 py-2 text-xs font-semibold transition-all ${
+            className={`flex items-center gap-2 rounded-xl px-4 sm:px-5 py-2 text-xs font-bold transition-all ${
               mode === "learn"
-                ? "bg-cyan-400 text-black shadow font-bold"
-                : "text-[#94A3B8] hover:text-white hover:bg-white/[0.04]"
+                ? "bg-cyan-500 dark:bg-cyan-400 text-white dark:text-black shadow"
+                : "text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/[0.04]"
             }`}
           >
             <BookOpen className="h-4 w-4" />
@@ -366,10 +366,10 @@ export default function Home() {
               setMode("solve");
               setActiveCategory("all");
             }}
-            className={`flex items-center gap-2 rounded-xl px-4 sm:px-5 py-2 text-xs font-semibold transition-all ${
+            className={`flex items-center gap-2 rounded-xl px-4 sm:px-5 py-2 text-xs font-bold transition-all ${
               mode === "solve"
-                ? "bg-emerald-400 text-black shadow font-bold"
-                : "text-[#94A3B8] hover:text-white hover:bg-white/[0.04]"
+                ? "bg-emerald-600 dark:bg-emerald-400 text-white dark:text-black shadow"
+                : "text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-white/[0.04]"
             }`}
           >
             <Stethoscope className="h-4 w-4" />
@@ -392,12 +392,12 @@ export default function Home() {
             className={`group relative flex items-center rounded-3xl border transition-all duration-300 ${
               focused
                 ? mode === "learn"
-                  ? "border-cyan-400 bg-[#0E141D] search-glow"
-                  : "border-emerald-400 bg-[#0E141D] shadow-[0_0_25px_-5px_rgba(16,185,129,0.35)]"
-                : "border-[#1E2E42] bg-[#0E141D]/90 hover:border-white/30"
+                  ? "border-cyan-500 dark:border-cyan-400 bg-white dark:bg-[#0E141D] search-glow"
+                  : "border-emerald-500 dark:border-emerald-400 bg-white dark:bg-[#0E141D] shadow-[0_0_25px_-5px_rgba(16,185,129,0.35)]"
+                : "border-slate-300 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D]/90 shadow-md dark:shadow-none hover:border-slate-400 dark:hover:border-white/30"
             }`}
           >
-            <div className="pl-5 text-[#64748B]">
+            <div className="pl-5 text-slate-400 dark:text-[#64748B]">
               <Search className="h-5 w-5" />
             </div>
 
@@ -413,15 +413,15 @@ export default function Home() {
                   ? "Enter any nutrient, hormone, biomarker, or concept (e.g. 'How does mTOR trigger hypertrophy?', 'Inositol for sleep')..."
                   : "Describe what you are feeling in detail (e.g. 'Afternoon crash around 3 PM even after 8h sleep', 'Cramps during deadlifts')..."
               }
-              className="w-full bg-transparent px-4 py-4 sm:py-5 text-sm sm:text-base text-white placeholder-[#64748B] outline-none font-light"
+              className="w-full bg-transparent px-4 py-4 sm:py-5 text-sm sm:text-base text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#64748B] outline-none font-normal"
               autoFocus
             />
 
             <div className="pr-3">
               <button
                 type="submit"
-                className={`flex items-center gap-1.5 rounded-2xl px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-black transition-all hover:scale-105 active:scale-95 shadow-md ${
-                  mode === "learn" ? "bg-cyan-400" : "bg-emerald-400"
+                className={`flex items-center gap-1.5 rounded-2xl px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-extrabold text-white dark:text-black transition-all hover:scale-105 active:scale-95 shadow-md font-mono ${
+                  mode === "learn" ? "bg-cyan-500 dark:bg-cyan-400" : "bg-emerald-600 dark:bg-emerald-400"
                 }`}
               >
                 <span>{mode === "learn" ? "Explain" : "Investigate"}</span>
@@ -437,19 +437,19 @@ export default function Home() {
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="mt-2 rounded-2xl border border-[#1E2E42] bg-[#0E141D] p-2 text-left shadow-2xl space-y-1"
+                className="mt-2 rounded-2xl border border-slate-200 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D] p-2 text-left shadow-2xl space-y-1"
               >
-                <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-[#64748B] font-mono">
+                <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-slate-400 dark:text-[#64748B] font-mono font-bold">
                   Matching Suggestions:
                 </div>
                 {filteredSuggestions.map((sug) => (
                   <button
                     key={sug}
                     onClick={() => handleChipClick(sug)}
-                    className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs text-[#CBD5E1] hover:bg-white/[0.04] hover:text-white transition-colors"
+                    className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-[#CBD5E1] hover:bg-slate-100 dark:hover:bg-white/[0.04] hover:text-slate-950 dark:hover:text-white transition-colors"
                   >
                     <span>{sug}</span>
-                    <ChevronRight className="h-3.5 w-3.5 text-[#64748B]" />
+                    <ChevronRight className="h-3.5 w-3.5 text-slate-400 dark:text-[#64748B]" />
                   </button>
                 ))}
               </motion.div>
@@ -462,9 +462,9 @@ export default function Home() {
           <div className="mt-5">
             <button
               onClick={() => setPersonalizeOpen(true)}
-              className="inline-flex items-center gap-2 rounded-full border border-[#1E293B] bg-[#0E141D] px-4 py-1.5 text-xs text-[#94A3B8] hover:border-cyan-400/40 hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-[#1E293B] bg-white dark:bg-[#0E141D] px-4 py-1.5 text-xs text-slate-600 dark:text-[#94A3B8] hover:border-cyan-500/40 hover:text-slate-900 dark:hover:text-white transition-colors shadow-sm"
             >
-              <Heart className="h-3.5 w-3.5 text-cyan-400" />
+              <Heart className="h-3.5 w-3.5 text-cyan-600 dark:text-cyan-400" />
               <span>Want personalized biological context? (30 sec)</span>
             </button>
           </div>
@@ -475,21 +475,21 @@ export default function Home() {
       <div className="mx-auto max-w-5xl px-2 space-y-6">
         {mode === "learn" ? (
           /* PATH 1: COMPREHENSIVE TOPIC DISCOVERY GRID */
-          <div className="rounded-3xl border border-[#1E2E42] bg-[#0E141D]/90 p-6 sm:p-8 space-y-6 shadow-xl">
+          <div className="rounded-3xl border border-slate-200 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D]/90 p-6 sm:p-8 space-y-6 shadow-md dark:shadow-xl">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan-400">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400 font-mono">
                   <BookOpen className="h-4 w-4" />
                   <span>Topic Discovery Matrix</span>
                 </div>
-                <h3 className="font-display text-xl font-light text-white mt-1">
+                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mt-1 tracking-tight">
                   Explore Curated Topics or Search Anything Custom
                 </h3>
               </div>
 
               <button
                 onClick={() => handleAddCustom("Teach me everything about: ")}
-                className="flex items-center gap-1.5 rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3.5 py-1.5 text-xs font-semibold text-cyan-300 hover:bg-cyan-400/20 transition-all font-mono"
+                className="flex items-center gap-1.5 rounded-full border border-cyan-300 dark:border-cyan-400/40 bg-cyan-50 dark:bg-cyan-400/10 px-3.5 py-1.5 text-xs font-bold text-cyan-800 dark:text-cyan-300 hover:bg-cyan-100 dark:hover:bg-cyan-400/20 transition-all font-mono"
               >
                 <Plus className="h-3.5 w-3.5" />
                 <span>Add Custom Topic</span>
@@ -497,13 +497,13 @@ export default function Home() {
             </div>
 
             {/* Category Filter Chips */}
-            <div className="flex flex-wrap gap-2 pt-1 border-t border-[#1E293B]">
+            <div className="flex flex-wrap gap-2 pt-1 border-t border-slate-200 dark:border-[#1E293B]">
               <button
                 onClick={() => setActiveCategory("all")}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                className={`rounded-full px-3 py-1 text-xs font-bold transition-all ${
                   activeCategory === "all"
-                    ? "bg-cyan-400 text-black font-bold"
-                    : "border border-[#1E293B] bg-black/40 text-[#94A3B8] hover:text-white"
+                    ? "bg-cyan-500 dark:bg-cyan-400 text-white dark:text-black shadow-sm"
+                    : "border border-slate-200 dark:border-[#1E293B] bg-slate-100 dark:bg-black/40 text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
                 All Categories
@@ -512,10 +512,10 @@ export default function Home() {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                  className={`rounded-full px-3 py-1 text-xs font-bold transition-all ${
                     activeCategory === cat.id
-                      ? "bg-cyan-400 text-black font-bold"
-                      : "border border-[#1E293B] bg-black/40 text-[#94A3B8] hover:text-white"
+                      ? "bg-cyan-500 dark:bg-cyan-400 text-white dark:text-black shadow-sm"
+                      : "border border-slate-200 dark:border-[#1E293B] bg-slate-100 dark:bg-black/40 text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
                   }`}
                 >
                   {cat.name}
@@ -530,10 +530,10 @@ export default function Home() {
               ).map((cat) => (
                 <div
                   key={cat.id}
-                  className="rounded-2xl border border-[#1E293B] bg-black/40 p-4 space-y-3"
+                  className="rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-slate-50 dark:bg-black/40 p-4 space-y-3 shadow-sm"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-xs text-white block">{cat.name}</span>
+                    <span className="font-bold text-xs text-slate-900 dark:text-white block">{cat.name}</span>
                     <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-md border ${cat.color}`}>
                       {cat.topics.length}
                     </span>
@@ -544,7 +544,7 @@ export default function Home() {
                       <button
                         key={t}
                         onClick={() => handleChipClick(t)}
-                        className="rounded-xl border border-white/5 bg-[#0E141D] px-2.5 py-1 text-xs text-[#CBD5E1] hover:border-cyan-400/50 hover:text-white hover:bg-cyan-400/10 transition-all text-left"
+                        className="rounded-xl border border-slate-200 dark:border-white/5 bg-white dark:bg-[#0E141D] px-2.5 py-1 text-xs font-medium text-slate-700 dark:text-[#CBD5E1] hover:border-cyan-500/50 hover:text-cyan-900 dark:hover:text-white hover:bg-cyan-50 dark:hover:bg-cyan-400/10 transition-all text-left shadow-sm"
                       >
                         {t}
                       </button>
@@ -556,21 +556,21 @@ export default function Home() {
           </div>
         ) : (
           /* PATH 2: CATEGORIZED SYMPTOM & PROBLEM DISCOVERY MATRIX */
-          <div className="rounded-3xl border border-[#1E2E42] bg-[#0E141D]/90 p-6 sm:p-8 space-y-6 shadow-xl">
+          <div className="rounded-3xl border border-slate-200 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D]/90 p-6 sm:p-8 space-y-6 shadow-md dark:shadow-xl">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-400">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-mono">
                   <Stethoscope className="h-4 w-4" />
                   <span>Symptom & Root-Cause Matrix</span>
                 </div>
-                <h3 className="font-display text-xl font-light text-white mt-1">
+                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mt-1 tracking-tight">
                   Common Clinical Scenarios & Multi-Factor Complaints
                 </h3>
               </div>
 
               <button
                 onClick={() => handleAddCustom("I am experiencing: ")}
-                className="flex items-center gap-1.5 rounded-full border border-emerald-400/40 bg-emerald-400/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-400/20 transition-all font-mono"
+                className="flex items-center gap-1.5 rounded-full border border-emerald-300 dark:border-emerald-400/40 bg-emerald-50 dark:bg-emerald-400/10 px-3.5 py-1.5 text-xs font-bold text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-400/20 transition-all font-mono"
               >
                 <Plus className="h-3.5 w-3.5" />
                 <span>Describe Custom Symptom</span>
@@ -578,13 +578,13 @@ export default function Home() {
             </div>
 
             {/* Category Filter Chips */}
-            <div className="flex flex-wrap gap-2 pt-1 border-t border-[#1E293B]">
+            <div className="flex flex-wrap gap-2 pt-1 border-t border-slate-200 dark:border-[#1E293B]">
               <button
                 onClick={() => setActiveCategory("all")}
-                className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                className={`rounded-full px-3 py-1 text-xs font-bold transition-all ${
                   activeCategory === "all"
-                    ? "bg-emerald-400 text-black font-bold"
-                    : "border border-[#1E293B] bg-black/40 text-[#94A3B8] hover:text-white"
+                    ? "bg-emerald-600 dark:bg-emerald-400 text-white dark:text-black shadow-sm"
+                    : "border border-slate-200 dark:border-[#1E293B] bg-slate-100 dark:bg-black/40 text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
                 }`}
               >
                 All Systems
@@ -593,10 +593,10 @@ export default function Home() {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+                  className={`rounded-full px-3 py-1 text-xs font-bold transition-all ${
                     activeCategory === cat.id
-                      ? "bg-emerald-400 text-black font-bold"
-                      : "border border-[#1E293B] bg-black/40 text-[#94A3B8] hover:text-white"
+                      ? "bg-emerald-600 dark:bg-emerald-400 text-white dark:text-black shadow-sm"
+                      : "border border-slate-200 dark:border-[#1E293B] bg-slate-100 dark:bg-black/40 text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white"
                   }`}
                 >
                   {cat.name}
@@ -611,10 +611,10 @@ export default function Home() {
               ).map((cat) => (
                 <div
                   key={cat.id}
-                  className="rounded-2xl border border-[#1E293B] bg-black/40 p-5 space-y-3"
+                  className="rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-slate-50 dark:bg-black/40 p-5 space-y-3 shadow-sm"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-sm text-white">{cat.name}</span>
+                    <span className="font-bold text-sm text-slate-900 dark:text-white">{cat.name}</span>
                     <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-md border ${cat.color}`}>
                       {cat.symptoms.length} Scenarios
                     </span>
@@ -625,10 +625,10 @@ export default function Home() {
                       <button
                         key={symptom}
                         onClick={() => handleChipClick(symptom)}
-                        className="flex w-full items-center justify-between rounded-xl border border-white/5 bg-[#0E141D] p-3 text-xs text-[#CBD5E1] hover:border-emerald-400/50 hover:text-white hover:bg-emerald-400/10 transition-all text-left group"
+                        className="flex w-full items-center justify-between rounded-xl border border-slate-200 dark:border-white/5 bg-white dark:bg-[#0E141D] p-3 text-xs text-slate-800 dark:text-[#CBD5E1] hover:border-emerald-500/50 hover:text-slate-950 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-emerald-400/10 transition-all text-left group shadow-sm"
                       >
-                        <span className="font-light">"{symptom}"</span>
-                        <ArrowRight className="h-3.5 w-3.5 text-[#64748B] group-hover:text-emerald-400 transition-colors shrink-0 ml-2" />
+                        <span className="font-medium">"{symptom}"</span>
+                        <ArrowRight className="h-3.5 w-3.5 text-slate-400 dark:text-[#64748B] group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors shrink-0 ml-2" />
                       </button>
                     ))}
                   </div>
@@ -642,13 +642,13 @@ export default function Home() {
       {/* FEATURED: INTERACTIVE BIOLOGY TOOLS LAUNCHPAD */}
       <div className="mx-auto max-w-5xl px-2 space-y-4 pt-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan-300">
-            <Zap className="h-4 w-4 text-cyan-400" />
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 font-mono">
+            <Zap className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
             <span>Interactive Biology Tools Suite</span>
           </div>
           <button
             onClick={() => navigate("/explore")}
-            className="text-xs text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1 font-medium font-mono"
+            className="text-xs text-cyan-700 dark:text-cyan-400 hover:underline inline-flex items-center gap-1 font-bold font-mono"
           >
             <span>View All Tools</span>
             <ArrowRight className="h-3 w-3" />
@@ -662,23 +662,23 @@ export default function Home() {
               <button
                 key={t.title}
                 onClick={() => navigate(t.path)}
-                className={`rounded-3xl border bg-gradient-to-br ${t.color} to-transparent p-4 text-left flex flex-col justify-between space-y-2 hover:scale-[1.02] transition-all group`}
+                className="rounded-3xl border border-slate-200 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D] p-4 text-left flex flex-col justify-between space-y-3 hover:border-cyan-500/50 dark:hover:border-cyan-400/40 hover:scale-[1.02] transition-all group shadow-sm"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-black/50 border border-white/10">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100 dark:bg-black/50 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white">
                     <Icon className="h-4 w-4" />
                   </div>
-                  <span className="rounded-full bg-white/10 px-2 py-0.5 text-[9px] font-mono text-white/80">
+                  <span className="rounded-full border border-slate-200 dark:border-transparent bg-slate-100 dark:bg-white/10 px-2 py-0.5 text-[9px] font-mono font-bold text-slate-700 dark:text-white/80">
                     {t.badge}
                   </span>
                 </div>
 
                 <div>
-                  <div className="font-semibold text-xs text-white group-hover:text-cyan-300 transition-colors flex items-center justify-between">
+                  <div className="font-bold text-xs text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors flex items-center justify-between">
                     <span>{t.title}</span>
-                    <ArrowUpRight className="h-3.5 w-3.5 text-white/30 group-hover:text-white transition-colors" />
+                    <ArrowUpRight className="h-3.5 w-3.5 text-slate-400 dark:text-white/30 group-hover:text-cyan-600 dark:group-hover:text-white transition-colors" />
                   </div>
-                  <p className="text-[11px] text-[#94A3B8] font-light mt-0.5 line-clamp-2 leading-relaxed">
+                  <p className="text-[11px] text-slate-600 dark:text-[#94A3B8] font-normal mt-0.5 line-clamp-2 leading-relaxed">
                     {t.subtitle}
                   </p>
                 </div>
@@ -695,37 +695,37 @@ export default function Home() {
 
         <div className="grid gap-5 sm:grid-cols-2">
           {/* Your Biology Today Card */}
-          <div className="rounded-3xl border border-[#1E2E42] bg-[#0E141D] p-6 sm:p-7 text-left space-y-4">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-cyan-300">
-              <Flame className="h-4 w-4 text-orange-400" />
+          <div className="rounded-3xl border border-slate-200 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D] p-6 sm:p-7 text-left space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-cyan-300 font-mono">
+              <Flame className="h-4 w-4 text-orange-500" />
               <span>Your Biology Today</span>
             </div>
 
             <div className="space-y-3 pt-1 text-xs">
               <div
                 onClick={() => navigate(`/result?q=Protein`)}
-                className="cursor-pointer rounded-2xl border border-white/5 bg-black/40 p-3.5 hover:border-cyan-400/30 transition-all"
+                className="cursor-pointer rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-black/40 p-3.5 hover:border-cyan-500/30 dark:hover:border-cyan-400/30 transition-all shadow-sm"
               >
-                <span className="text-cyan-400 font-semibold uppercase text-[10px] tracking-wider block font-mono">Learn</span>
-                <span className="text-white text-sm font-medium mt-0.5 block">Why protein triggers muscle protein synthesis</span>
-                <span className="text-[#94A3B8] text-[11px] mt-0.5 block">How leucine pulses activate the mTORC1 pathway.</span>
+                <span className="text-cyan-700 dark:text-cyan-400 font-bold uppercase text-[10px] tracking-wider block font-mono">Learn</span>
+                <span className="text-slate-900 dark:text-white text-sm font-bold mt-0.5 block">Why protein triggers muscle protein synthesis</span>
+                <span className="text-slate-600 dark:text-[#94A3B8] text-[11px] mt-0.5 block font-normal">How leucine pulses activate the mTORC1 pathway.</span>
               </div>
 
               <div
                 onClick={() => navigate(`/problem?q=Why am I tired?`)}
-                className="cursor-pointer rounded-2xl border border-white/5 bg-black/40 p-3.5 hover:border-emerald-400/30 transition-all"
+                className="cursor-pointer rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-black/40 p-3.5 hover:border-emerald-500/30 dark:hover:border-emerald-400/30 transition-all shadow-sm"
               >
-                <span className="text-emerald-400 font-semibold uppercase text-[10px] tracking-wider block font-mono">Investigate</span>
-                <span className="text-white text-sm font-medium mt-0.5 block">Afternoon Fatigue vs. Sleep Debt</span>
-                <span className="text-[#94A3B8] text-[11px] mt-0.5 block">Investigate adenosine accumulation and circadian dips.</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-bold uppercase text-[10px] tracking-wider block font-mono">Investigate</span>
+                <span className="text-slate-900 dark:text-white text-sm font-bold mt-0.5 block">Afternoon Fatigue vs. Sleep Debt</span>
+                <span className="text-slate-600 dark:text-[#94A3B8] text-[11px] mt-0.5 block font-normal">Investigate adenosine accumulation and circadian dips.</span>
               </div>
 
               <div
                 onClick={() => navigate(`/result?q=Magnesium`)}
-                className="cursor-pointer rounded-2xl border border-white/5 bg-black/40 p-3.5 hover:border-cyan-400/30 transition-all"
+                className="cursor-pointer rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-black/40 p-3.5 hover:border-cyan-500/30 dark:hover:border-cyan-400/30 transition-all shadow-sm"
               >
-                <span className="text-cyan-400 font-semibold uppercase text-[10px] tracking-wider block font-mono">Explore</span>
-                <span className="text-white text-sm font-medium mt-0.5 block">Magnesium & ATP Bioenergetics</span>
+                <span className="text-cyan-700 dark:text-cyan-400 font-bold uppercase text-[10px] tracking-wider block font-mono">Explore</span>
+                <span className="text-slate-900 dark:text-white text-sm font-bold mt-0.5 block">Magnesium & ATP Bioenergetics</span>
               </div>
             </div>
           </div>
