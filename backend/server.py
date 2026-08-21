@@ -2,7 +2,6 @@ from fastapi import FastAPI, APIRouter, HTTPException, Header, Depends
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from openai import AsyncOpenAI
 import os
 import re
 import json
@@ -23,13 +22,16 @@ ROOT_DIR = Path(__file__).parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from services.research import search_scientific_research
-from services.problem_engine import analyze_problem
+from services.problem_engine import analyze_problem, analyze_problem_with_ai
 from services.nutrition_analyzer import analyze_daily_diet, analyze_supplement_stack, scan_single_line_meal
 from services.knowledge_database import get_topic_profile, TOPIC_PROFILES
 from services.biology_tools import (
     analyze_lab_report, calculate_circadian_windows, calculate_fasting_timeline,
     calculate_sweat_and_hydration, audit_supplement_formula,
     LAB_BIOMARKER_DATABASE, FAST_BREAKER_DICTIONARY
+)
+from services.gemini_client import (
+    generate_structured_json, generate_prose, is_available as gemini_is_available
 )
 
 load_dotenv(ROOT_DIR / '.env')
@@ -109,25 +111,11 @@ else:
 
 
 
-def get_llm_client() -> tuple[Optional[AsyncOpenAI], Optional[str]]:
-    """Dynamically get configured LLM client from environment."""
-    gemini_key = os.environ.get('GEMINI_API_KEY') or os.environ.get('GOOGLE_API_KEY')
-    openai_key = os.environ.get('OPENAI_API_KEY')
-
-    if gemini_key:
-        model = os.environ.get('MODEL_NAME', 'gemini-flash-lite-latest')
-        c = AsyncOpenAI(
-            api_key=gemini_key,
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
-            max_retries=0,
-            timeout=8.0
-        )
-        return c, model
-    elif openai_key:
-        model = os.environ.get('MODEL_NAME', 'gpt-4o-mini')
-        c = AsyncOpenAI(api_key=openai_key, max_retries=0, timeout=8.0)
-        return c, model
-    return None, None
+def get_llm_client() -> tuple[bool, Optional[str]]:
+    """Check if native Gemini client is available."""
+    if gemini_is_available():
+        return True, 'gemini-3.6-flash'
+    return False, None
 
 
 app = FastAPI()
@@ -288,6 +276,18 @@ Otherwise (nutrient/vitamin/mineral/supplement/hormone/physiology/etc), ADD a ri
 
 Keep values concise and educational. Aim for 4-8 items in list sections.
 
+STRICT BIOCHEMISTRY & ACCURACY REQUIREMENTS:
+- Every query must reflect exact, accurate biochemistry and physiological mechanisms SPECIFIC to the substance or symptom queried.
+- If Vitamin D: 25-hydroxyvitamin D synthesis in skin, VDR nuclear receptor, calcium homeostasis, sunlight UVB.
+- If Vitamin C: ascorbic acid, prolyl/lysyl hydroxylase collagen synthesis, antioxidant scavenging, non-heme iron absorption enhancement.
+- If Iron: ferritin storage, transferrin transport, hemoglobin O2 binding, heme vs non-heme absorption, hepcidin regulation.
+- If Magnesium: ATP-chelating cofactor for >300 enzymes, TRPM6/7 channels, neuromuscular relaxation.
+- If Zinc: carbonic anhydrase, RNA polymerases, metallothionein, zinc fingers, thymulin.
+- If Creatine: phosphocreatine kinase ATP rephosphorylation, blood-brain barrier crossing.
+- Provide real whole-food sources with realistic nutritional amounts, exact units, and practical serving sizes.
+- Provide realistic biochemical mechanisms, accurate RDA/UL values from IOM/WHO, and specific biomarker names.
+- NEVER return generic or recycled answers. Tailor every response to the specific compound/nutrient/system.
+
 CRITICAL BREVITY RULES (to keep the response complete and fast):
 - Keep every string value under ~220 characters. Be dense and factual, not verbose.
 - Use at most 4 items in every list/array.
@@ -430,53 +430,30 @@ def extract_json(text: str) -> Dict[str, Any]:
     raise json.JSONDecodeError("Failed to parse JSON", clean_text, 0)
 
 
-async def call_llm(system_message: str, user_text: str, max_tokens: int = 4000, json_mode: bool = False) -> Optional[str]:
-    client, model = get_llm_client()
-    if client is None or model is None:
+async def call_llm(system_message: str, user_text: str, max_tokens: int = 4096, json_mode: bool = False) -> Optional[str]:
+    """Call Gemini via native google-genai SDK. For JSON mode, returns raw JSON string.
+    For prose mode, returns plain text."""
+    if not gemini_is_available():
         return None
 
-    models_to_try = [model]
-    if "gemini" in model.lower():
-        for fm in ["gemini-flash-lite-latest", "gemini-3.1-flash-lite-preview", "gemini-flash-latest"]:
-            if fm not in models_to_try:
-                models_to_try.append(fm)
-
-    extra_kwargs = {"response_format": {"type": "json_object"}} if json_mode else {}
-
-    for m in models_to_try[:3]:
-        try:
-            resp = await client.chat.completions.create(
-                model=m,
-                max_tokens=max_tokens,
-                messages=[
-                    {"role": "system", "content": system_message},
-                    {"role": "user", "content": user_text},
-                ],
-                timeout=15.0,
-                **extra_kwargs,
-            )
-            if resp.choices and resp.choices[0].message.content:
-                return resp.choices[0].message.content
-        except Exception as e:
-            if json_mode:
-                try:
-                    resp = await client.chat.completions.create(
-                        model=m,
-                        max_tokens=max_tokens,
-                        messages=[
-                            {"role": "system", "content": system_message},
-                            {"role": "user", "content": user_text},
-                        ],
-                        timeout=15.0,
-                    )
-                    if resp.choices and resp.choices[0].message.content:
-                        return resp.choices[0].message.content
-                except Exception:
-                    pass
-            logger.warning(f"LLM model '{m}' call failed ({e}). Trying fallback model...")
-            continue
-
-    return None
+    if json_mode:
+        result = await generate_structured_json(
+            system_instruction=system_message,
+            user_prompt=user_text,
+            max_output_tokens=max_tokens,
+            temperature=0.2,
+        )
+        if result and isinstance(result, dict):
+            return json.dumps(result)
+        return None
+    else:
+        result = await generate_prose(
+            system_instruction=system_message,
+            user_prompt=user_text,
+            max_output_tokens=max_tokens,
+            temperature=0.35,
+        )
+        return result
 
 
 # ----------------------------- Verified Knowledge Engine -----------------------------
@@ -857,13 +834,23 @@ async def analyze(req: AnalyzeRequest):
 
     # 2. Dynamic Gemini LLM Generation for custom queries, questions, symptoms, comparisons, and labs
     if data is None:
-        client, model = get_llm_client()
-        if client is not None:
+        available, _ = get_llm_client()
+        if available:
             system, user_text = build_analyze_prompt(level, q, profile_ctx=pctx, mode_hint=req.mode)
             try:
-                raw = await call_llm(system, user_text, max_tokens=2200, json_mode=True)
-                if raw:
-                    data = extract_json(raw)
+                result = await generate_structured_json(
+                    system_instruction=system,
+                    user_prompt=user_text,
+                    max_output_tokens=4096,
+                    temperature=0.2,
+                )
+                if result and isinstance(result, dict):
+                    data = result
+                    # Hoist section keys if needed
+                    if isinstance(data.get("sections"), dict):
+                        for k in list(data.keys()):
+                            if k in SECTION_KEYS and k not in data["sections"]:
+                                data["sections"][k] = data.pop(k)
             except Exception as e:
                 logger.warning(f"AI parsing error: {e}. Checking fallback generator.")
 
@@ -908,7 +895,18 @@ async def problem_endpoint(req: ProblemRequest):
     if not q:
         raise HTTPException(status_code=400, detail="Problem description is required")
     
-    res = analyze_problem(q, profile=req.profile, region_hint=req.region_hint)
+    # Try AI-powered problem analysis first
+    res = None
+    if gemini_is_available():
+        try:
+            res = await analyze_problem_with_ai(q, profile=req.profile, region_hint=req.region_hint)
+        except Exception as e:
+            logger.warning(f"AI problem analysis failed: {e}. Using rule-based fallback.")
+    
+    # Fall back to rule-based engine
+    if res is None:
+        res = analyze_problem(q, profile=req.profile, region_hint=req.region_hint)
+    
     if not res.get("emergency"):
         res["live_research"] = search_scientific_research(q, timeframe="all")
     
@@ -1835,13 +1833,13 @@ async def ask(req: AskRequest):
         raise HTTPException(status_code=400, detail="Question is required")
 
     answer = None
-    client, _ = get_llm_client()
-    if client is not None:
+    if gemini_is_available():
         system = (
             BASE_RULES.replace("%LEVEL%", req.level)
             + f"\nYou are answering a conversational follow-up about the topic: '{req.subject}' (category: {req.category}). "
             "Stay on this topic and maintain context. Answer in clear plain prose (NOT JSON), 2-5 short paragraphs max. "
-            "Use markdown-style **bold** for key terms and hyphen bullet lists where helpful."
+            "Use markdown-style **bold** for key terms and hyphen bullet lists where helpful. "
+            "Provide exact biochemistry, real food sources, and specific mechanisms. Never give generic or recycled answers."
         )
 
         convo = ""
@@ -1851,7 +1849,12 @@ async def ask(req: AskRequest):
         user_text = f"{convo}User: {req.question}\nKevalBio:"
 
         try:
-            raw_answer = await call_llm(system, user_text, max_tokens=1500, json_mode=False)
+            raw_answer = await generate_prose(
+                system_instruction=system,
+                user_prompt=user_text,
+                max_output_tokens=2048,
+                temperature=0.35,
+            )
             if raw_answer:
                 answer = raw_answer.strip()
         except Exception as e:
@@ -2009,8 +2012,7 @@ async def coach(req: CoachRequest):
         raise HTTPException(status_code=400, detail="Question is required")
     
     answer = None
-    client, _ = get_llm_client()
-    if client is not None:
+    if gemini_is_available():
         convo = ""
         for m in req.history[-6:]:
             role = "User" if m.get("role") == "user" else "Coach"
@@ -2021,7 +2023,12 @@ async def coach(req: CoachRequest):
         if pctx:
             system += f"\n\nThis user's profile — {pctx}. Tailor the routine to their goal, training days and diet. Address them directly."
         try:
-            raw_answer = await call_llm(system, user_text, max_tokens=2500, json_mode=False)
+            raw_answer = await generate_prose(
+                system_instruction=system,
+                user_prompt=user_text,
+                max_output_tokens=2500,
+                temperature=0.35,
+            )
             if raw_answer:
                 answer = raw_answer.strip()
         except Exception as e:

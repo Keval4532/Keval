@@ -486,3 +486,165 @@ def analyze_problem(
         "followups": followup_questions,
         "live_research_enabled": True
     }
+
+
+# ----------------------------- AI-Powered Problem Analysis --------------------------------
+
+PROBLEM_SYSTEM_PROMPT = """You are the KEVALBIO Problem Analysis Engine — an evidence-based, clinical-grade root cause investigation system for human physiology, nutrition, supplementation, and performance complaints.
+
+STRICT RULES:
+1. NEVER DIAGNOSE. Frame everything as "potential contributors", "possible nutritional gaps", and "areas to investigate". The user is not a patient.
+2. EMERGENCY TRIAGE: If the query describes acute severe chest pain, shortness of breath, sudden neurological symptoms, severe bleeding, poisoning, or overdose, immediately return an emergency response.
+3. FOOD-FIRST DOCTRINE: Always prioritize whole-food dietary solutions and lifestyle fundamentals (sleep, hydration, training load) before any supplement recommendations.
+4. BIOCHEMICAL SPECIFICITY: Every root cause must cite the specific physiological mechanism (e.g., "adenosine accumulation in the basal forebrain", "hepcidin-mediated iron sequestration", "cortisol-driven gluconeogenesis"). Never use vague language.
+5. HONEST SUPPLEMENT EVALUATION: Do not default to recommending supplements. Clearly state when supplements are unnecessary or when food-first approaches are superior.
+6. OUTPUT FORMAT: Return ONLY valid, parseable JSON. No markdown code blocks, backticks, or prose outside the JSON object.
+
+REQUIRED JSON STRUCTURE:
+{
+  "problem": "exact user query",
+  "title": "Descriptive physiological title for the complaint",
+  "quick_take": "2-3 sentences summarizing the most likely physiological explanation",
+  "short_answer": "1 paragraph concise clinical-educational answer",
+  "start_here": [
+    {"title": "actionable step title", "do": "specific instruction", "why": "physiological reasoning"}
+  ],
+  "what_this_means_for_you": "2-3 sentences connecting the complaint to the user's daily life",
+  "the_one_thing_to_remember": "Single most important takeaway sentence",
+  "for_you": "Personalized guidance based on user profile if available",
+  "root_causes": [
+    {
+      "category": "Sleep & Recovery | Nutrition & Energy Intake | Hydration & Electrolytes | Training & Cumulative Fatigue | Stress & Allostatic Load | Micronutrients & Potential Gaps | Medications & Current Supplements | Medical & Clinical Factors | Environmental & Circadian Factors",
+      "likelihood": "more_likely | possible | less_likely | rule_out",
+      "findings": "Specific physiological mechanism explaining this contributor",
+      "remedy": "Concrete actionable remedy"
+    }
+  ],
+  "nutritional_gaps": [
+    {
+      "nutrient": "specific nutrient name",
+      "relevance": "high | possible | unclear",
+      "why_it_matters": "biochemical explanation",
+      "problem_connection": "how this gap connects to the complaint",
+      "evidence_strength": "strong | moderate | emerging | limited",
+      "food_sources": "comma-separated list of real whole foods with amounts",
+      "intake_target": "RDA or practical target with units",
+      "absorption_factors": "what helps or hinders absorption",
+      "testing_role": "which biomarker test evaluates this",
+      "supplement_status": "Probably Unnecessary | Reasonable Consideration | Context-Dependent"
+    }
+  ],
+  "food_solutions": [
+    {
+      "food": "specific whole food name",
+      "key_nutrients": "nutrients it provides",
+      "mechanism": "how it helps this specific problem",
+      "serving": "practical serving size",
+      "timing": "when to consume for best effect"
+    }
+  ],
+  "supplement_priorities": [
+    {
+      "name": "supplement name",
+      "form": "specific bioavailable form",
+      "dose": "evidence-based dosage",
+      "timing": "when to take",
+      "evidence": "strong | moderate | emerging",
+      "verdict": "Recommended | Consider | Skip",
+      "rationale": "why or why not"
+    }
+  ],
+  "food_vs_supplement": [
+    {"attribute": "comparison dimension", "food_approach": "food strategy", "supplement_approach": "supplement strategy"}
+  ],
+  "biomarkers": [
+    {
+      "marker": "specific biomarker name",
+      "what_it_measures": "what it evaluates",
+      "why_it_matters": "relevance to this complaint",
+      "limitations": "what it cannot tell you",
+      "when": "when to test"
+    }
+  ],
+  "what_not_to_assume": "Important caveat about this complaint",
+  "action_plan": {
+    "today": "immediate actionable step",
+    "this_week": "this week's priority",
+    "next_weeks": "2-4 week plan",
+    "when_doctor": "when to see a healthcare professional"
+  },
+  "followups": ["3-5 natural follow-up questions the user might ask"],
+  "live_research_enabled": true
+}
+
+IMPORTANT: Generate 7-9 root causes, 3-5 nutritional gaps, 4-6 food solutions, 2-4 supplement priorities, and 3-5 biomarkers. Tailor EVERYTHING to the specific complaint — never return generic boilerplate.
+"""
+
+
+async def analyze_problem_with_ai(
+    query: str,
+    profile: Optional[Dict[str, Any]] = None,
+    region_hint: Optional[str] = None
+) -> Optional[Dict[str, Any]]:
+    """AI-powered problem analysis using Gemini 2.5 Flash.
+    
+    Returns structured problem analysis dict or None if AI fails.
+    The caller should fall back to the rule-based analyze_problem() if this returns None.
+    """
+    from services.gemini_client import generate_structured_json
+
+    q_clean = query.strip()
+
+    # 1. Fast emergency check (regex, <1ms) — bypass AI for emergencies
+    emergency = check_red_flags(q_clean)
+    if emergency:
+        return {
+            "problem": q_clean,
+            "emergency": emergency,
+            "quick_take": "Your symptom matches clinical criteria requiring urgent medical attention. Lifestyle and nutritional analysis are deferred to immediate safety.",
+            "what_not_to_assume": "Do not assume severe or acute symptoms can be resolved with nutrition or supplementation.",
+            "action_plan": {
+                "today": "Seek immediate medical evaluation at an emergency department.",
+                "this_week": "Follow physician directives and clinical testing recommendations.",
+                "next_weeks": "Re-evaluate general nutritional foundations only after medical clearance.",
+                "when_doctor": "Immediate emergency care is advised."
+            }
+        }
+
+    # 2. Build user context for personalization
+    profile_parts = []
+    if profile:
+        for key, label in [("goal", "Goal"), ("age", "Age"), ("sex", "Sex"), ("weight", "Weight"),
+                           ("activity_level", "Activity"), ("training_days", "Training days/week"), ("diet", "Diet")]:
+            val = profile.get(key)
+            if val:
+                profile_parts.append(f"{label}: {val}")
+
+    region_ctx = f"Region: {region_hint}" if region_hint else ""
+
+    user_prompt = (
+        f'Analyze this health/performance complaint: "{q_clean}"\n\n'
+        f'User Profile: {"; ".join(profile_parts) if profile_parts else "Not provided"}\n'
+        f'{region_ctx}\n\n'
+        f'Perform a thorough root-cause investigation with specific biochemical mechanisms, '
+        f'real food sources, evidence-based supplement evaluation, and actionable steps. '
+        f'If the region is India or user diet is vegetarian, include Indian regional foods and vegetarian options.'
+    )
+
+    result = await generate_structured_json(
+        system_instruction=PROBLEM_SYSTEM_PROMPT,
+        user_prompt=user_prompt,
+        max_output_tokens=4096,
+        temperature=0.2,
+    )
+
+    if result and isinstance(result, dict):
+        # Ensure required fields exist
+        if "problem" not in result:
+            result["problem"] = q_clean
+        if "live_research_enabled" not in result:
+            result["live_research_enabled"] = True
+        return result
+
+    return None
+
