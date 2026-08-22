@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, Baby, Microscope, Sparkles, Loader2, RefreshCw } from "lucide-react";
+import { Dumbbell, Baby, Microscope, Sparkles, Loader2 } from "lucide-react";
 import { getPersonaExplain } from "../lib/api";
 
 const PERSONAS = [
@@ -33,8 +33,23 @@ const PERSONAS = [
   }
 ];
 
-// Curated high-quality transformations for top topics when offline/instant
+// Curated high-quality transformations for top topics
 const TOPIC_PRESETS = {
+  coq10: {
+    coach: "CoQ10 is your cellular battery charger. It powers your heart muscles and fights fatigue. If you take statins or train intensely, maintaining optimal levels through sardines, beef, or targeted supplements is key.",
+    five_year_old: "Imagine your body has tiny power plants that make energy. CoQ10 is the fuel truck that keeps the lights on!",
+    biochemist: "Lipophilic benzoquinone acting as a mobile electron carrier within the inner mitochondrial membrane (Complex I/II to Complex III), driving oxidative phosphorylation."
+  },
+  "coenzyme q10": {
+    coach: "CoQ10 is your cellular battery charger. It powers your heart muscles and fights fatigue. If you take statins or train intensely, maintaining optimal levels through sardines, beef, or targeted supplements is key.",
+    five_year_old: "Imagine your body has tiny power plants that make energy. CoQ10 is the fuel truck that keeps the lights on!",
+    biochemist: "Lipophilic benzoquinone acting as a mobile electron carrier within the inner mitochondrial membrane (Complex I/II to Complex III), driving oxidative phosphorylation."
+  },
+  ubiquinol: {
+    coach: "Ubiquinol is the active, ready-to-use antioxidant form of CoQ10. It directly recharges mitochondrial energy production, protects your cardiovascular system, and speeds up cellular recovery.",
+    five_year_old: "Ubiquinol is the extra-fast superpower version of the fuel truck that helps your heart pump strong and gives you zoom-around energy!",
+    biochemist: "Two-electron reduced form of coenzyme Q10 (CoQH2) that acts as a potent chain-breaking antioxidant in biological membranes and lipoproteins, directly scavenging lipid peroxyl radicals."
+  },
   creatine: {
     coach: "Creatine is your muscles' high-speed recharge battery. When you're lifting heavy, sprinting, or pushing through intense brainwork, it rapidly regenerates cellular energy (ATP) so you can do more reps and recover faster. Focus on daily consistency (3–5g), stay well-hydrated, and build your base with whole foods like beef or fish.",
     five_year_old: "Imagine your body has tiny rechargeable batteries in your muscles. When you run, jump, or play tag, they run out of juice. Creatine is the super-fast charger that plugs them right back in so you don't feel tired!",
@@ -59,13 +74,23 @@ const TOPIC_PRESETS = {
     coach: "Magnesium is your biological master relaxer. It powers over 300 enzyme reactions, relaxes tense muscles, soothes your nervous system for deep restorative sleep, and keeps heart rhythm steady. Load up on pumpkin seeds, spinach, dark chocolate, and almonds.",
     five_year_old: "When your muscles are super tight like wound-up rubber bands, magnesium is the gentle helper that tells them to untie, relax, and go to sleep peacefully.",
     biochemist: "Obligate divalent counter-ion (Mg2+) chelated to ATP (Mg-ATP) required for all ATP-dependent phosphotransferase and ATPase enzymes, and natural physiological blocker of NMDA receptor channels."
+  },
+  ashwagandha: {
+    coach: "Ashwagandha is your nervous system's stress shock-absorber. It downregulates cortisol, promotes restful sleep, and supports physical resilience under heavy training or work stress. Take it consistently with dinner.",
+    five_year_old: "When your brain and tummy feel worried or super busy, Ashwagandha is like a calm cozy blanket that helps you relax and have sweet dreams.",
+    biochemist: "Withanolide glycoside adaptogen modulating hypothalamic-pituitary-adrenal (HPA) axis signaling, downregulating serum cortisol, and enhancing GABAergic neurotransmission."
   }
 };
 
+function normalizeTopic(s) {
+  return (s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
 function findPreset(subject, persona) {
-  const s = (subject || "").toLowerCase();
+  const sNorm = normalizeTopic(subject);
   for (const [k, v] of Object.entries(TOPIC_PRESETS)) {
-    if (s.includes(k)) {
+    const kNorm = normalizeTopic(k);
+    if (sNorm.includes(kNorm) || kNorm.includes(sNorm)) {
       return v[persona];
     }
   }
@@ -96,6 +121,9 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
     }
 
     // Coach Mode: Practical, motivating, action-oriented plain English
+    if (s.what_is_it?.beginner && !s.what_is_it.beginner.includes("lipophilic") && !s.what_is_it.beginner.includes("endogenously")) {
+      return `${s.what_is_it.beginner} Focus on real whole foods first, stay consistent, and only supplement when your physical or training demands call for it.`;
+    }
     return `${topicTitle} is a cornerstone of your daily energy, muscle recovery, and overall vitality. Keep it simple: anchor your intake with nutrient-dense whole foods, maintain consistent daily sleep and hydration, and only add targeted supplements if your training or diet demands it.`;
   };
 
