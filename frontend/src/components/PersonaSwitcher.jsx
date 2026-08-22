@@ -104,7 +104,7 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
 
   const s = data?.sections || {};
 
-  const getFallbackPersonaText = (pId) => {
+  const getFallbackPersonaText = React.useCallback((pId) => {
     const preset = findPreset(subject, pId);
     if (preset) return preset;
 
@@ -125,7 +125,7 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
       return `${s.what_is_it.beginner} Focus on real whole foods first, stay consistent, and only supplement when your physical or training demands call for it.`;
     }
     return `${topicTitle} is a cornerstone of your daily energy, muscle recovery, and overall vitality. Keep it simple: anchor your intake with nutrient-dense whole foods, maintain consistent daily sleep and hydration, and only add targeted supplements if your training or diet demands it.`;
-  };
+  }, [subject, s.what_is_it, s.mechanism]);
 
   const handleSwitch = async (pId) => {
     setActivePersona(pId);
@@ -161,7 +161,7 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
     const initialCoach = findPreset(subject, "coach") || getFallbackPersonaText("coach");
     setCache((prev) => ({ ...prev, coach: initialCoach }));
     setActivePersona("coach");
-  }, [subject]);
+  }, [subject, getFallbackPersonaText]);
 
   const currentPersonaConfig = PERSONAS.find((p) => p.id === activePersona) || PERSONAS[0];
   const displayedText = cache[activePersona] || getFallbackPersonaText(activePersona);

@@ -1,28 +1,38 @@
 """Centralized Google GenAI (Gemini) Client for KEVALBIO.
 
 Provides structured JSON generation and prose generation using the native
-google-genai Python SDK with Gemini 2.5 Flash.
+google-genai Python SDK, google-generativeai SDK, or direct REST API with Gemini 2.5 Flash.
 """
 import os
 import re
 import json
 import logging
+import requests
 from typing import Optional, Dict, Any, List
-
-from google import genai
-from google.genai import types
 
 logger = logging.getLogger(__name__)
 
-# --------------- Lazy Client Initialization ---------------
-# The client is initialized lazily on first use to ensure environment
-# variables from dotenv are loaded before we read GEMINI_API_KEY.
-
+# --------------- Lazy Client Initialization & Multi-Driver Support ---------------
+_genai_sdk = None
+_legacy_sdk = None
 _client = None
 _client_initialized = False
 
-DEFAULT_MODEL = "gemini-3.6-flash"
-FALLBACK_MODELS = ["gemini-3.5-flash-lite", "gemini-2.5-flash"]
+DEFAULT_MODEL = "gemini-2.5-flash"
+FALLBACK_MODELS = ["gemini-1.5-flash", "gemini-1.5-pro"]
+
+try:
+    from google import genai
+    from google.genai import types
+    _genai_sdk = (genai, types)
+except ImportError:
+    _genai_sdk = None
+
+try:
+    import google.generativeai as genai_legacy
+    _legacy_sdk = genai_legacy
+except ImportError:
+    _legacy_sdk = None
 
 
 def _get_client():
@@ -33,9 +43,25 @@ def _get_client():
     
     _client_initialized = True
     api_key = os.environ.get('GEMINI_API_KEY') or os.environ.get('GOOGLE_API_KEY')
-    if api_key:
-        _client = genai.Client(api_key=api_key)
-        logger.info("KEVALBIO Gemini client initialized with native google-genai SDK (model: gemini-2.5-flash)")
+    if api_key and _genai_sdk:
+        try:
+            genai, _ = _genai_sdk
+            _client = genai.Client(api_key=api_key)
+            logger.info("KEVALBIO Gemini client initialized with native google-genai SDK (model: gemini-2.5-flash)")
+        except Exception as e:
+            logger.warning(f"Failed to init google-genai SDK: {e}")
+            _client = None
+    elif api_key and _legacy_sdk:
+        try:
+            _legacy_sdk.configure(api_key=api_key)
+            _client = "legacy"
+            logger.info("KEVALBIO Gemini client initialized with google-generativeai SDK")
+        except Exception as e:
+            logger.warning(f"Failed to init google-generativeai SDK: {e}")
+            _client = None
+    elif api_key:
+        _client = "rest"
+        logger.info("KEVALBIO Gemini client using direct REST API")
     else:
         _client = None
         logger.warning("CRITICAL: No GEMINI_API_KEY found. AI generation will use fallback data.")
@@ -113,6 +139,39 @@ def _extract_json(text: str) -> Dict[str, Any]:
     raise json.JSONDecodeError("Failed to parse JSON from Gemini response", candidate[:500], 0)
 
 
+def _call_gemini_rest(prompt: str, system_instruction: str = "", temperature: float = 0.2) -> Optional[str]:
+    """Fallback to direct Gemini REST API when SDK is not present."""
+    api_key = os.environ.get('GEMINI_API_KEY') or os.environ.get('GOOGLE_API_KEY')
+    if not api_key:
+        return None
+    
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "temperature": temperature,
+            "maxOutputTokens": 4096,
+        }
+    }
+    if system_instruction:
+        payload["systemInstruction"] = {
+            "parts": [{"text": system_instruction}]
+        }
+    
+    try:
+        resp = requests.post(url, json=payload, timeout=25)
+        if resp.status_code == 200:
+            data = resp.json()
+            candidates = data.get("candidates", [])
+            if candidates:
+                parts = candidates[0].get("content", {}).get("parts", [])
+                if parts:
+                    return parts[0].get("text", "")
+    except Exception as e:
+        logger.warning(f"Gemini REST call failed: {e}")
+    return None
+
+
 # --------------- Core Generation Functions ---------------
 
 async def generate_structured_json(
@@ -123,43 +182,52 @@ async def generate_structured_json(
 ) -> Optional[Dict[str, Any]]:
     """Generate structured JSON output using Gemini's native JSON mode.
     
-    Tries the default model first, then falls back to alternatives.
+    Tries native google-genai SDK first, then legacy SDK, then direct REST API.
     Returns parsed dict or None on failure.
     """
     client = _get_client()
     if client is None:
         return None
 
-    models_to_try = [DEFAULT_MODEL] + FALLBACK_MODELS
+    if _genai_sdk and isinstance(client, _genai_sdk[0].Client):
+        genai_mod, types_mod = _genai_sdk
+        models_to_try = [DEFAULT_MODEL] + FALLBACK_MODELS
 
-    for model_name in models_to_try:
-        try:
-            response = client.models.generate_content(
-                model=model_name,
-                contents=user_prompt,
-                config=types.GenerateContentConfig(
-                    system_instruction=system_instruction,
-                    response_mime_type="application/json",
-                    temperature=temperature,
-                    max_output_tokens=max_output_tokens,
-                ),
-            )
+        for model_name in models_to_try:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=user_prompt,
+                    config=types_mod.GenerateContentConfig(
+                        system_instruction=system_instruction,
+                        response_mime_type="application/json",
+                        temperature=temperature,
+                        max_output_tokens=max_output_tokens,
+                    ),
+                )
 
-            raw_text = response.text
-            if not raw_text:
-                logger.warning(f"Empty response from model '{model_name}'. Trying fallback...")
+                raw_text = response.text
+                if not raw_text:
+                    continue
+
+                parsed = _extract_json(raw_text)
+                if isinstance(parsed, dict):
+                    logger.info(f"Successfully generated structured JSON via {model_name}")
+                    return parsed
+
+            except Exception as e:
+                logger.warning(f"Gemini model '{model_name}' structured generation failed: {e}")
                 continue
 
-            parsed = _extract_json(raw_text)
-            if isinstance(parsed, dict):
-                logger.info(f"Successfully generated structured JSON via {model_name}")
-                return parsed
+    # Fallback to direct REST API
+    rest_prompt = f"{system_instruction}\n\nRespond ONLY with valid JSON.\n\n{user_prompt}"
+    raw = _call_gemini_rest(rest_prompt, system_instruction, temperature)
+    if raw:
+        try:
+            return _extract_json(raw)
+        except Exception:
+            pass
 
-        except Exception as e:
-            logger.warning(f"Gemini model '{model_name}' structured generation failed: {e}. Trying fallback...")
-            continue
-
-    logger.error("All Gemini models failed for structured JSON generation.")
     return None
 
 
@@ -167,41 +235,40 @@ async def generate_prose(
     system_instruction: str,
     user_prompt: str,
     max_output_tokens: int = 2048,
-    temperature: float = 0.35,
+    temperature: float = 0.4,
 ) -> Optional[str]:
-    """Generate free-form prose text (for /ask and /coach endpoints).
+    """Generate freeform prose text using Gemini.
     
-    Returns raw text string or None on failure.
+    Returns generated string or None on failure.
     """
     client = _get_client()
     if client is None:
         return None
 
-    models_to_try = [DEFAULT_MODEL] + FALLBACK_MODELS
+    if _genai_sdk and isinstance(client, _genai_sdk[0].Client):
+        genai_mod, types_mod = _genai_sdk
+        models_to_try = [DEFAULT_MODEL] + FALLBACK_MODELS
 
-    for model_name in models_to_try:
-        try:
-            response = client.models.generate_content(
-                model=model_name,
-                contents=user_prompt,
-                config=types.GenerateContentConfig(
-                    system_instruction=system_instruction,
-                    temperature=temperature,
-                    max_output_tokens=max_output_tokens,
-                ),
-            )
+        for model_name in models_to_try:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=user_prompt,
+                    config=types_mod.GenerateContentConfig(
+                        system_instruction=system_instruction,
+                        temperature=temperature,
+                        max_output_tokens=max_output_tokens,
+                    ),
+                )
 
-            raw_text = response.text
-            if raw_text and raw_text.strip():
-                logger.info(f"Successfully generated prose via {model_name}")
-                return raw_text.strip()
+                raw_text = response.text
+                if raw_text and len(raw_text.strip()) > 0:
+                    logger.info(f"Successfully generated prose via {model_name}")
+                    return raw_text.strip()
 
-            logger.warning(f"Empty prose response from '{model_name}'. Trying fallback...")
-            continue
+            except Exception as e:
+                logger.warning(f"Gemini model '{model_name}' prose generation failed: {e}")
+                continue
 
-        except Exception as e:
-            logger.warning(f"Gemini model '{model_name}' prose generation failed: {e}. Trying fallback...")
-            continue
-
-    logger.error("All Gemini models failed for prose generation.")
-    return None
+    # Fallback to direct REST API
+    return _call_gemini_rest(user_prompt, system_instruction, temperature)
