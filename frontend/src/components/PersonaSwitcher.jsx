@@ -9,27 +9,27 @@ const PERSONAS = [
     label: "Coach Mode",
     icon: Dumbbell,
     desc: "Practical, motivating, action-focused",
-    colorClass: "border-emerald-500 bg-emerald-500/10 text-white shadow-[0_0_15px_rgba(16,185,129,0.2)]",
-    iconColor: "text-emerald-400",
-    headerColor: "text-emerald-400"
+    colorClass: "border-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-900 dark:text-emerald-300 shadow-sm",
+    iconColor: "text-emerald-600 dark:text-emerald-400",
+    headerColor: "text-emerald-700 dark:text-emerald-400"
   },
   {
     id: "five_year_old",
     label: "5-Year-Old Mode",
     icon: Baby,
     desc: "Zero jargon, simple analogies only",
-    colorClass: "border-amber-500 bg-amber-500/10 text-white shadow-[0_0_15px_rgba(245,158,11,0.2)]",
-    iconColor: "text-amber-400",
-    headerColor: "text-amber-400"
+    colorClass: "border-amber-500 bg-amber-50 dark:bg-amber-500/10 text-amber-900 dark:text-amber-300 shadow-sm",
+    iconColor: "text-amber-600 dark:text-amber-400",
+    headerColor: "text-amber-700 dark:text-amber-400"
   },
   {
     id: "biochemist",
     label: "Biochemist Mode",
     icon: Microscope,
     desc: "Receptors, pathways & molecular kinetics",
-    colorClass: "border-violet-500 bg-violet-500/10 text-white shadow-[0_0_15px_rgba(139,92,246,0.2)]",
-    iconColor: "text-violet-400",
-    headerColor: "text-violet-400"
+    colorClass: "border-violet-500 bg-violet-50 dark:bg-violet-500/10 text-violet-900 dark:text-violet-300 shadow-sm",
+    iconColor: "text-violet-600 dark:text-violet-400",
+    headerColor: "text-violet-700 dark:text-violet-400"
   }
 ];
 
@@ -94,13 +94,13 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
   };
 
   return (
-    <div className="rounded-3xl border border-[#1E2E42] bg-[#0E141D] p-5 sm:p-6 space-y-4">
+    <div className="rounded-3xl border border-slate-200 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D] p-5 sm:p-6 space-y-4 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-cyan-700 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider font-mono">
           <Sparkles className="h-4 w-4" />
           <span>Explain It Like... (Adaptive Persona Switcher)</span>
         </div>
-        <span className="text-[11px] text-[#64748B] font-mono">Switch perspective in real-time</span>
+        <span className="text-[11px] text-slate-500 dark:text-[#64748B] font-mono font-medium">Switch perspective in real-time</span>
       </div>
 
       {/* Persona Toggle Buttons */}
@@ -114,11 +114,11 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
               onClick={() => handleSwitch(p.id)}
               className={`flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 rounded-2xl p-2.5 sm:p-3 text-xs transition-all border ${
                 isAct
-                  ? `${p.colorClass} font-semibold`
-                  : "border-[#1E293B] bg-black/30 text-[#94A3B8] hover:border-white/20 hover:text-white"
+                  ? `${p.colorClass} font-bold`
+                  : "border-slate-200 dark:border-[#1E293B] bg-slate-50 dark:bg-black/30 text-slate-600 dark:text-[#94A3B8] hover:border-slate-300 dark:hover:border-white/20 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
-              <Icon className={`h-4 w-4 shrink-0 ${isAct ? p.iconColor : "text-white/40"}`} />
+              <Icon className={`h-4 w-4 shrink-0 ${isAct ? p.iconColor : "text-slate-400 dark:text-white/40"}`} />
               <span className="truncate">{p.label}</span>
             </button>
           );
@@ -126,9 +126,9 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
       </div>
 
       {/* Dynamic Persona Explanation Box */}
-      <div className="min-h-[70px] rounded-2xl border border-[#1E293B] bg-black/50 p-4 text-xs sm:text-sm text-[#CBD5E1] leading-relaxed font-light">
+      <div className="min-h-[70px] rounded-2xl border border-slate-200 dark:border-[#1E293B] bg-slate-50/80 dark:bg-black/50 p-4 text-xs sm:text-sm text-slate-800 dark:text-[#CBD5E1] leading-relaxed font-normal shadow-sm">
         {loading ? (
-          <div className="flex items-center gap-2 text-cyan-300 py-2">
+          <div className="flex items-center gap-2 text-cyan-700 dark:text-cyan-300 py-2">
             <Loader2 className="h-4 w-4 animate-spin" />
             <span>Adapting explanation for {currentPersonaConfig.label}...</span>
           </div>
@@ -141,10 +141,10 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
               exit={{ opacity: 0 }}
               className="space-y-2"
             >
-              <div className={`text-[10px] font-mono uppercase tracking-widest ${currentPersonaConfig.headerColor}`}>
+              <div className={`text-[10px] font-mono uppercase font-bold tracking-widest ${currentPersonaConfig.headerColor}`}>
                 {currentPersonaConfig.desc}:
               </div>
-              <p>{getDynamicPersonaText()}</p>
+              <p className="leading-relaxed">{getDynamicPersonaText()}</p>
             </motion.div>
           </AnimatePresence>
         )}
@@ -152,4 +152,3 @@ export default function PersonaSwitcher({ subject, context = "", data = null }) 
     </div>
   );
 }
-

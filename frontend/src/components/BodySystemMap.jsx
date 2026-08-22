@@ -57,7 +57,7 @@ export default function BodySystemMap({ affects = [] }) {
   return (
     <div className="grid gap-6 md:grid-cols-[300px_1fr] items-start">
       {/* 3D Anatomical Body Map with Glowing Pulse Rings */}
-      <div className="relative mx-auto aspect-[3/5] w-full max-w-[300px] overflow-hidden rounded-3xl border border-[#1E2E42] bg-[#0E141D] shadow-2xl">
+      <div className="relative mx-auto aspect-[3/5] w-full max-w-[300px] overflow-hidden rounded-3xl border border-slate-200 dark:border-[#1E2E42] bg-[#0E141D] shadow-xl">
         <img
           src={ANATOMY_IMG}
           alt="Anatomical Physiology Map"
@@ -123,8 +123,8 @@ export default function BodySystemMap({ affects = [] }) {
                 onClick={() => setActive(a)}
                 className={`flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs transition-all ${
                   isAct
-                    ? "bg-white/[0.08] text-white font-medium shadow-md"
-                    : "border-[#1E293B] bg-[#0E141D] text-[#94A3B8] hover:text-white hover:border-white/20"
+                    ? "bg-slate-100 dark:bg-white/[0.08] text-slate-900 dark:text-white font-bold shadow-sm"
+                    : "border-slate-200 dark:border-[#1E293B] bg-slate-50 dark:bg-[#0E141D] text-slate-600 dark:text-[#94A3B8] hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/20"
                 }`}
                 style={{ borderColor: isAct ? color : undefined }}
               >
@@ -142,17 +142,17 @@ export default function BodySystemMap({ affects = [] }) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="rounded-3xl border border-[#1E2E42] bg-[#0E141D] p-5 sm:p-6 space-y-3 shadow-xl"
+              className="rounded-3xl border border-slate-200 dark:border-[#1E2E42] bg-white dark:bg-[#0E141D] p-5 sm:p-6 space-y-3 shadow-sm"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <div
-                    className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-200 dark:border-white/10"
                     style={{ backgroundColor: `${SYSTEM_GLOW_COLORS[active.system] || "#06B6D4"}15` }}
                   >
                     <Activity className="h-4 w-4" style={{ color: SYSTEM_GLOW_COLORS[active.system] || "#06B6D4" }} />
                   </div>
-                  <h4 className="font-display text-lg font-semibold text-white">{active.system}</h4>
+                  <h4 className="font-display text-lg font-bold text-slate-900 dark:text-white">{active.system}</h4>
                 </div>
 
                 <span
@@ -167,7 +167,7 @@ export default function BodySystemMap({ affects = [] }) {
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm leading-relaxed text-[#CBD5E1] font-light">
+              <p className="text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-[#CBD5E1] font-normal">
                 {active.detail}
               </p>
             </motion.div>
@@ -175,7 +175,7 @@ export default function BodySystemMap({ affects = [] }) {
         </AnimatePresence>
 
         {/* Legend */}
-        <div className="flex items-center gap-5 text-[10px] uppercase font-mono tracking-wider text-[#64748B] pt-1">
+        <div className="flex items-center gap-5 text-[10px] uppercase font-mono font-bold tracking-wider text-slate-500 dark:text-[#64748B] pt-1">
           <span className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-full bg-[#06B6D4]" /> Primary Target
           </span>
