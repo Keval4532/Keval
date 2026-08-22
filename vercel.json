@@ -1,31 +1,14 @@
 {
-  "builds": [
+  "buildCommand": "cd frontend && yarn build",
+  "outputDirectory": "frontend/build",
+  "rewrites": [
     {
-      "src": "api/index.py",
-      "use": "@vercel/python",
-      "config": {
-        "includeFiles": ["backend/**"]
-      }
+      "source": "/api/:path*",
+      "destination": "/api/index.py"
     },
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.py"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/.*",
-      "dest": "/frontend/index.html"
+      "source": "/((?!api/|static/|favicon\\.ico|manifest\\.json|.*\\..*).*)",
+      "destination": "/index.html"
     }
   ]
 }
