@@ -1719,24 +1719,28 @@ async def persona_explain_endpoint(req: PersonaExplainRequest):
     if client is not None:
         if persona == "five_year_old":
             prompt = (
-                f"Explain {subj} like I am 5 years old. Use simple analogies only (like building blocks, car engines, batteries, or superheroes). "
-                "No complicated medical words. Maximum 2 short friendly paragraphs."
+                f"You are a friendly teacher explaining '{subj}' to a 5-year-old child.\n"
+                "Use simple analogies only (like building blocks, superheroes, car fuel, or rechargeable batteries).\n"
+                "No complicated medical words. Output ONLY the friendly explanation directly without any meta-commentary, notes, or thought process."
             )
         elif persona == "biochemist":
             prompt = (
-                f"Explain {subj} with deep molecular biochemistry. Detail specific enzymatic cofactors, intracellular signalling cascades, "
-                "receptor subtypes (e.g. TRPM6, VDR, DMT1, Adenosine A1/A2A), and cellular bioenergetics. 2-3 precise paragraphs."
+                f"You are a molecular biologist explaining '{subj}' to a medical biochemist.\n"
+                "Detail specific enzymatic cofactors, intracellular signalling cascades, receptor subtypes, and cellular bioenergetics.\n"
+                "Output ONLY the concise biochemical description directly without any meta-commentary, notes, or thought process."
             )
         else:
             prompt = (
-                f"Explain {subj} like a high-performance wellness coach. Be practical, motivating, clear, and focused on real-world actions and whole foods. "
-                "2-3 short paragraphs."
+                f"You are a high-performance wellness coach explaining '{subj}' to an athlete or health enthusiast.\n"
+                "Be practical, motivating, clear, and focused on real-world actions and whole foods.\n"
+                "Output ONLY the motivating coaching advice directly without any meta-commentary, notes, or thought process."
             )
         
         try:
-            ans = await call_llm(prompt, f"Topic: {subj}\nContext: {req.context}", max_tokens=800, json_mode=False)
-            if ans:
-                return {"subject": subj, "persona": persona, "explanation": ans.strip()}
+            ans = await call_llm(prompt, f"Explain the role and benefit of {subj}.\nContext: {req.context}", max_tokens=400, json_mode=False)
+            if ans and len(ans.strip()) > 20 and not ans.strip().startswith("{"):
+                clean_ans = re.sub(r"^(?:Here is|Sure|Explanation:)\s*", "", ans.strip(), flags=re.IGNORECASE)
+                return {"subject": subj, "persona": persona, "explanation": clean_ans.strip()}
         except Exception as e:
             logger.warning(f"Persona LLM error: {e}")
 
