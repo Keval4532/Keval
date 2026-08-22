@@ -143,10 +143,10 @@ export default function PublicHeroSection() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter text-slate-900 dark:text-white leading-[1.05]"
+          className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight sm:tracking-tighter text-white leading-[1.05]"
         >
           Understand Your Biology.{" "}
-          <span className="font-extrabold bg-gradient-to-r from-cyan-600 via-teal-500 to-emerald-600 dark:from-cyan-400 dark:via-teal-300 dark:to-emerald-400 bg-clip-text text-transparent">
+          <span className="font-extrabold bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
             Make Evidence-Based Decisions.
           </span>
         </motion.h1>
@@ -156,7 +156,7 @@ export default function PublicHeroSection() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600 dark:text-[#94A3B8] font-medium leading-relaxed"
+          className="mx-auto max-w-2xl text-sm sm:text-base text-[#94A3B8] font-medium leading-relaxed"
         >
           The AI-powered human performance, clinical nutrition, and physiological intelligence engine. No supplement marketing hype—just verifiable science.
         </motion.p>
